@@ -1,9 +1,8 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 
-import { Text, View } from '../components/Themed';
-import { RootStackScreenProps } from '../types';
+import Colors from '../constants/Colors';
 
-export default function NotFoundScreen({ navigation }: RootStackScreenProps<'NotFound'>) {
+export default function NotFoundScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>This screen doesn't exist.</Text>
@@ -19,18 +18,19 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
   },
   title: {
     fontSize: 20,
+    color: Colors.text,
     fontWeight: 'bold',
   },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: '80%',
+    backgroundColor: '#222222',
   },
-  linkText: {
-    fontSize: 14,
-    color: '#2e78b7',
+  text: {
+    color: Colors.text,
   },
 });
