@@ -31,5 +31,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: Colors.text,
+    fontFamily: 'poppins-bold',
   },
 });
