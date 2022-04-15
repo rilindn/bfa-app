@@ -3,8 +3,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { Pressable } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 
+import SvgIcon from '../components/SvgIcon';
 import Colors from '../constants/Colors';
 import Feed from '../screens/Feed';
 import Messages from '../screens/Messages';
@@ -48,16 +49,20 @@ const BottomTab = createBottomTabNavigator();
 function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Feed"
+      sceneContainerStyle={{ marginBottom: 80 }}
       screenOptions={{
         tabBarActiveTintColor: Colors.tint,
+        tabBarStyle: { height: 55 },
       }}>
       <BottomTab.Screen
-        name="TabOne"
+        name="Feed"
         component={Feed}
         options={({ navigation }) => ({
+          tabBarItemStyle: styles.tabBarItemStyle,
+          tabBarLabelStyle: styles.tabBarLabelStyle,
           title: 'Feed',
-          tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
+          tabBarIcon: ({ color }) => <SvgIcon height={22} width={22} name="feed" color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
@@ -75,28 +80,39 @@ function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name="Messages"
         component={Messages}
         options={{
+          tabBarItemStyle: styles.tabBarItemStyle,
+          tabBarLabelStyle: styles.tabBarLabelStyle,
           title: 'Messages',
-          tabBarIcon: ({ color }) => <TabBarIcon name="wechat" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <SvgIcon height={22} width={22} name="messages" color={color} />
+          ),
         }}
       />
       <BottomTab.Screen
-        name="TabThree"
+        name="Profile"
         component={Profile}
         options={{
+          tabBarItemStyle: styles.tabBarItemStyle,
+          tabBarLabelStyle: styles.tabBarLabelStyle,
           title: 'Profile',
-          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <SvgIcon height={22} width={22} name="profile" color={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>
   );
 }
 
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
-}
+const styles = StyleSheet.create({
+  tabBarItemStyle: {
+    marginBottom: 3,
+    color: 'green',
+  },
+  tabBarLabelStyle: {
+    fontSize: 14,
+  },
+});
