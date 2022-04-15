@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '90%',
     backgroundColor: Colors.mainGreen,
-    borderRadius: 10,
+    borderRadius: 6,
   },
 });
 export default styles;
