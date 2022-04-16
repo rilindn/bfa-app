@@ -2,11 +2,11 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import Colors from '../constants/Colors';
 
-export default function Profile() {
+export default function Notifications() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile</Text>
-      <Text style={styles.text}>This is profile screen</Text>
+      <Text style={styles.title}>Notifications</Text>
+      <Text style={styles.text}>This is notifications screen</Text>
     </View>
   );
 }
