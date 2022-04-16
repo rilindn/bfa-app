@@ -4,15 +4,16 @@ import Colors from '../../constants/Colors';
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: 22,
+    fontSize: 18,
     fontFamily: 'poppins-semibold',
-    paddingVertical: 8,
+    paddingVertical: 4,
   },
   button: {
     alignSelf: 'center',
     width: '90%',
     backgroundColor: Colors.mainGreen,
     borderRadius: 6,
+    marginTop: 10,
   },
 });
 export default styles;
