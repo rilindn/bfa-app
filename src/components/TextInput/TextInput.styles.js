@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.green1,
     borderRadius: 6,
     backgroundColor: Colors.green1 + '80',
+    marginBottom: 15,
   },
   textInputStyle: {
     fontFamily: 'poppins-regular',
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
     fontFamily: 'poppins-regular',
     fontSize: 16,
     color: Colors.gray3,
-    marginBottom: 5,
+    marginBottom: 1,
   },
 });
 export default styles;

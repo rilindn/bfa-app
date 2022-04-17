@@ -13,6 +13,7 @@ const CustomTextInput = ({
   rules,
   textInputStyle,
   inputStyle,
+  secureTextEntry,
 }) => {
   const [focused, setFocused] = useState(false);
   return (
@@ -32,6 +33,7 @@ const CustomTextInput = ({
               onEndEditing={() => setFocused(false)}
               value={value}
               onChangeText={onChange}
+              secureTextEntry={secureTextEntry}
             />
           )}
         />
