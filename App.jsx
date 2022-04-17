@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import useCachedResources from './src/hooks/useCachedResources';
 import Navigation from './src/navigation/RootNavigator';
 import Login from './src/screens/Login';
+import RegisterPlayer from './src/screens/RegisterPlayer';
+import RegisterClub from './src/screens/RegisterClub';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -13,7 +15,9 @@ export default function App() {
     return (
       <NavigationContainer>
         <Navigation />
-        {/* <Login /> */}
+        {/* <Login />*/}
+        {/*<RegisterPlayer />*/}
+        {/*<RegisterClub />*/}
       </NavigationContainer>
     );
   }
