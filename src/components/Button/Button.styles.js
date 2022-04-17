@@ -1,19 +1,20 @@
 import { StyleSheet } from 'react-native';
 
 import Colors from '../../constants/Colors';
+import { fontSizes } from '../../constants/Typography';
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: 18,
+    fontSize: fontSizes.large,
     fontFamily: 'poppins-semibold',
-    paddingVertical: 4,
   },
   button: {
     alignSelf: 'center',
     width: '90%',
     backgroundColor: Colors.mainGreen,
     borderRadius: 6,
-    marginTop: 10,
+    marginTop: 15,
+    height: 45,
   },
 });
 export default styles;

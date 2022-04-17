@@ -3,11 +3,6 @@ import React from 'react';
 
 import SvgIcon from '../components/SvgIcon';
 import Colors from '../constants/Colors';
-import Feed from '../screens/Feed';
-import Menu from '../screens/Menu';
-import Messages from '../screens/Messages';
-import Notifications from '../screens/Notifications';
-import Profile from '../screens/Profile';
 
 const Tab = createMaterialBottomTabNavigator();
 function Tabs() {
@@ -15,38 +10,28 @@ function Tabs() {
     <Tab.Navigator
       initialRouteName="Feed"
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, size, color }) => {
-          let iconName;
-          if (route.name === 'Feed') {
-            iconName = 'feed';
-            color = focused ? '#F4B61C' : '#ADADAD';
-          } else if (route.name === 'Messages') {
-            iconName = 'messages';
-            color = focused ? '#F4B61C' : '#ADADAD';
-          } else if (route.name === 'Profile') {
-            iconName = 'profile';
-            color = focused ? '#F4B61C' : '#ADADAD';
-          } else if (route.name === 'Notifications') {
-            iconName = 'notifications';
-            color = focused ? '#F4B61C' : '#ADADAD';
-          } else if (route.name === 'Menu') {
-            iconName = 'menu';
-            color = focused ? '#F4B61C' : '#ADADAD';
-          }
-          return <SvgIcon name={iconName} size={40} color={color} focused={focused} />;
+        tabBarIcon: ({ focused }) => {
+          const iconName = route.name.toLowerCase();
+          return (
+            <SvgIcon name={iconName} size={40} color={focused && Colors.orange} focused={focused} />
+          );
         },
         headerShown: false,
       })}
       tabBarOptions={{
-        showLabel: true,
+        showLabel: false,
       }}
       barStyle={{ backgroundColor: Colors.gray5 }}>
-      <Tab.Screen name="Feed" component={Feed} />
-      <Tab.Screen name="Messages" component={Messages} />
-      <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Notifications" component={Notifications} />
-      <Tab.Screen name="Menu" component={Menu} />
+      <Tab.Screen name="Feed" getComponent={() => require('../screens/Feed').default} />
+      <Tab.Screen name="Messages" getComponent={() => require('../screens/Messages').default} />
+      <Tab.Screen name="Profile" getComponent={() => require('../screens/Profile').default} />
+      <Tab.Screen
+        name="Notifications"
+        getComponent={() => require('../screens/Notifications').default}
+      />
+      <Tab.Screen name="Menu" getComponent={() => require('../screens/Menu').default} />
     </Tab.Navigator>
   );
 }
+
 export default Tabs;
