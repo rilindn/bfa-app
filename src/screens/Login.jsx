@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 20,
-    fontFamily: 'poppins-bold',
+    fontFamily: 'poppins-semibold',
   },
   forgotPassword: {
     fontSize: 16,
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   },
   register: {
     color: Colors.mainGreen,
-    paddingLeft: 5,
+    paddingLeft: 3,
     fontFamily: 'poppins-semibold',
     fontSize: 16,
   },
