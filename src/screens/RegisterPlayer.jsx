@@ -1,5 +1,12 @@
 import { useForm } from 'react-hook-form';
-import { StyleSheet, Text, ImageBackground, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
 import { View } from 'react-native-ui-lib';
 
 import Background from '../../assets/images/background.png';
@@ -7,50 +14,85 @@ import CustomButton from '../components/Button/Button';
 import SvgIcon from '../components/SvgIcon';
 import TextInput from '../components/TextInput/TextInput';
 import Colors from '../constants/Colors';
+import { fontSizes } from '../constants/Typography';
 
-export default function RegisterPlayer() {
-  const { control } = useForm();
+export default function RegisterPlayer({ navigation }) {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    reset,
+  } = useForm();
+
+  const onSubmit = (data) => {
+    navigation.navigate('Root', {
+      screen: 'Feed',
+    });
+    reset();
+  };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
         <View style={styles.form}>
-          <View row center>
-            <Text style={styles.title}>B A L L </Text>
-            <View padding-8 row center>
-              <Text style={styles.title}>F</Text>
-              <SvgIcon
-                name="ball"
-                width={18}
-                height={18}
-                style={{ marginHorizontal: 3, marginBottom: 2 }}
-              />
-              <Text style={styles.title}>R</Text>
+          <View marginT-14>
+            <View row center>
+              <Text style={styles.title}>BALL</Text>
+              <View padding-8 row center>
+                <Text style={styles.title}>F</Text>
+                <SvgIcon name="ball" width={18} height={18} style={{ marginBottom: 5 }} />
+                <Text style={styles.title}>R</Text>
+              </View>
+              <Text style={styles.title}>ALL</Text>
             </View>
-            <Text style={styles.title}> A L L</Text>
+            <Text style={styles.registerAccount}>Register your account</Text>
           </View>
-          <Text style={styles.loginText}>Register your account</Text>
           <View style={styles.middleContainer}>
-            <TextInput name="name" placeholder="Name" control={control} />
-            <TextInput name="email" placeholder="Email" control={control} />
-            <TextInput name="password" placeholder="Password" control={control} secureTextEntry />
             <TextInput
-              name="confirm-password"
+              name="name"
+              placeholder="Name"
+              control={control}
+              rules={rules.name}
+              errors={errors}
+            />
+            <TextInput
+              name="email"
+              placeholder="Email"
+              control={control}
+              rules={rules.email}
+              errors={errors}
+            />
+            <TextInput
+              name="password"
+              placeholder="Password"
+              control={control}
+              secureTextEntry
+              errors={errors}
+              rules={rules.password}
+            />
+            <TextInput
+              name="confirmPassword"
               placeholder="Confirm Password"
               control={control}
               secureTextEntry
+              errors={errors}
+              rules={{
+                ...rules.confirmPassword,
+                validate: (value) => value === watch('password') || 'The passwords do not match',
+              }}
             />
-            <CustomButton label="Register" />
+            <CustomButton label="Register" onPress={handleSubmit(onSubmit)} />
           </View>
           <View style={styles.bottomContainer}>
-            <Text style={styles.bottomText}>Already have an account? </Text>
-            <TouchableOpacity>
-              <Text style={styles.register}> Login</Text>
+            <Text style={styles.bottomText}>Already have an account?</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.register}>Login</Text>
             </TouchableOpacity>
           </View>
         </View>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
@@ -66,50 +108,89 @@ const styles = StyleSheet.create({
   form: {
     width: '90%',
     backgroundColor: Colors.white,
-    height: '80%',
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },
   title: {
-    fontSize: 22,
+    fontSize: fontSizes.extraLarge,
     fontFamily: 'poppins-bold',
+    letterSpacing: 5,
   },
-  loginText: {
-    fontSize: 20,
-    fontFamily: 'poppins-bold',
+  registerAccount: {
+    fontSize: fontSizes.large,
+    fontFamily: 'poppins-semibold',
+    marginBottom: 8,
   },
   forgotPassword: {
-    fontSize: 16,
+    fontSize: fontSizes.medium,
     fontFamily: 'poppins-regular',
     color: Colors.gray3,
     marginBottom: 25,
   },
   bottomContainer: {
-    backgroundColor: Colors.light + '30',
+    backgroundColor: Colors.light + '70',
+    borderTopColor: Colors.green1,
+    borderTopWidth: 1,
     width: '100%',
-    height: 60,
-    bottom: 0,
-    position: 'absolute',
+    height: 50,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+    marginTop: 20,
   },
   register: {
     color: Colors.mainGreen,
     paddingLeft: 5,
     fontFamily: 'poppins-semibold',
-    fontSize: 16,
+    fontSize: fontSizes.default,
   },
   bottomText: {
-    fontSize: 16,
+    fontSize: fontSizes.default,
     fontFamily: 'poppins-semibold',
   },
   middleContainer: {
-    width: '90%',
-    height: '80%',
+    width: '100%',
     alignItems: 'center',
   },
 });
+const rules = {
+  name: {
+    required: {
+      value: true,
+      message: 'Name is required',
+    },
+  },
+  email: {
+    required: {
+      value: true,
+      message: 'Email is required',
+    },
+    pattern: {
+      value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+      message: 'Invalid email address',
+    },
+  },
+  password: {
+    required: {
+      value: true,
+      message: 'Password is required',
+    },
+    minLength: {
+      value: 8,
+      message: 'Password must be at least 8 characters',
+    },
+  },
+  confirmPassword: {
+    required: {
+      value: true,
+      message: 'Confirm password is required',
+    },
+    minLength: {
+      value: 8,
+      message: 'Confirm password must be at least 8 characters',
+    },
+  },
+};

@@ -10,4 +10,5 @@ export default {
   mainGreen: '#228176',
   green1: '#D9E1E7',
   light: '#E5E5E5',
+  placeholder: '#CFCFCF',
 };

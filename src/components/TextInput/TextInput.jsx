@@ -14,12 +14,20 @@ const CustomTextInput = ({
   textInputStyle,
   inputStyle,
   secureTextEntry,
+  errors,
 }) => {
   const [focused, setFocused] = useState(false);
+  const error = errors?.[name]?.message;
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title ? title : placeholder}</Text>
-      <View style={[styles.inputCtn, inputStyle, focused && { borderColor: Colors.mainGreen }]}>
+      <View
+        style={[
+          styles.inputCtn,
+          inputStyle,
+          focused && { borderColor: Colors.mainGreen },
+          error && { borderColor: Colors.red },
+        ]}>
         <Controller
           control={control}
           name={name}
@@ -27,17 +35,19 @@ const CustomTextInput = ({
           render={({ field: { onChange, value } }) => (
             <TextInput
               placeholder={placeholder}
-              placeholderTextColor={Colors.gray3}
+              placeholderTextColor={Colors.placeholder}
               style={[styles.textInputStyle, textInputStyle]}
               onFocus={() => setFocused(true)}
               onEndEditing={() => setFocused(false)}
               value={value}
               onChangeText={onChange}
               secureTextEntry={secureTextEntry}
+              selectionColor={Colors.green1}
             />
           )}
         />
       </View>
+      <Text style={styles.error}>{errors?.[name]?.message}</Text>
     </View>
   );
 };

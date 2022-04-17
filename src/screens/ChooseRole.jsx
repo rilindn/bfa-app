@@ -8,29 +8,31 @@ import SvgIcon from '../components/SvgIcon';
 import Colors from '../constants/Colors';
 import { fontSizes } from '../constants/Typography';
 
-export default function Login() {
-  const [selected, setSelected] = useState('player');
+export default function ChooseRole({ navigation }) {
+  const [selectedRole, setSelectedRole] = useState('RegisterPlayer');
 
   return (
     <View style={styles.container}>
       <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
         <View style={styles.form}>
-          <View row center>
-            <Text style={styles.title}>BALL</Text>
-            <View padding-8 row center>
-              <Text style={styles.title}>F</Text>
-              <SvgIcon name="ball" width={18} height={18} style={{ marginBottom: 5 }} />
-              <Text style={styles.title}>R</Text>
+          <View marginT-15>
+            <View row center>
+              <Text style={styles.title}>BALL</Text>
+              <View padding-8 row center>
+                <Text style={styles.title}>F</Text>
+                <SvgIcon name="ball" width={18} height={18} style={{ marginBottom: 5 }} />
+                <Text style={styles.title}>R</Text>
+              </View>
+              <Text style={styles.title}>ALL</Text>
             </View>
-            <Text style={styles.title}>ALL</Text>
+            <Text style={styles.accountType}>Select type of account</Text>
           </View>
-          <Text style={styles.loginText}>Select type of account</Text>
           <View style={styles.middleContainer}>
             <TouchableOpacity
-              onPress={() => setSelected('player')}
+              onPress={() => setSelectedRole('RegisterPlayer')}
               style={[
                 styles.subContainer,
-                selected === 'player' && { borderColor: Colors.mainGreen },
+                selectedRole === 'RegisterPlayer' && { borderColor: Colors.mainGreen },
               ]}>
               <View row center>
                 <View style={styles.circle}>
@@ -38,19 +40,21 @@ export default function Login() {
                 </View>
                 <Text style={styles.playerText}>PLAYER</Text>
               </View>
-              <TouchableOpacity
+              <View
                 style={[
                   styles.selectCircle,
-                  selected === 'player' && { backgroundColor: Colors.mainGreen },
+                  selectedRole === 'RegisterPlayer' && { backgroundColor: Colors.mainGreen },
                 ]}>
-                {selected === 'player' && <SvgIcon name="selected" width={10} height={10} />}
-              </TouchableOpacity>
+                {selectedRole === 'RegisterPlayer' && (
+                  <SvgIcon name="selected" width={10} height={10} />
+                )}
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => setSelected('club')}
+              onPress={() => setSelectedRole('RegisterClub')}
               style={[
                 styles.subContainer,
-                selected === 'club' && { borderColor: Colors.mainGreen },
+                selectedRole === 'RegisterClub' && { borderColor: Colors.mainGreen },
               ]}>
               <View row center>
                 <View style={styles.clubCircle}>
@@ -58,16 +62,17 @@ export default function Login() {
                 </View>
                 <Text style={styles.playerText}>CLUB</Text>
               </View>
-              <TouchableOpacity
-                onPress={() => setSelected('club')}
+              <View
                 style={[
                   styles.selectCircle,
-                  selected === 'club' && { backgroundColor: Colors.mainGreen },
+                  selectedRole === 'RegisterClub' && { backgroundColor: Colors.mainGreen },
                 ]}>
-                {selected === 'club' && <SvgIcon name="selected" width={10} height={10} />}
-              </TouchableOpacity>
+                {selectedRole === 'RegisterClub' && (
+                  <SvgIcon name="selected" width={10} height={10} />
+                )}
+              </View>
             </TouchableOpacity>
-            <CustomButton label="Continue" />
+            <CustomButton label="Continue" onPress={() => navigation.navigate(selectedRole)} />
           </View>
         </View>
       </ImageBackground>
@@ -87,7 +92,6 @@ const styles = StyleSheet.create({
   form: {
     width: '90%',
     backgroundColor: Colors.white,
-    height: '50%',
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -98,12 +102,12 @@ const styles = StyleSheet.create({
     fontFamily: 'poppins-bold',
     letterSpacing: 5,
   },
-  loginText: {
+  accountType: {
     fontSize: fontSizes.large,
     fontFamily: 'poppins-semibold',
   },
   middleContainer: {
-    width: '90%',
+    width: '100%',
     alignItems: 'center',
     marginTop: 10,
   },
