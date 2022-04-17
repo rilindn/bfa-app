@@ -6,6 +6,7 @@ import Background from '../../assets/images/background.png';
 import CustomButton from '../components/Button/Button';
 import SvgIcon from '../components/SvgIcon';
 import Colors from '../constants/Colors';
+import { fontSizes } from '../constants/Typography';
 
 export default function Login() {
   const [selected, setSelected] = useState('player');
@@ -15,18 +16,13 @@ export default function Login() {
       <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
         <View style={styles.form}>
           <View row center>
-            <Text style={styles.title}>B A L L </Text>
+            <Text style={styles.title}>BALL</Text>
             <View padding-8 row center>
               <Text style={styles.title}>F</Text>
-              <SvgIcon
-                name="ball"
-                width={18}
-                height={18}
-                style={{ marginHorizontal: 3, marginBottom: 2 }}
-              />
+              <SvgIcon name="ball" width={18} height={18} style={{ marginBottom: 5 }} />
               <Text style={styles.title}>R</Text>
             </View>
-            <Text style={styles.title}> A L L</Text>
+            <Text style={styles.title}>ALL</Text>
           </View>
           <Text style={styles.loginText}>Select type of account</Text>
           <View style={styles.middleContainer}>
@@ -98,11 +94,12 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   title: {
-    fontSize: 22,
+    fontSize: fontSizes.extraLarge,
     fontFamily: 'poppins-bold',
+    letterSpacing: 5,
   },
   loginText: {
-    fontSize: 20,
+    fontSize: fontSizes.large,
     fontFamily: 'poppins-semibold',
   },
   middleContainer: {
@@ -132,7 +129,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   playerText: {
-    fontSize: 18,
+    fontSize: fontSizes.medium,
     fontFamily: 'poppins-semibold',
     paddingStart: 10,
   },

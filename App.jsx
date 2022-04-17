@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import useCachedResources from './src/hooks/useCachedResources';
 import Navigation from './src/navigation/RootNavigator';
+import ChooseRole from './src/screens/ChooseRole';
 import Login from './src/screens/Login';
 
 export default function App() {
@@ -12,7 +13,8 @@ export default function App() {
   } else {
     return (
       <NavigationContainer>
-        <Navigation />
+        {/* <Navigation /> */}
+        <ChooseRole />
         {/* <Login /> */}
       </NavigationContainer>
     );
