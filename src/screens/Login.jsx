@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { StyleSheet, Text, ImageBackground, TouchableOpacity } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native-ui-lib';
 
 import Background from '../../assets/images/background.png';
@@ -10,66 +13,74 @@ import Colors from '../constants/Colors';
 import { fontSizes } from '../constants/Typography';
 
 export default function Login({ navigation }) {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({ mode: 'onBlur' });
 
   const onSubmit = () => {
     reset();
-    navigation.navigate('Root', {
-      screen: 'Feed',
-    });
+    setIsLoading(true);
+    setTimeout(() => {
+      navigation.navigate('Root', {
+        screen: 'Feed',
+      });
+      setIsLoading(false);
+    }, 1000);
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
-        <View style={styles.form}>
-          <View marginT-15>
-            <View row center>
-              <Text style={styles.title}>BALL</Text>
-              <View padding-8 row center>
-                <Text style={styles.title}>F</Text>
-                <SvgIcon name="ball" width={18} height={18} style={{ marginBottom: 5 }} />
-                <Text style={styles.title}>R</Text>
+        <ActivityIndicator size="large" color={Colors.white} animating={isLoading} />
+        {!isLoading && (
+          <View style={styles.form}>
+            <View marginT-15>
+              <View row center>
+                <Text style={styles.title}>BALL</Text>
+                <View padding-8 row center>
+                  <Text style={styles.title}>F</Text>
+                  <SvgIcon name="ball" width={18} height={18} style={{ marginBottom: 5 }} />
+                  <Text style={styles.title}>R</Text>
+                </View>
+                <Text style={styles.title}>ALL</Text>
               </View>
-              <Text style={styles.title}>ALL</Text>
+              <Text style={styles.loginText}>Login to your account</Text>
             </View>
-            <Text style={styles.loginText}>Login to your account</Text>
-          </View>
-          <View style={styles.middleContainer}>
-            <TextInput
-              name="email"
-              placeholder="Email"
-              control={control}
-              rules={rules.email}
-              errors={errors}
-            />
-            <TextInput
-              name="password"
-              placeholder="Password"
-              control={control}
-              secureTextEntry
-              errors={errors}
-              rules={rules.password}
-            />
-            <CustomButton label="Login" onPress={handleSubmit(onSubmit)} />
-          </View>
-          <TouchableOpacity>
-            <Text style={styles.forgotPassword}>Forgot password?</Text>
-          </TouchableOpacity>
-          <View style={styles.bottomContainer}>
-            <Text style={styles.bottomText}>Don't have an account yet?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('ChooseRole')}>
-              <Text style={styles.register}> Register</Text>
+            <View style={styles.middleContainer}>
+              <TextInput
+                name="email"
+                placeholder="Email"
+                control={control}
+                rules={rules.email}
+                errors={errors}
+              />
+              <TextInput
+                name="password"
+                placeholder="Password"
+                control={control}
+                secureTextEntry
+                errors={errors}
+                rules={rules.password}
+              />
+              <CustomButton label="Login" onPress={handleSubmit(onSubmit)} />
+            </View>
+            <TouchableOpacity>
+              <Text style={styles.forgotPassword}>Forgot password?</Text>
             </TouchableOpacity>
+            <View style={styles.bottomContainer}>
+              <Text style={styles.bottomText}>Don't have an account yet?</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('ChooseRole')}>
+                <Text style={styles.register}> Register</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        )}
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -116,7 +127,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: fontSizes.extraLarge,
     fontFamily: 'poppins-bold',
-    letterSpacing: 5,
+    letterSpacing: 3,
   },
   loginText: {
     fontSize: fontSizes.large,

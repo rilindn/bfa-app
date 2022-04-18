@@ -28,83 +28,80 @@ export default function RegisterClub({ navigation }) {
   };
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View style={styles.container}>
-          <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
-            <View style={styles.form}>
-              <View marginT-15>
-                <View row center>
-                  <Text style={styles.title}>BALL</Text>
-                  <View padding-8 row center>
-                    <Text style={styles.title}>F</Text>
-                    <SvgIcon name="ball" width={18} height={18} style={{ marginBottom: 5 }} />
-                    <Text style={styles.title}>R</Text>
-                  </View>
-                  <Text style={styles.title}>ALL</Text>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
+          <View style={styles.form}>
+            <View marginT-15>
+              <View row center>
+                <Text style={styles.title}>BALL</Text>
+                <View padding-8 row center>
+                  <Text style={styles.title}>F</Text>
+                  <SvgIcon name="ball" width={18} height={18} style={{ marginBottom: 5 }} />
+                  <Text style={styles.title}>R</Text>
                 </View>
-                <Text style={styles.registerAccount}>Register your account</Text>
+                <Text style={styles.title}>ALL</Text>
               </View>
-              <View style={styles.middleContainer}>
-                <TextInput
-                  name="name"
-                  placeholder="Your name"
-                  control={control}
-                  errors={errors}
-                  rules={rules.name}
-                />
-                <TextInput
-                  name="recipient"
-                  placeholder="Recipient role in the club"
-                  control={control}
-                  errors={errors}
-                  rules={rules.name}
-                />
-                <TextInput
-                  name="clubName"
-                  placeholder="Club Name"
-                  control={control}
-                  errors={errors}
-                  rules={rules.clubName}
-                />
-                <TextInput
-                  name="email"
-                  placeholder="Email"
-                  control={control}
-                  rules={rules.name}
-                  errors={errors}
-                />
-                <TextInput
-                  name="password"
-                  placeholder="Password"
-                  control={control}
-                  secureTextEntry
-                  errors={errors}
-                  rules={rules.password}
-                />
-                <TextInput
-                  name="confirmPassword"
-                  placeholder="Confirm Password"
-                  control={control}
-                  secureTextEntry
-                  errors={errors}
-                  rules={{
-                    ...rules.confirmPassword,
-                    validate: (value) =>
-                      value === watch('password') || 'The passwords do not match',
-                  }}
-                />
-                <CustomButton label="Register" onPress={handleSubmit(onSubmit)} />
-              </View>
-              <View style={styles.bottomContainer}>
-                <Text style={styles.bottomText}>Already have an account?</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                  <Text style={styles.login}>Login</Text>
-                </TouchableOpacity>
-              </View>
+              <Text style={styles.registerAccount}>Register your account</Text>
             </View>
-          </ImageBackground>
-        </View>
+            <View style={styles.middleContainer}>
+              <TextInput
+                name="name"
+                placeholder="Your name"
+                control={control}
+                errors={errors}
+                rules={rules.name}
+              />
+              <TextInput
+                name="recipient"
+                placeholder="Recipient role in the club"
+                control={control}
+                errors={errors}
+                rules={rules.name}
+              />
+              <TextInput
+                name="clubName"
+                placeholder="Club Name"
+                control={control}
+                errors={errors}
+                rules={rules.clubName}
+              />
+              <TextInput
+                name="email"
+                placeholder="Email"
+                control={control}
+                rules={rules.name}
+                errors={errors}
+              />
+              <TextInput
+                name="password"
+                placeholder="Password"
+                control={control}
+                secureTextEntry
+                errors={errors}
+                rules={rules.password}
+              />
+              <TextInput
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                control={control}
+                secureTextEntry
+                errors={errors}
+                rules={{
+                  ...rules.confirmPassword,
+                  validate: (value) => value === watch('password') || 'The passwords do not match',
+                }}
+              />
+              <CustomButton label="Register" onPress={handleSubmit(onSubmit)} />
+            </View>
+            <View style={styles.bottomContainer}>
+              <Text style={styles.bottomText}>Already have an account?</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <Text style={styles.login}>Login</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ImageBackground>
       </ScrollView>
     </SafeAreaView>
   );
@@ -130,7 +127,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: fontSizes.extraLarge,
     fontFamily: 'poppins-bold',
-    letterSpacing: 5,
+    letterSpacing: 3,
   },
   registerAccount: {
     fontSize: fontSizes.large,

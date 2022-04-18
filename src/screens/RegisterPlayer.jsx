@@ -1,12 +1,6 @@
 import { useForm } from 'react-hook-form';
-import {
-  StyleSheet,
-  Text,
-  ImageBackground,
-  TouchableOpacity,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
+import { StyleSheet, Text, ImageBackground, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native-ui-lib';
 
 import Background from '../../assets/images/background.png';
@@ -27,7 +21,7 @@ export default function RegisterPlayer({ navigation }) {
 
   const onSubmit = (data) => {
     navigation.navigate('Root', {
-      screen: 'Feed',
+      screen: 'Profile',
     });
     reset();
   };
@@ -115,7 +109,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: fontSizes.extraLarge,
     fontFamily: 'poppins-bold',
-    letterSpacing: 5,
+    letterSpacing: 3,
   },
   registerAccount: {
     fontSize: fontSizes.large,

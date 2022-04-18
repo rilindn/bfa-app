@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, ImageBackground, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native-ui-lib';
 
 import Background from '../../assets/images/background.png';
@@ -12,7 +13,7 @@ export default function ChooseRole({ navigation }) {
   const [selectedRole, setSelectedRole] = useState('RegisterPlayer');
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
         <View style={styles.form}>
           <View marginT-15>
@@ -76,7 +77,7 @@ export default function ChooseRole({ navigation }) {
           </View>
         </View>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: fontSizes.extraLarge,
     fontFamily: 'poppins-bold',
-    letterSpacing: 5,
+    letterSpacing: 3,
   },
   accountType: {
     fontSize: fontSizes.large,
