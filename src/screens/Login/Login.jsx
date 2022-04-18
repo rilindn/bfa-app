@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { StyleSheet, Text, ImageBackground, TouchableOpacity } from 'react-native';
+import { Text, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native-ui-lib';
 
-import Background from '../../assets/images/background.png';
-import CustomButton from '../components/Button/Button';
-import SvgIcon from '../components/SvgIcon';
-import TextInput from '../components/TextInput/TextInput';
-import Colors from '../constants/Colors';
-import { fontSizes } from '../constants/Typography';
+import Logo from '../../../assets/icons/logo-text-forte.png';
+import Background from '../../../assets/images/background.png';
+import CustomButton from '../../components/Button/Button';
+import TextInput from '../../components/TextInput/TextInput';
+import Colors from '../../constants/Colors';
+import styles from './Login.styles';
 
 export default function Login({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,19 +35,10 @@ export default function Login({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
-        <ActivityIndicator size="large" color={Colors.white} animating={isLoading} />
-        {!isLoading && (
+        {!isLoading ? (
           <View style={styles.form}>
-            <View marginT-15>
-              <View row center>
-                <Text style={styles.title}>BALL</Text>
-                <View padding-8 row center>
-                  <Text style={styles.title}>F</Text>
-                  <SvgIcon name="ball" width={18} height={18} style={{ marginBottom: 5 }} />
-                  <Text style={styles.title}>R</Text>
-                </View>
-                <Text style={styles.title}>ALL</Text>
-              </View>
+            <View style={styles.header}>
+              <Image source={Logo} style={{ width: 240, height: 64 }} />
               <Text style={styles.loginText}>Login to your account</Text>
             </View>
             <View style={styles.middleContainer}>
@@ -78,6 +69,8 @@ export default function Login({ navigation }) {
               </TouchableOpacity>
             </View>
           </View>
+        ) : (
+          <ActivityIndicator size="large" color={Colors.white} animating={isLoading} />
         )}
       </ImageBackground>
     </SafeAreaView>
@@ -106,66 +99,3 @@ const rules = {
     },
   },
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  image: {
-    flex: 1,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  form: {
-    width: '90%',
-    backgroundColor: Colors.white,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-  },
-  title: {
-    fontSize: fontSizes.extraLarge,
-    fontFamily: 'poppins-bold',
-    letterSpacing: 3,
-  },
-  loginText: {
-    fontSize: fontSizes.large,
-    fontFamily: 'poppins-semibold',
-  },
-  header: {
-    marginTop: 15,
-  },
-  forgotPassword: {
-    fontSize: fontSizes.medium,
-    fontFamily: 'poppins-regular',
-    color: Colors.gray3,
-    marginBottom: 15,
-  },
-  bottomContainer: {
-    backgroundColor: Colors.light + '70',
-    borderTopColor: Colors.green1,
-    borderTopWidth: 1,
-    width: '100%',
-    height: 50,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  register: {
-    color: Colors.mainGreen,
-    fontFamily: 'poppins-semibold',
-    fontSize: fontSizes.default,
-  },
-  bottomText: {
-    fontSize: fontSizes.default,
-    fontFamily: 'poppins-semibold',
-  },
-  middleContainer: {
-    width: '100%',
-    alignItems: 'center',
-    marginVertical: 30,
-  },
-});

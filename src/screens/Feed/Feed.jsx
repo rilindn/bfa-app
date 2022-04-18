@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import Colors from '../constants/Colors';
+import styles from './Feed.styles';
 
 export default function Feed({ navigation }) {
   return (
@@ -14,18 +14,3 @@ export default function Feed({ navigation }) {
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    color: Colors.text,
-    fontWeight: 'bold',
-  },
-  text: {
-    color: Colors.text,
-  },
-});

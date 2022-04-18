@@ -1,7 +1,6 @@
-import { StyleSheet } from 'react-native';
 import { SvgCss } from 'react-native-svg';
 
-import icons from '../constants/SvgIcons';
+import icons from '../../constants/SvgIcons';
 
 const SvgIcon = ({ width, height, name, color, style }) => {
   const icon = icons[name];
@@ -9,5 +8,3 @@ const SvgIcon = ({ width, height, name, color, style }) => {
 };
 
 export default SvgIcon;
-
-const styles = StyleSheet.create({});
