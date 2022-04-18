@@ -15,28 +15,28 @@ const RootNavigator = ({ initialScreen }) => {
       />
       <Root.Screen
         name="Login"
-        getComponent={() => require('../screens/Login').default}
+        getComponent={() => require('../screens/Login/Login').default}
         options={{
           headerShown: false,
         }}
       />
       <Root.Screen
         name="ChooseRole"
-        getComponent={() => require('../screens/ChooseRole').default}
+        getComponent={() => require('../screens/ChooseRole/ChooseRole').default}
         options={{
           headerShown: false,
         }}
       />
       <Root.Screen
         name="RegisterClub"
-        getComponent={() => require('../screens/RegisterClub').default}
+        getComponent={() => require('../screens/RegisterClub/RegisterClub').default}
         options={{
           headerShown: false,
         }}
       />
       <Root.Screen
         name="RegisterPlayer"
-        getComponent={() => require('../screens/RegisterPlayer').default}
+        getComponent={() => require('../screens/RegisterPlayer/RegisterPlayer').default}
         options={{
           headerShown: false,
         }}

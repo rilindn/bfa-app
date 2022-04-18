@@ -4,7 +4,7 @@ export default {
   background: '#201C1C',
   gray3: '#ADADAD',
   gray4: '#403C3C',
-  gray5: '#282424',
+  gray5: '#242526',
   orange: '#F4B61C',
   red: '#FF0000',
   mainGreen: '#228176',

@@ -1,7 +1,7 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import React from 'react';
 
-import SvgIcon from '../components/SvgIcon';
+import SvgIcon from '../components/SvgIcon/SvgIcon';
 import Colors from '../constants/Colors';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -22,14 +22,20 @@ function Tabs() {
         showLabel: false,
       }}
       barStyle={{ backgroundColor: Colors.gray5 }}>
-      <Tab.Screen name="Feed" getComponent={() => require('../screens/Feed').default} />
-      <Tab.Screen name="Messages" getComponent={() => require('../screens/Messages').default} />
-      <Tab.Screen name="Profile" getComponent={() => require('../screens/Profile').default} />
+      <Tab.Screen name="Feed" getComponent={() => require('../screens/Feed/Feed').default} />
+      <Tab.Screen
+        name="Messages"
+        getComponent={() => require('../screens/Messages/Messages').default}
+      />
+      <Tab.Screen
+        name="Profile"
+        getComponent={() => require('../screens/Profile/Profile').default}
+      />
       <Tab.Screen
         name="Notifications"
-        getComponent={() => require('../screens/Notifications').default}
+        getComponent={() => require('../screens/Notifications/Notifications').default}
       />
-      <Tab.Screen name="Menu" getComponent={() => require('../screens/Menu').default} />
+      <Tab.Screen name="Menu" getComponent={() => require('../screens/Menu/Menu').default} />
     </Tab.Navigator>
   );
 }
