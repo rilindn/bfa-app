@@ -1,7 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 import { UIManager, Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import Colors from './src/constants/Colors';
 import useCachedResources from './src/hooks/useCachedResources';
 import Navigation from './src/navigation/RootNavigator';
 
@@ -17,6 +19,7 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <NavigationContainer>
+          <StatusBar style="light" backgroundColor={Colors.gray5} />
           <Navigation />
         </NavigationContainer>
       </SafeAreaProvider>

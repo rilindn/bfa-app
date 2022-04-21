@@ -1,4 +1,5 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { DrawerActions } from '@react-navigation/native';
 import React from 'react';
 
 import SvgIcon from '../components/SvgIcon/SvgIcon';
@@ -35,7 +36,16 @@ function Tabs() {
         name="Notifications"
         getComponent={() => require('../screens/Notifications/Notifications').default}
       />
-      <Tab.Screen name="Menu" getComponent={() => require('../screens/Menu/Menu').default} />
+      <Tab.Screen
+        name="Menu"
+        getComponent={() => require('../screens/Menu/Menu').default}
+        listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.dispatch(DrawerActions.openDrawer());
+          },
+        })}
+      />
     </Tab.Navigator>
   );
 }
