@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import styles from './Menu.styles';
 
-export default function Menu() {
+export default function Menu({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Menu</Text>
