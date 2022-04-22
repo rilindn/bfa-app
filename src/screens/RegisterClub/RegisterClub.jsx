@@ -7,6 +7,7 @@ import { Image, View } from 'react-native-ui-lib';
 import Logo from '../../../assets/icons/logo-text-forte.png';
 import Background from '../../../assets/images/background.png';
 import CustomButton from '../../components/Button/Button';
+import SelectInput from '../../components/SelectInput/SelectInput';
 import TextInput from '../../components/TextInput/TextInput';
 import styles from './RegisterClub.styles';
 
@@ -43,12 +44,17 @@ export default function RegisterClub({ navigation }) {
                 errors={errors}
                 rules={rules.name}
               />
-              <TextInput
-                name="recipient"
-                placeholder="Recipient role in the club"
+              <Text style={styles.selectInputLabel}>Recipient role in the club</Text>
+              <SelectInput
+                name="role"
                 control={control}
                 errors={errors}
-                rules={rules.name}
+                rules={rules.role}
+                placeholder="Choose a role"
+                options={[
+                  { label: 'Coach', value: 'co' },
+                  { label: 'Finance', value: 'fin' },
+                ]}
               />
               <TextInput
                 name="clubName"
@@ -61,7 +67,7 @@ export default function RegisterClub({ navigation }) {
                 name="email"
                 placeholder="Email"
                 control={control}
-                rules={rules.name}
+                rules={rules.email}
                 errors={errors}
               />
               <TextInput
@@ -111,10 +117,10 @@ const rules = {
       message: 'Club name is required',
     },
   },
-  recipient: {
+  role: {
     required: {
       value: true,
-      message: 'Recipient is required',
+      message: 'Role is required',
     },
   },
   email: {

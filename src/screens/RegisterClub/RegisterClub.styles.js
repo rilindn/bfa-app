@@ -63,6 +63,14 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
+  selectInputLabel: {
+    alignSelf: 'flex-start',
+    marginHorizontal: 22,
+    fontFamily: 'poppins-regular',
+    fontSize: fontSizes.default,
+    color: Colors.gray5,
+    marginTop: 3,
+  },
 });
 
 export default styles;
