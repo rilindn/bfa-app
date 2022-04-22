@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.green1 + '40',
   },
   textInputStyle: {
-    fontSize: 14,
+    fontSize: fontSizes.medium,
     marginLeft: 10,
     height: 45,
     color: Colors.gray4,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     color: Colors.red,
     position: 'absolute',
     top: '100%',
-    fontSize: 11,
+    fontSize: fontSizes.extraSmall,
     marginLeft: 4,
   },
 });

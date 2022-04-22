@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import Colors from '../../constants/Colors';
+import { fontSizes } from '../../constants/Typography';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,8 +18,11 @@ const styles = StyleSheet.create({
     color: Colors.red,
     position: 'absolute',
     top: '100%',
-    fontSize: 11,
+    fontSize: fontSizes.extraSmall,
     marginLeft: 4,
+  },
+  item: {
+    fontSize: fontSizes.medium,
   },
 });
 export default styles;

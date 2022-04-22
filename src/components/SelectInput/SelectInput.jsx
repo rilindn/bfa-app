@@ -22,9 +22,15 @@ const SelectInput = ({ options, control, name, rules, placeholder, errors }) => 
                 value=""
                 enabled={false}
                 color={Colors.placeholder}
+                style={styles.item}
               />
               {options.map((option) => (
-                <Picker.Item label={option.label} value={option.value} key={option.value} />
+                <Picker.Item
+                  label={option.label}
+                  value={option.value}
+                  key={option.value}
+                  style={styles.item}
+                />
               ))}
             </Picker>
             <Text style={styles.error}>{errors?.[name]?.message}</Text>
