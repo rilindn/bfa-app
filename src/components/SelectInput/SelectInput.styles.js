@@ -6,28 +6,13 @@ import { fontSizes } from '../../constants/Typography';
 const styles = StyleSheet.create({
   container: {
     width: '90%',
-    marginBottom: 10,
-    position: 'relative',
-  },
-  inputCtn: {
+    height: 48,
+    backgroundColor: Colors.green1 + '40',
+    justifyContent: 'center',
+    borderRadius: 6,
     borderWidth: 1,
     borderColor: Colors.green1,
-    borderRadius: 6,
-    backgroundColor: Colors.green1 + '40',
-  },
-  textInputStyle: {
-    fontSize: fontSizes.medium,
-    marginLeft: 10,
-    height: 45,
-    color: Colors.gray4,
-  },
-  title: {
-    fontFamily: 'poppins-regular',
-    marginBottom: -3,
-    marginTop: 3,
-    marginLeft: 4,
-    fontSize: fontSizes.default,
-    color: Colors.gray5,
+    marginBottom: 8,
   },
   error: {
     color: Colors.red,
@@ -35,6 +20,9 @@ const styles = StyleSheet.create({
     top: '100%',
     fontSize: fontSizes.extraSmall,
     marginLeft: 4,
+  },
+  item: {
+    fontSize: fontSizes.medium,
   },
 });
 export default styles;
