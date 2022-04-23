@@ -1,15 +1,21 @@
+import _ from 'lodash';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Text, ImageBackground, TouchableOpacity, Image } from 'react-native';
+import { Text, ImageBackground, TouchableOpacity, Image, Alert, ToastAndroid } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native-ui-lib';
 
 import Logo from '../../../assets/icons/logo-text-forte.png';
 import Background from '../../../assets/images/background.png';
+import { registerPlayer } from '../../api/ApiMethods';
 import CustomButton from '../../components/Button/Button';
 import TextInput from '../../components/TextInput/TextInput';
+import Colors from '../../constants/Colors';
 import styles from './RegisterPlayer.styles';
 
 export default function RegisterPlayer({ navigation }) {
+  const [loading, setLoading] = useState(false);
   const {
     control,
     handleSubmit,
@@ -18,16 +24,42 @@ export default function RegisterPlayer({ navigation }) {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    navigation.navigate('Root', {
-      screen: 'Profile',
-    });
-    reset();
+  const onSubmit = async (data) => {
+    setLoading(true);
+    const formData = _.omit(data, ['confirmPassword']);
+    const payload = {
+      ...formData,
+      role: 'Player',
+    };
+    try {
+      const result = await registerPlayer(payload);
+      if (result?.status === 200) {
+        setLoading(false);
+        reset();
+        navigation.navigate('Root', {
+          screen: 'Profile',
+        });
+        ToastAndroid.show('You have been registered successfully!', ToastAndroid.LONG);
+      } else {
+        setLoading(false);
+        const errorMsg = result.response.data.errors?.[0]?.message || result.response.data;
+        Alert.alert('Error occurred!', errorMsg);
+      }
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Error occurred!', 'Please try again!');
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
+        <ActivityIndicator
+          size="large"
+          color={Colors.mainGreen}
+          animating={loading}
+          style={{ position: 'absolute', zIndex: 1 }}
+        />
         <View style={styles.form}>
           <View style={styles.header}>
             <Image source={Logo} style={{ width: 240, height: 64 }} />
@@ -35,10 +67,17 @@ export default function RegisterPlayer({ navigation }) {
           </View>
           <View style={styles.middleContainer}>
             <TextInput
-              name="name"
-              placeholder="Name"
+              name="firstName"
+              placeholder="Firstname"
               control={control}
-              rules={rules.name}
+              rules={rules.firstName}
+              errors={errors}
+            />
+            <TextInput
+              name="lastName"
+              placeholder="Lastname"
+              control={control}
+              rules={rules.lastName}
               errors={errors}
             />
             <TextInput
@@ -82,10 +121,32 @@ export default function RegisterPlayer({ navigation }) {
 }
 
 const rules = {
-  name: {
+  firstName: {
     required: {
       value: true,
-      message: 'Name is required',
+      message: 'Firstname is required',
+    },
+    minLength: {
+      value: 2,
+      message: 'Firstname must be at least 2 characters',
+    },
+    maxLength: {
+      value: 50,
+      message: 'Firstname can`t be longer than 50 characters',
+    },
+  },
+  lastName: {
+    required: {
+      value: true,
+      message: 'Lastname is required',
+    },
+    minLength: {
+      value: 2,
+      message: 'FirstLastname must be at least 2 characters',
+    },
+    maxLength: {
+      value: 50,
+      message: 'Lastname can`t be longer than 50 characters',
     },
   },
   email: {
