@@ -70,11 +70,18 @@ export default function RegisterClub({ navigation }) {
             </View>
             <View style={styles.middleContainer}>
               <TextInput
-                name="name"
+                name="firstName"
                 placeholder="Your name"
                 control={control}
                 errors={errors}
-                rules={rules.name}
+                rules={rules.firstName}
+              />
+              <TextInput
+                name="lastName"
+                placeholder="Your lastname"
+                control={control}
+                errors={errors}
+                rules={rules.lastName}
               />
               <Text style={styles.selectInputLabel}>Recipient role in the club</Text>
               <SelectInput
@@ -137,10 +144,16 @@ export default function RegisterClub({ navigation }) {
 }
 
 const rules = {
-  name: {
+  firstName: {
     required: {
       value: true,
-      message: 'Name is required',
+      message: 'Firstname is required',
+    },
+  },
+  lastName: {
+    required: {
+      value: true,
+      message: 'Lastname is required',
     },
   },
   clubName: {
