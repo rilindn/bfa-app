@@ -1,17 +1,23 @@
+import _ from 'lodash';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Text, ImageBackground, TouchableOpacity } from 'react-native';
+import { Text, ImageBackground, TouchableOpacity, ToastAndroid, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { ActivityIndicator } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image, View } from 'react-native-ui-lib';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 import Logo from '../../../assets/icons/logo-text-forte.png';
 import Background from '../../../assets/images/background.png';
+import { registerClub } from '../../api/ApiMethods';
 import CustomButton from '../../components/Button/Button';
 import SelectInput from '../../components/SelectInput/SelectInput';
 import TextInput from '../../components/TextInput/TextInput';
 import styles from './RegisterClub.styles';
 
 export default function RegisterClub({ navigation }) {
+  const [loading, setLoading] = useState(false);
   const {
     control,
     handleSubmit,
@@ -20,17 +26,43 @@ export default function RegisterClub({ navigation }) {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    navigation.navigate('Root', {
-      screen: 'Feed',
-    });
-    reset();
+  const onSubmit = async (data) => {
+    setLoading(true);
+    const formData = _.omit(data, ['confirmPassword']);
+    const payload = {
+      ...formData,
+      role: 'Club',
+    };
+    try {
+      const result = await registerClub(payload);
+      if (result?.status === 200) {
+        setLoading(false);
+        reset();
+        navigation.navigate('Root', {
+          screen: 'Profile',
+        });
+        ToastAndroid.show('You have been registered successfully!', ToastAndroid.LONG);
+      } else {
+        setLoading(false);
+        const errorMsg = result.response.data.errors?.[0]?.message || result.response.data;
+        Alert.alert('Error occurred!', errorMsg);
+      }
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Error occurred!', 'Please try again!');
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
+          <ActivityIndicator
+            size="large"
+            color={Colors.mainGreen}
+            animating={loading}
+            style={{ position: 'absolute', zIndex: 1 }}
+          />
           <View style={styles.form}>
             <View style={styles.header}>
               <Image source={Logo} style={{ width: 240, height: 64 }} />
