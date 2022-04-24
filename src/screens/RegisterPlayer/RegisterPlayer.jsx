@@ -2,7 +2,6 @@ import _ from 'lodash';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, ImageBackground, TouchableOpacity, Image, Alert, ToastAndroid } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native-ui-lib';
 
@@ -11,7 +10,6 @@ import Background from '../../../assets/images/background.png';
 import { registerPlayer } from '../../api/ApiMethods';
 import CustomButton from '../../components/Button/Button';
 import TextInput from '../../components/TextInput/TextInput';
-import Colors from '../../constants/Colors';
 import styles from './RegisterPlayer.styles';
 
 export default function RegisterPlayer({ navigation }) {
@@ -54,12 +52,6 @@ export default function RegisterPlayer({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
-        <ActivityIndicator
-          size="large"
-          color={Colors.mainGreen}
-          animating={loading}
-          style={{ position: 'absolute', zIndex: 1 }}
-        />
         <View style={styles.form}>
           <View style={styles.header}>
             <Image source={Logo} style={{ width: 240, height: 64 }} />
@@ -106,7 +98,7 @@ export default function RegisterPlayer({ navigation }) {
                 validate: (value) => value === watch('password') || 'The passwords do not match',
               }}
             />
-            <CustomButton label="Register" onPress={handleSubmit(onSubmit)} />
+            <CustomButton loading={loading} label="Register" onPress={handleSubmit(onSubmit)} />
           </View>
           <View style={styles.bottomContainer}>
             <Text style={styles.bottomText}>Already have an account?</Text>
