@@ -7,6 +7,8 @@ const styles = StyleSheet.create({
   label: {
     fontSize: fontSizes.large,
     fontFamily: 'poppins-semibold',
+    textAlignVertical: 'center',
+    includeFontPadding: false,
   },
   button: {
     alignSelf: 'center',

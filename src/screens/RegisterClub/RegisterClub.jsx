@@ -1,12 +1,18 @@
 import _ from 'lodash';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Text, ImageBackground, TouchableOpacity, ToastAndroid, Alert } from 'react-native';
+import {
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  ToastAndroid,
+  Alert,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { ActivityIndicator } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image, View } from 'react-native-ui-lib';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 import Logo from '../../../assets/icons/logo-text-forte.png';
 import Background from '../../../assets/images/background.png';
@@ -36,11 +42,9 @@ export default function RegisterClub({ navigation }) {
     try {
       const result = await registerClub(payload);
       if (result?.status === 200) {
+        navigation.navigate('Login');
         setLoading(false);
         reset();
-        navigation.navigate('Root', {
-          screen: 'Profile',
-        });
         ToastAndroid.show('You have been registered successfully!', ToastAndroid.LONG);
       } else {
         setLoading(false);
@@ -54,92 +58,89 @@ export default function RegisterClub({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
-          <ActivityIndicator
-            size="large"
-            color={Colors.mainGreen}
-            animating={loading}
-            style={{ position: 'absolute', zIndex: 1 }}
-          />
-          <View style={styles.form}>
-            <View style={styles.header}>
-              <Image source={Logo} style={{ width: 240, height: 64 }} />
-              <Text style={styles.registerAccount}>Register your account</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
+            <View style={styles.form}>
+              <View style={styles.header}>
+                <Image source={Logo} style={{ width: 240, height: 64 }} />
+                <Text style={styles.registerAccount}>Register your account</Text>
+              </View>
+              <View style={styles.middleContainer}>
+                <TextInput
+                  name="firstName"
+                  placeholder="Your name"
+                  control={control}
+                  errors={errors}
+                  rules={rules.firstName}
+                />
+                <TextInput
+                  name="lastName"
+                  placeholder="Your lastname"
+                  control={control}
+                  errors={errors}
+                  rules={rules.lastName}
+                />
+                <Text style={styles.selectInputLabel}>Recipient role in the club</Text>
+                <SelectInput
+                  name="role"
+                  control={control}
+                  errors={errors}
+                  rules={rules.role}
+                  placeholder="Choose a role"
+                  options={[
+                    { label: 'Coach', value: 'co' },
+                    { label: 'Finance', value: 'fin' },
+                  ]}
+                />
+                <TextInput
+                  name="clubName"
+                  placeholder="Club Name"
+                  control={control}
+                  errors={errors}
+                  rules={rules.clubName}
+                />
+                <TextInput
+                  name="email"
+                  placeholder="Email"
+                  control={control}
+                  rules={rules.email}
+                  errors={errors}
+                />
+                <TextInput
+                  name="password"
+                  placeholder="Password"
+                  control={control}
+                  secureTextEntry
+                  errors={errors}
+                  rules={rules.password}
+                />
+                <TextInput
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  control={control}
+                  secureTextEntry
+                  errors={errors}
+                  rules={{
+                    ...rules.confirmPassword,
+                    validate: (value) =>
+                      value === watch('password') || 'The passwords do not match',
+                  }}
+                />
+                <CustomButton label="Register" onPress={handleSubmit(onSubmit)} loading={loading} />
+              </View>
+              <View style={styles.bottomContainer}>
+                <Text style={styles.bottomText}>Already have an account?</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                  <Text style={styles.login}>Login</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.middleContainer}>
-              <TextInput
-                name="firstName"
-                placeholder="Your name"
-                control={control}
-                errors={errors}
-                rules={rules.firstName}
-              />
-              <TextInput
-                name="lastName"
-                placeholder="Your lastname"
-                control={control}
-                errors={errors}
-                rules={rules.lastName}
-              />
-              <Text style={styles.selectInputLabel}>Recipient role in the club</Text>
-              <SelectInput
-                name="role"
-                control={control}
-                errors={errors}
-                rules={rules.role}
-                placeholder="Choose a role"
-                options={[
-                  { label: 'Coach', value: 'co' },
-                  { label: 'Finance', value: 'fin' },
-                ]}
-              />
-              <TextInput
-                name="clubName"
-                placeholder="Club Name"
-                control={control}
-                errors={errors}
-                rules={rules.clubName}
-              />
-              <TextInput
-                name="email"
-                placeholder="Email"
-                control={control}
-                rules={rules.email}
-                errors={errors}
-              />
-              <TextInput
-                name="password"
-                placeholder="Password"
-                control={control}
-                secureTextEntry
-                errors={errors}
-                rules={rules.password}
-              />
-              <TextInput
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                control={control}
-                secureTextEntry
-                errors={errors}
-                rules={{
-                  ...rules.confirmPassword,
-                  validate: (value) => value === watch('password') || 'The passwords do not match',
-                }}
-              />
-              <CustomButton label="Register" onPress={handleSubmit(onSubmit)} />
-            </View>
-            <View style={styles.bottomContainer}>
-              <Text style={styles.bottomText}>Already have an account?</Text>
-              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                <Text style={styles.login}>Login</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ImageBackground>
-      </ScrollView>
-    </SafeAreaView>
+          </ImageBackground>
+        </ScrollView>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 

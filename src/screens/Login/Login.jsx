@@ -1,19 +1,29 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Text, ImageBackground, TouchableOpacity, Image } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
+import {
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  Image,
+  ToastAndroid,
+  Alert,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native-ui-lib';
 
 import Logo from '../../../assets/icons/logo-text-forte.png';
 import Background from '../../../assets/images/background.png';
+import { login } from '../../api/ApiMethods';
 import CustomButton from '../../components/Button/Button';
 import TextInput from '../../components/TextInput/TextInput';
-import Colors from '../../constants/Colors';
+import useAuth from './../../hooks/useAuth';
 import styles from './Login.styles';
 
 export default function Login({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
+  const { handleSignIn } = useAuth();
   const {
     control,
     handleSubmit,
@@ -21,21 +31,29 @@ export default function Login({ navigation }) {
     reset,
   } = useForm({ mode: 'onBlur' });
 
-  const onSubmit = () => {
-    reset();
-    setIsLoading(true);
-    setTimeout(() => {
-      navigation.navigate('Root', {
-        screen: 'Feed',
-      });
+  const onSubmit = async (data) => {
+    try {
+      setIsLoading(true);
+      const result = await login(data);
+      if (result?.status === 200) {
+        handleSignIn(result.data);
+        ToastAndroid.show('You have been logged in successfully!', ToastAndroid.LONG);
+      } else {
+        const errorMsg = result.response.data.errors?.[0]?.message || result.response.data;
+        Alert.alert('Error occurred!', errorMsg);
+      }
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Error occurred!', 'Please try again!');
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
-        {!isLoading ? (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaView style={styles.container}>
+        <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
           <View style={styles.form}>
             <View style={styles.header}>
               <Image source={Logo} style={{ width: 240, height: 64 }} />
@@ -57,7 +75,7 @@ export default function Login({ navigation }) {
                 errors={errors}
                 rules={rules.password}
               />
-              <CustomButton label="Login" onPress={handleSubmit(onSubmit)} />
+              <CustomButton label="Login" onPress={handleSubmit(onSubmit)} loading={isLoading} />
             </View>
             <TouchableOpacity>
               <Text style={styles.forgotPassword}>Forgot password?</Text>
@@ -69,11 +87,9 @@ export default function Login({ navigation }) {
               </TouchableOpacity>
             </View>
           </View>
-        ) : (
-          <ActivityIndicator size="large" color={Colors.white} animating={isLoading} />
-        )}
-      </ImageBackground>
-    </SafeAreaView>
+        </ImageBackground>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 
