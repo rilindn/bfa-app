@@ -33,3 +33,25 @@ export async function registerClub(data) {
     return err;
   }
 }
+
+// Authentication
+
+export async function login(data) {
+  try {
+    const result = await Client.post('login', { ...data });
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+export async function loggedUser(data) {
+  try {
+    const result = await Client.get('loggedUser', { ...data });
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}

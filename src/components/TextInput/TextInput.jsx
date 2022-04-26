@@ -43,6 +43,7 @@ const CustomTextInput = ({
               onChangeText={onChange}
               secureTextEntry={secureTextEntry}
               selectionColor={Colors.green1}
+              autoCapitalize="none"
             />
           )}
         />

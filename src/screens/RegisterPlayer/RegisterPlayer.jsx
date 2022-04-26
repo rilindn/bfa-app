@@ -1,7 +1,16 @@
 import _ from 'lodash';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Text, ImageBackground, TouchableOpacity, Image, Alert, ToastAndroid } from 'react-native';
+import {
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  Image,
+  Alert,
+  ToastAndroid,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native-ui-lib';
 
@@ -32,11 +41,9 @@ export default function RegisterPlayer({ navigation }) {
     try {
       const result = await registerPlayer(payload);
       if (result?.status === 200) {
+        navigation.navigate('Login');
         setLoading(false);
         reset();
-        navigation.navigate('Root', {
-          screen: 'Profile',
-        });
         ToastAndroid.show('You have been registered successfully!', ToastAndroid.LONG);
       } else {
         setLoading(false);
@@ -50,65 +57,67 @@ export default function RegisterPlayer({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
-        <View style={styles.form}>
-          <View style={styles.header}>
-            <Image source={Logo} style={{ width: 240, height: 64 }} />
-            <Text style={styles.registerAccount}>Register your account</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaView style={styles.container}>
+        <ImageBackground source={Background} resizeMode="cover" style={styles.image}>
+          <View style={styles.form}>
+            <View style={styles.header}>
+              <Image source={Logo} style={{ width: 240, height: 64 }} />
+              <Text style={styles.registerAccount}>Register your account</Text>
+            </View>
+            <View style={styles.middleContainer}>
+              <TextInput
+                name="firstName"
+                placeholder="Firstname"
+                control={control}
+                rules={rules.firstName}
+                errors={errors}
+              />
+              <TextInput
+                name="lastName"
+                placeholder="Lastname"
+                control={control}
+                rules={rules.lastName}
+                errors={errors}
+              />
+              <TextInput
+                name="email"
+                placeholder="Email"
+                control={control}
+                rules={rules.email}
+                errors={errors}
+              />
+              <TextInput
+                name="password"
+                placeholder="Password"
+                control={control}
+                secureTextEntry
+                errors={errors}
+                rules={rules.password}
+              />
+              <TextInput
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                control={control}
+                secureTextEntry
+                errors={errors}
+                rules={{
+                  ...rules.confirmPassword,
+                  validate: (value) => value === watch('password') || 'The passwords do not match',
+                }}
+              />
+              <CustomButton loading={loading} label="Register" onPress={handleSubmit(onSubmit)} />
+            </View>
+            <View style={styles.bottomContainer}>
+              <Text style={styles.bottomText}>Already have an account?</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <Text style={styles.register}>Login</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.middleContainer}>
-            <TextInput
-              name="firstName"
-              placeholder="Firstname"
-              control={control}
-              rules={rules.firstName}
-              errors={errors}
-            />
-            <TextInput
-              name="lastName"
-              placeholder="Lastname"
-              control={control}
-              rules={rules.lastName}
-              errors={errors}
-            />
-            <TextInput
-              name="email"
-              placeholder="Email"
-              control={control}
-              rules={rules.email}
-              errors={errors}
-            />
-            <TextInput
-              name="password"
-              placeholder="Password"
-              control={control}
-              secureTextEntry
-              errors={errors}
-              rules={rules.password}
-            />
-            <TextInput
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              control={control}
-              secureTextEntry
-              errors={errors}
-              rules={{
-                ...rules.confirmPassword,
-                validate: (value) => value === watch('password') || 'The passwords do not match',
-              }}
-            />
-            <CustomButton loading={loading} label="Register" onPress={handleSubmit(onSubmit)} />
-          </View>
-          <View style={styles.bottomContainer}>
-            <Text style={styles.bottomText}>Already have an account?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <Text style={styles.register}>Login</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ImageBackground>
-    </SafeAreaView>
+        </ImageBackground>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 

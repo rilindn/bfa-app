@@ -4,8 +4,9 @@ import { UIManager, Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import Colors from './src/constants/Colors';
+import { AuthContextProvider } from './src/contexts/AuthContext';
 import useCachedResources from './src/hooks/useCachedResources';
-import Navigation from './src/navigation/RootNavigator';
+import Navigation from './src/navigation';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -17,12 +18,14 @@ export default function App() {
     return null;
   } else {
     return (
-      <SafeAreaProvider>
-        <NavigationContainer>
-          <StatusBar style="light" backgroundColor={Colors.gray5} />
-          <Navigation />
-        </NavigationContainer>
-      </SafeAreaProvider>
+      <AuthContextProvider>
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <StatusBar style="light" backgroundColor={Colors.gray5} />
+            <Navigation />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </AuthContextProvider>
     );
   }
 }

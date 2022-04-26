@@ -6,6 +6,7 @@ import { Dimensions, TouchableOpacity } from 'react-native';
 
 import CustomDrawerContent from '../components/Sidebar/Sidebar';
 import Colors from '../constants/Colors';
+import { fontSizes } from '../constants/Typography';
 import SvgIcon from './../components/SvgIcon/SvgIcon';
 
 const Drawer = createDrawerNavigator();
@@ -23,20 +24,19 @@ const DrawerNavigator = ({ initialScreen, navigation }) => {
         drawerLabelStyle: {
           color: Colors.light,
           marginLeft: -10,
+          fontSize: fontSizes.medium,
         },
         drawerType: 'slide',
         drawerActiveBackgroundColor: Colors.orange + 15,
-        // drawerInactiveBackgroundColor: Colors.green1 + 10,
         drawerActiveTintColor: Colors.light,
         swipeEdgeWidth: 100,
-        // headerShown: false,
         drawerIcon: ({ focused }) => {
           const iconName = route.name.toLowerCase();
           return (
             <SvgIcon
               name={iconName}
-              width={20}
-              height={20}
+              width={fontSizes.titleLarge}
+              height={fontSizes.titleLarge}
               color={focused && Colors.orange}
               focused={focused}
             />
