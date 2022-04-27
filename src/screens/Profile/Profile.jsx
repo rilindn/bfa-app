@@ -1,17 +1,16 @@
-import { View, SafeAreaView, StyleSheet, Appearance, Button } from 'react-native';
+import { useForm } from 'react-hook-form';
+import { View, Button, TouchableOpacity, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Avatar, Title, Caption, Text, Searchbar, TextInput } from 'react-native-paper';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import { Avatar } from 'react-native-paper';
 
+import TextInput from '../../components/TextInput/TextInput';
 import styles from './Profile.styles';
 
 export default function Profile() {
+  const { control } = useForm();
+
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Searchbar style={styles.searchbar} placeholder="Search" />
-      </View>
-
       <View style={styles.main}>
         <View style={styles.button}>
           <Button title="Basic account" disabled />
@@ -19,7 +18,7 @@ export default function Profile() {
             <Button title="Edit Profile" color="#201C1C" />
           </View>
         </View>
-        <Title style={{ color: '#fff', fontSize: 20, marginLeft: 20 }}>Ake Kenned</Title>
+        <Text style={styles.name}>Ake Kenned</Text>
         <Avatar.Image
           source={{
             uri: 'https://w7.pngwing.com/pngs/223/244/png-transparent-computer-icons-avatar-user-profile-avatar-heroes-rectangle-black.png',
@@ -27,54 +26,32 @@ export default function Profile() {
           size={80}
           style={{ marginLeft: 20 }}
         />
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: '#ADADAD',
-            borderRadius: 5,
-            width: '90%',
-            alignSelf: 'center',
-            margin: 10,
-          }}>
-          <Button title="Currently without a team" color="#201C1C" />
+        <View style={styles.teamStatus}>
+          <Text>CURRENTLY WITHOUT A TEAM</Text>
         </View>
 
         <View style={styles.infoBoxWrapper}>
-          <View
-            style={[
-              styles.infoBox,
-              {
-                borderRightColor: '#ADADAD',
-                borderRightWidth: 1,
-              },
-            ]}>
-            <Title style={{ color: '#fff' }}>1</Title>
-            <Caption style={{ color: '#ADADAD' }}>Post</Caption>
+          <View style={styles.infoBox}>
+            <Text style={styles.statisticsNumber}>1</Text>
+            <Text style={styles.statisticsText}>Post</Text>
           </View>
           <View style={styles.infoBox}>
-            <Title style={{ color: '#fff' }}>10</Title>
-            <Caption style={{ color: '#ADADAD' }}>Followers</Caption>
+            <Text style={styles.statisticsNumber}>10</Text>
+            <Text style={styles.statisticsText}>Followers</Text>
           </View>
-          <View
-            style={[
-              styles.infoBox,
-              {
-                borderLeftColor: '#ADADAD',
-                borderLeftWidth: 1,
-              },
-            ]}>
-            <Title style={{ color: '#fff' }}>12</Title>
-            <Caption style={{ color: '#ADADAD' }}>Following</Caption>
+          <View style={styles.infoBox}>
+            <Text style={styles.statisticsNumber}>12</Text>
+            <Text style={styles.statisticsText}>Following</Text>
           </View>
         </View>
       </View>
 
-      <View style={styles.textBoxWrapper}>
-        <Pressable style={styles.title}>
-          <Title style={{ color: '#fff', fontSize: 20, paddingBottom: 10 }}>About Player</Title>
-          <Title style={{ color: '#fff', fontSize: 20, paddingBottom: 10 }}>Characteristics</Title>
-        </Pressable>
-        <Text style={styles.text}>
+      <View style={styles.tabs}>
+        <TouchableOpacity style={styles.tabsTitle}>
+          <Text style={styles.tabText}>About Player</Text>
+          <Text style={styles.tabText}>Characteristics</Text>
+        </TouchableOpacity>
+        <Text style={styles.aboutText}>
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
           been the industry's standard dummy text ever since the 1500s, when an unknown printer took
           a galley of type and scrambled it to make a type specimen book.
@@ -82,25 +59,20 @@ export default function Profile() {
       </View>
 
       <View style={styles.postSomethingWrapper}>
-        <Title
-          style={{
-            color: '#fff',
-            fontSize: 20,
-            borderBottomWidth: 1,
-            borderBottomColor: '#ADADAD',
-            paddingLeft: 15,
-            paddingBottom: 15,
-          }}>
-          Post Something
-        </Title>
-        <View style={styles.postSomething}>
+        <Text style={styles.postSomethingText}>Post Something</Text>
+        <View style={styles.postSomethingAvatar}>
           <Avatar.Image
             source={{
               uri: 'https://w7.pngwing.com/pngs/223/244/png-transparent-computer-icons-avatar-user-profile-avatar-heroes-rectangle-black.png',
             }}
-            size={60}
+            size={40}
           />
-          <TextInput style={styles.input} placeholder="What's on your mind!" />
+          <TextInput
+            control={control}
+            inputStyle={styles.postSomethingInput}
+            name="postContent"
+            placeholder="What's on your mind!"
+          />
         </View>
       </View>
     </ScrollView>

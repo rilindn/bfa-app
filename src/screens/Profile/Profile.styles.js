@@ -1,32 +1,25 @@
 import { StyleSheet } from 'react-native';
 
 import Colors from '../../constants/Colors';
+import { fontSizes } from '../../constants/Typography';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#201C1C',
+    backgroundColor: Colors.background,
   },
-  header: {
-    width: '100%',
-    marginTop: 40,
-    backgroundColor: '#242526',
-  },
-  searchbar: {
-    width: '80%',
-    alignSelf: 'flex-end',
-    margin: 10,
-    backgroundColor: '#403C3C',
-    borderRadius: 15,
+  name: {
+    color: Colors.light,
+    fontSize: fontSizes.large,
+    marginLeft: 20,
   },
   main: {
     marginTop: 20,
     marginHorizontal: 10,
-    borderWidth: 1,
-    borderColor: '#ADADAD',
+    borderWidth: 0.5,
+    borderColor: Colors.gray3,
     borderRadius: 15,
-    //padding: 10,
-    backgroundColor: '#242526',
+    backgroundColor: Colors.gray5,
   },
   button: {
     flexDirection: 'row',
@@ -34,13 +27,13 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   buttonB: {
-    borderWidth: 1,
-    borderColor: '#ADADAD',
+    borderWidth: 0.5,
+    borderColor: Colors.gray3,
     borderRadius: 5,
   },
   infoBoxWrapper: {
-    borderTopColor: '#ADADAD',
-    borderTopWidth: 1,
+    borderTopColor: Colors.gray3,
+    borderTopWidth: 0.5,
     flexDirection: 'row',
     height: 100,
   },
@@ -48,49 +41,77 @@ const styles = StyleSheet.create({
     width: '33.33%',
     alignItems: 'center',
     justifyContent: 'center',
+    borderRightColor: Colors.gray3,
+    borderRightWidth: 0.5,
   },
-  textBoxWrapper: {
+  tabs: {
     marginTop: 20,
     marginHorizontal: 10,
-    borderWidth: 1,
-    borderColor: '#ADADAD',
+    borderWidth: 0.5,
+    borderColor: Colors.gray3,
     borderRadius: 15,
-    backgroundColor: '#242526',
+    backgroundColor: Colors.gray5,
     paddingTop: 15,
   },
-  title: {
-    fontSize: 20,
-    color: '#fff',
+  tabsTitle: {
+    fontSize: fontSizes.large,
+    color: Colors.light,
     fontWeight: 'bold',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ADADAD',
+    borderBottomWidth: 0.5,
+    borderBottomColor: Colors.gray3,
   },
-  text: {
-    color: '#fff',
+  tabText: {
+    color: Colors.light,
     alignSelf: 'center',
     padding: 25,
   },
   postSomethingWrapper: {
     marginTop: 20,
     marginHorizontal: 10,
-    borderWidth: 1,
-    borderColor: '#ADADAD',
+    borderWidth: 0.5,
+    borderColor: Colors.gray3,
     borderRadius: 15,
-    backgroundColor: '#242526',
+    backgroundColor: Colors.gray5,
     paddingTop: 10,
   },
-  postSomething: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+  postSomethingAvatar: {
+    // padding: 10,
     flexDirection: 'row',
-    marginTop: 10,
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  input: {
+  postSomethingText: {
+    color: Colors.light,
+    fontSize: fontSizes.large,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.gray3,
+    paddingLeft: 15,
+    paddingBottom: 15,
+  },
+  postSomethingInput: {
     width: '80%',
-    backgroundColor: '#403C3C',
+    backgroundColor: Colors.gray4,
+  },
+  teamStatus: {
+    width: '90%',
+    alignSelf: 'center',
+    margin: 10,
+    borderWidth: 1,
+    borderColor: Colors.gray3,
+    borderRadius: 5,
+    backgroundColor: Colors.gray5,
+    padding: 10,
+  },
+  statisticsNumber: {
+    color: Colors.light,
+  },
+  statisticsText: {
+    color: Colors.gray3,
+  },
+  aboutText: {
+    color: Colors.light,
   },
 });
 
