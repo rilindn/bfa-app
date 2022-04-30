@@ -1,5 +1,5 @@
 export default {
-  white: '#fff',
+  white: '#FFFFFF',
   black: '#000',
   background: '#201C1C',
   gray3: '#ADADAD',
@@ -11,4 +11,5 @@ export default {
   green1: '#D9E1E7',
   light: '#E5E5E5',
   placeholder: '#CFCFCF',
+  headerBg: '#282424',
 };
