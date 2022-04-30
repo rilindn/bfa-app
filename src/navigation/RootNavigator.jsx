@@ -33,6 +33,10 @@ const RootNavigator = ({ initialScreen, authData }) => {
             name="Loading"
             getComponent={() => require('../screens/Loading/Loading').default}
           />
+          <Root.Screen
+            name="ResetPassword"
+            getComponent={() => require('../screens/ResetPassword/ResetPassword').default}
+          />
         </>
       )}
     </Root.Navigator>
