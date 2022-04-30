@@ -1,80 +1,137 @@
-import { useForm } from 'react-hook-form';
-import { View, Button, TouchableOpacity, Text } from 'react-native';
+import React, { useState } from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Avatar } from 'react-native-paper';
 
-import TextInput from '../../components/TextInput/TextInput';
+import CustomButton from '../../components/Button/Button';
+import Header from '../../components/Header/Header';
+import Colors from '../../constants/Colors';
 import styles from './Profile.styles';
 
 export default function Profile() {
-  const { control } = useForm();
+  const [selectedTab, setSelectedTab] = useState('about');
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.main}>
-        <View style={styles.button}>
-          <Button title="Basic account" disabled />
-          <View style={styles.buttonB}>
-            <Button title="Edit Profile" color="#201C1C" />
+    <>
+      <Header />
+      <ScrollView style={styles.container}>
+        <View style={styles.main}>
+          <View style={styles.button}>
+            <View style={styles.basicAccountBtn}>
+              <Text style={styles.basicAccountLabel}>Basic account</Text>
+            </View>
+            <CustomButton
+              label="Edit profile"
+              style={styles.editProfileBtn}
+              labelStyle={styles.editProfileLabel}
+            />
           </View>
-        </View>
-        <Text style={styles.name}>Ake Kenned</Text>
-        <Avatar.Image
-          source={{
-            uri: 'https://w7.pngwing.com/pngs/223/244/png-transparent-computer-icons-avatar-user-profile-avatar-heroes-rectangle-black.png',
-          }}
-          size={80}
-          style={{ marginLeft: 20 }}
-        />
-        <View style={styles.teamStatus}>
-          <Text>CURRENTLY WITHOUT A TEAM</Text>
-        </View>
-
-        <View style={styles.infoBoxWrapper}>
-          <View style={styles.infoBox}>
-            <Text style={styles.statisticsNumber}>1</Text>
-            <Text style={styles.statisticsText}>Post</Text>
-          </View>
-          <View style={styles.infoBox}>
-            <Text style={styles.statisticsNumber}>10</Text>
-            <Text style={styles.statisticsText}>Followers</Text>
-          </View>
-          <View style={styles.infoBox}>
-            <Text style={styles.statisticsNumber}>12</Text>
-            <Text style={styles.statisticsText}>Following</Text>
-          </View>
-        </View>
-      </View>
-
-      <View style={styles.tabs}>
-        <TouchableOpacity style={styles.tabsTitle}>
-          <Text style={styles.tabText}>About Player</Text>
-          <Text style={styles.tabText}>Characteristics</Text>
-        </TouchableOpacity>
-        <Text style={styles.aboutText}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-          been the industry's standard dummy text ever since the 1500s, when an unknown printer took
-          a galley of type and scrambled it to make a type specimen book.
-        </Text>
-      </View>
-
-      <View style={styles.postSomethingWrapper}>
-        <Text style={styles.postSomethingText}>Post Something</Text>
-        <View style={styles.postSomethingAvatar}>
+          <Text style={styles.name}>Ake Kenned</Text>
           <Avatar.Image
             source={{
               uri: 'https://w7.pngwing.com/pngs/223/244/png-transparent-computer-icons-avatar-user-profile-avatar-heroes-rectangle-black.png',
             }}
-            size={40}
+            size={80}
+            style={{ marginHorizontal: 15 }}
           />
-          <TextInput
-            control={control}
-            inputStyle={styles.postSomethingInput}
-            name="postContent"
-            placeholder="What's on your mind!"
-          />
+          <View style={styles.teamStatus}>
+            <Text style={{ color: Colors.white }}>CURRENTLY WITHOUT A TEAM</Text>
+          </View>
+          <View style={styles.infoBoxWrapper}>
+            <View style={styles.infoBox}>
+              <Text style={styles.statisticsNumber}>1</Text>
+              <Text style={styles.statisticsText}>POST</Text>
+            </View>
+            <View style={styles.infoBox}>
+              <Text style={styles.statisticsNumber}>10</Text>
+              <Text style={styles.statisticsText}>FOLLOWERS</Text>
+            </View>
+            <View style={[styles.infoBox, { borderRightWidth: 0 }]}>
+              <Text style={styles.statisticsNumber}>12</Text>
+              <Text style={styles.statisticsText}>FOLLOWING</Text>
+            </View>
+          </View>
         </View>
-      </View>
-    </ScrollView>
+        <View style={styles.topTabContainer}>
+          <TouchableOpacity
+            onPress={() => setSelectedTab('about')}
+            style={[
+              styles.leftTab,
+              selectedTab === 'about' && { borderBottomColor: Colors.orange, borderBottomWidth: 1 },
+            ]}>
+            <Text style={[styles.tabText, selectedTab === 'about' && { color: Colors.orange }]}>
+              About
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setSelectedTab('characteristics')}
+            style={[
+              styles.rightTab,
+              selectedTab === 'characteristics' && {
+                borderBottomColor: Colors.orange,
+                borderBottomWidth: 1,
+              },
+            ]}>
+            <Text
+              style={[
+                styles.tabText,
+                selectedTab === 'characteristics' && { color: Colors.orange },
+              ]}>
+              Characteristics
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.bottomTabContainer}>
+          {selectedTab === 'about' ? (
+            <Text style={styles.aboutText}>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+              has been the industry's standard dummy text ever since the 1500s, when an unknown
+              printer took a galley of type and scrambled it to make a type specimen book.
+            </Text>
+          ) : (
+            <>
+              <View style={styles.playerCharacteristicContainer}>
+                <Text style={styles.playerCharacteristicText}>Player characteristics</Text>
+                <CustomButton label="Edit" style={styles.editBtn} labelStyle={styles.editLabel} />
+              </View>
+              <View style={styles.listContainer}>
+                <View>
+                  <Text style={styles.leftListItem}>Nationality</Text>
+                  <Text style={styles.leftListItem}>Place of birth</Text>
+                  <Text style={styles.leftListItem}>Date of birth (age)</Text>
+                  <Text style={styles.leftListItem}>Height</Text>
+                  <Text style={styles.leftListItem}>Weight</Text>
+                  <Text style={styles.leftListItem}>Foot</Text>
+                  <Text style={styles.leftListItem}>Back number</Text>
+                </View>
+                <View>
+                  <Text style={styles.rightListItem}>Albanian</Text>
+                  <Text style={styles.rightListItem}>Pristina</Text>
+                  <Text style={styles.rightListItem}>15/03/2001</Text>
+                  <Text style={styles.rightListItem}>1.82</Text>
+                  <Text style={styles.rightListItem}>75 kg</Text>
+                  <Text style={styles.rightListItem}>Left</Text>
+                  <Text style={styles.rightListItem}>6</Text>
+                </View>
+              </View>
+            </>
+          )}
+        </View>
+        <View style={styles.postSomethingWrapper}>
+          <Text style={styles.postSomethingText}>Post Something</Text>
+          <View style={styles.postSomethingAvatar}>
+            <Avatar.Image
+              source={{
+                uri: 'https://w7.pngwing.com/pngs/223/244/png-transparent-computer-icons-avatar-user-profile-avatar-heroes-rectangle-black.png',
+              }}
+              size={40}
+            />
+            <View style={styles.postContainer}>
+              <Text style={styles.postPlaceholder}>What's on your mind?</Text>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </>
   );
 }

@@ -1,14 +1,16 @@
 export default {
-  white: '#fff',
+  white: '#FFFFFF',
   black: '#000',
-  background: '#201C1C',
+  background: '#141414',
   gray3: '#ADADAD',
   gray4: '#403C3C',
   gray5: '#242526',
+  gray6: '#201F1F',
   orange: '#F4B61C',
   red: '#FF0000',
   mainGreen: '#228176',
   green1: '#D9E1E7',
   light: '#E5E5E5',
   placeholder: '#CFCFCF',
+  headerBg: '#282424',
 };

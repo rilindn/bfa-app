@@ -7,15 +7,14 @@ const styles = StyleSheet.create({
   label: {
     fontSize: fontSizes.large,
     fontFamily: 'poppins-semibold',
-    textAlignVertical: 'center',
     includeFontPadding: false,
+    textAlign: 'center',
   },
   button: {
     alignSelf: 'center',
     width: '90%',
     backgroundColor: Colors.mainGreen,
     borderRadius: 6,
-    marginTop: 15,
     height: 45,
   },
 });
