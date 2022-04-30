@@ -1,10 +1,11 @@
 export default {
   white: '#FFFFFF',
   black: '#000',
-  background: '#201C1C',
+  background: '#141414',
   gray3: '#ADADAD',
   gray4: '#403C3C',
   gray5: '#242526',
+  gray6: '#201F1F',
   orange: '#F4B61C',
   red: '#FF0000',
   mainGreen: '#228176',

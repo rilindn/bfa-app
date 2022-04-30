@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Text } from 'react-native-ui-lib';
 
+import Colors from '../../constants/Colors';
 import styles from './Header.styles';
 
-const Header = ({}) => {
+const Header = () => {
   return (
     <View style={styles.container}>
-      <Text>Initial Header</Text>
+      <Text style={{ color: Colors.white }}>This is header</Text>
     </View>
   );
 };

@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.gray3 + '50',
     borderRadius: 15,
-    backgroundColor: Colors.headerBg,
     alignSelf: 'center',
   },
   button: {
@@ -53,7 +52,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.gray3 + '50',
     borderRadius: 15,
-    backgroundColor: Colors.headerBg,
     alignSelf: 'center',
     justifyContent: 'center',
     paddingHorizontal: 10,
@@ -80,7 +78,6 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: Colors.white,
     borderRadius: 6,
-    backgroundColor: Colors.headerBg,
     padding: 10,
     marginVertical: 20,
   },
@@ -90,7 +87,7 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.medium,
   },
   statisticsText: {
-    color: Colors.gray3 + '50',
+    color: Colors.gray3,
   },
   aboutText: {
     color: Colors.white,
@@ -113,10 +110,8 @@ const styles = StyleSheet.create({
   },
   editProfileBtn: {
     width: 120,
-    backgroundColor: Colors.headerBg,
-    borderWidth: 0.5,
     height: 40,
-    borderColor: Colors.white,
+    backgroundColor: Colors.orange,
   },
   editProfileLabel: {
     fontSize: fontSizes.small,
@@ -130,7 +125,6 @@ const styles = StyleSheet.create({
   },
   leftTab: {
     width: '47%',
-    backgroundColor: Colors.headerBg,
     padding: 6,
     justifyContent: 'center',
     borderTopLeftRadius: 15,
@@ -140,7 +134,6 @@ const styles = StyleSheet.create({
   },
   rightTab: {
     width: '47%',
-    backgroundColor: Colors.headerBg,
     padding: 6,
     justifyContent: 'center',
     borderTopRightRadius: 15,
@@ -149,7 +142,6 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
   },
   bottomTabContainer: {
-    backgroundColor: Colors.headerBg,
     width: '94%',
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
@@ -159,10 +151,8 @@ const styles = StyleSheet.create({
   },
   editBtn: {
     width: 20,
-    backgroundColor: Colors.headerBg,
-    borderWidth: 0.5,
-    borderColor: Colors.white,
     height: 40,
+    backgroundColor: Colors.orange,
   },
   editLabel: {
     fontFamily: 'poppins-regular',
