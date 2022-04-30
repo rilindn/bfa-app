@@ -55,3 +55,35 @@ export async function loggedUser(data) {
     return err;
   }
 }
+
+// password reset
+
+export async function requestResetPassword(data) {
+  try {
+    const result = await Client.post('requestResetPassword', { ...data });
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+export async function validateResetPasswordCode(data) {
+  try {
+    const result = await Client.post('validateResetPasswordCode', { ...data });
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+export async function resetPassword(userId, data) {
+  try {
+    const result = await Client.put(`resetPassword/${userId}`, { ...data });
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
