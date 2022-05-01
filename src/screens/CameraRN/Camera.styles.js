@@ -8,7 +8,16 @@ const CAPTURE_SIZE = Math.floor(WINDOW_HEIGHT * 0.08);
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: Colors.black,
+  },
+  cameraContainer: {
+    height: '65%',
+  },
+  previewContainer: {
     ...StyleSheet.absoluteFillObject,
+    bottom: 0,
   },
   text: {
     color: Colors.white,

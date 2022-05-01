@@ -5,6 +5,7 @@ import React, { useState, useRef } from 'react';
 import { View, TouchableOpacity, ActivityIndicator, ToastAndroid } from 'react-native';
 
 import Colors from '../../constants/Colors';
+import useAuth from './../../hooks/useAuth';
 import styles from './Camera.styles';
 
 export default function CameraRN({ navigation }) {
@@ -14,6 +15,8 @@ export default function CameraRN({ navigation }) {
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [source, setSource] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const { authData } = useAuth();
 
   const onCameraReady = () => {
     setIsCameraReady(true);
@@ -56,9 +59,12 @@ export default function CameraRN({ navigation }) {
       const result = await axios.post(apiUrl, {
         ...data,
       });
-      console.log('first', result.data);
+      console.log('first', authData.id);
       if (result.data.secure_url) {
         ToastAndroid.show('Photo has been uploaded', ToastAndroid.LONG);
+        navigation.navigate('Profile', {
+          photo: result.data.secure_url,
+        });
       }
     } catch (err) {
       console.log(err.response.data);
@@ -69,7 +75,8 @@ export default function CameraRN({ navigation }) {
     }
   };
 
-  const cancelPreview = async () => {
+  const cancel = async () => {
+    if (!isPreview) return navigation.goBack();
     await cameraRef.current.resumePreview();
     setIsPreview(false);
   };
@@ -78,21 +85,18 @@ export default function CameraRN({ navigation }) {
     <View style={styles.container}>
       <Camera
         ref={cameraRef}
-        style={styles.container}
+        style={styles.cameraContainer}
         type={cameraType}
         onCameraReady={onCameraReady}
-        ratio="16:9"
-        pictureSize="16:9"
+        ratio="4:3"
+        pictureSize="4:3"
       />
-      <View style={styles.container}>
+      <View style={styles.previewContainer}>
+        <TouchableOpacity onPress={cancel} style={styles.closeButton} activeOpacity={0.7}>
+          <AntDesign name="close" size={32} color={Colors.light} />
+        </TouchableOpacity>
         {isPreview && (
           <>
-            <TouchableOpacity
-              onPress={cancelPreview}
-              style={styles.closeButton}
-              activeOpacity={0.7}>
-              <AntDesign name="close" size={32} color={Colors.light} />
-            </TouchableOpacity>
             <View style={styles.savePhotoContainer}>
               <TouchableOpacity
                 onPress={uploadPhoto}

@@ -2,15 +2,7 @@ import { AntDesign, Entypo } from '@expo/vector-icons';
 import axios from 'axios';
 import * as ImagePicker from 'expo-image-picker';
 import React, { useEffect, useState } from 'react';
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ToastAndroid,
-  Dimensions,
-} from 'react-native';
+import { Image, Text, TouchableOpacity, View, ToastAndroid, Dimensions } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 
 import Colors from '../../constants/Colors';
@@ -35,80 +27,84 @@ export default function App({ navigation }) {
     const pickerResult = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
+      aspect: [4, 3],
       quality: 1,
       base64: true,
     });
-    console.log(pickerResult.uri);
-    setPreview(pickerResult.uri);
-    // if (pickerResult.base64) {
-    //   const base64Img = `data:image/jpg;base64,${pickerResult.base64}`;
-    //   const apiUrl = 'https://api.cloudinary.com/v1_1/ball-for-all/image/upload';
-    //   const data = {
-    //     file: base64Img,
-    //     upload_preset: 'rkahqfhc',
-    //   };
+    console.log(pickerResult.width);
+    console.log(pickerResult.height);
+    setPreview(pickerResult);
+  };
 
-    //   try {
-    //     setLoading(true);
-    //     const result = await axios.post(apiUrl, {
-    //       ...data,
-    //     });
-    //     console.log('first', result.data);
-    //     if (result.data.secure_url) {
-    //       ToastAndroid.show('Photo has been uploaded', ToastAndroid.LONG);
-    //     }
-    //   } catch (err) {
-    //     console.log(err.response.data);
-    //     ToastAndroid.show('Please try again later!', ToastAndroid.LONG);
-    //   } finally {
-    //     setLoading(false);
-    //     navigation.goBack();
-    //   }
-    // }
+  const uploadPhoto = async () => {
+    const base64Img = `data:image/jpg;base64,${preview.base64}`;
+    const apiUrl = 'https://api.cloudinary.com/v1_1/ball-for-all/image/upload';
+    const data = {
+      file: base64Img,
+      upload_preset: 'rkahqfhc',
+    };
+
+    try {
+      setLoading(true);
+      const result = await axios.post(apiUrl, {
+        ...data,
+      });
+      console.log('first', result.data);
+      if (result.data.secure_url) {
+        navigation.navigate('Profile', {
+          photo: result.data.secure_url,
+        });
+        ToastAndroid.show('Photo has been uploaded', ToastAndroid.LONG);
+      }
+    } catch (err) {
+      console.log(err.response.data);
+      ToastAndroid.show('Please try again later!', ToastAndroid.LONG);
+      navigation.goBack();
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <View style={styles.container}>
       {!preview ? (
         <>
-          <Image source={{ uri: 'https://i.imgur.com/TkIrScD.png' }} style={styles.logo} />
           <Text style={styles.instructions}>
             To share a photo from your phone with a friend, just press the button below!
           </Text>
-
-          <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
-            <Text style={styles.buttonText}>Pick a photo</Text>
-          </TouchableOpacity>
-          <Text>{preview}</Text>
         </>
       ) : (
         <View style={styles.container}>
           <Image
-            source={{ uri: preview }}
+            source={{ uri: preview.uri }}
             style={{
               width: Dimensions.get('window').width,
-              height: Dimensions.get('window').height,
+              flex: 1,
+              resizeMode: 'contain',
             }}
           />
-          <TouchableOpacity style={styles.closeButton} activeOpacity={0.7}>
+          <TouchableOpacity
+            onPress={openImagePickerAsync}
+            style={styles.closeButton}
+            activeOpacity={0.7}>
             <AntDesign name="close" size={32} color={Colors.light} />
           </TouchableOpacity>
           <View style={styles.savePhotoContainer}>
             <TouchableOpacity
-              // onPress={uploadPhoto}
+              onPress={openImagePickerAsync}
+              activeOpacity={0.7}
+              style={styles.anotherPhotoButton}>
+              <Text style={styles.takeAnotherText}>Take another</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={uploadPhoto}
               activeOpacity={0.7}
               style={styles.savePhotoButton}>
               {!loading ? (
                 <Entypo name="check" size={37} color={Colors.gray3} />
               ) : (
-                <ActivityIndicator size="large" color={Colors.white} animating />
+                <ActivityIndicator size="small" color={Colors.white} animating />
               )}
-            </TouchableOpacity>
-            <TouchableOpacity
-              // onPress={uploadPhoto}
-              activeOpacity={0.7}
-              style={styles.savePhotoButton}>
-              <Text>Take another</Text>
             </TouchableOpacity>
           </View>
         </View>
