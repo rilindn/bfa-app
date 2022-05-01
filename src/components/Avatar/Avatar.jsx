@@ -3,21 +3,16 @@ import { View, Text, Image } from 'react-native';
 
 import styles from './Avatar.styles';
 
-export default function Avatar({
-  image,
-  firstName,
-  lastName,
-  avatarContainer,
-  imageStyle,
-  initialStyle,
-}) {
+export default function Avatar({ image, name, avatarContainer, imageStyle, initialStyle }) {
   const [initials, setInitials] = useState('');
 
+  const fullName = name.split(' ');
+
   const extractInitials = () => {
-    const result = firstName.charAt(0) + lastName.charAt(0);
+    const result = fullName[0].charAt(0) + (fullName?.[1]?.charAt(0) || '');
+    console.log(result);
     setInitials(result);
   };
-
   useEffect(() => {
     extractInitials();
   }, []);
