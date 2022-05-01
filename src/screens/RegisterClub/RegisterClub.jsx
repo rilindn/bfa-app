@@ -102,6 +102,20 @@ export default function RegisterClub({ navigation }) {
                   rules={rules.clubName}
                 />
                 <TextInput
+                  name="league"
+                  placeholder="League"
+                  control={control}
+                  rules={rules.league}
+                  errors={errors}
+                />
+                <TextInput
+                  name="leagueLevel"
+                  placeholder="League Level"
+                  control={control}
+                  rules={rules.leagueLevel}
+                  errors={errors}
+                />
+                <TextInput
                   name="email"
                   placeholder="Email"
                   control={control}
@@ -172,6 +186,18 @@ const rules = {
     required: {
       value: true,
       message: 'Role is required',
+    },
+  },
+  league: {
+    required: {
+      value: true,
+      message: 'League is required',
+    },
+  },
+  leagueLevel: {
+    required: {
+      value: true,
+      message: 'League level is required',
     },
   },
   email: {
