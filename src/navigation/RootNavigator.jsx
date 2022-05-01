@@ -10,7 +10,13 @@ const RootNavigator = ({ initialScreen, authData }) => {
         headerShown: false,
       }}>
       {authData?.token ? (
-        <Root.Screen name="Root" getComponent={() => require('./DrawerNavigator').default} />
+        <>
+          <Root.Screen name="Root" getComponent={() => require('./DrawerNavigator').default} />
+          <Root.Screen
+            name="EditProfile"
+            getComponent={() => require('../screens/Profile/EditProfile/EditProfile').default}
+          />
+        </>
       ) : (
         <>
           <Root.Screen
