@@ -16,6 +16,16 @@ const RootNavigator = ({ initialScreen, authData }) => {
             name="EditProfile"
             getComponent={() => require('../screens/Profile/EditProfile/EditProfile').default}
           />
+          <Root.Screen
+            name="Camera"
+            getComponent={() => require('../screens/CameraRN/Camera').default}
+            options={{ presentation: 'modal' }}
+          />
+          <Root.Screen
+            name="ImagePicker"
+            getComponent={() => require('../screens/ImagePicker/ImagePicker').default}
+            options={{ presentation: 'modal' }}
+          />
         </>
       ) : (
         <>
