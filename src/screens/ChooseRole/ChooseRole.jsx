@@ -66,7 +66,11 @@ export default function ChooseRole({ navigation }) {
                 )}
               </View>
             </TouchableOpacity>
-            <CustomButton label="Continue" onPress={() => navigation.navigate(selectedRole)} />
+            <CustomButton
+              label="Continue"
+              onPress={() => navigation.navigate(selectedRole)}
+              style={{ marginTop: 10 }}
+            />
           </View>
         </View>
       </ImageBackground>

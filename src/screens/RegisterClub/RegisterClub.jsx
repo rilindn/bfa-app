@@ -128,7 +128,12 @@ export default function RegisterClub({ navigation }) {
                       value === watch('password') || 'The passwords do not match',
                   }}
                 />
-                <CustomButton label="Register" onPress={handleSubmit(onSubmit)} loading={loading} />
+                <CustomButton
+                  label="Register"
+                  onPress={handleSubmit(onSubmit)}
+                  loading={loading}
+                  style={{ marginTop: 15 }}
+                />
               </View>
               <View style={styles.bottomContainer}>
                 <Text style={styles.bottomText}>Already have an account?</Text>

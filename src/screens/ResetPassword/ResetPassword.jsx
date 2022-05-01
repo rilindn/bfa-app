@@ -173,6 +173,7 @@ export default function Login({ navigation }) {
                     label="Request"
                     onPress={handleSubmit(requestReset)}
                     loading={isLoading}
+                    style={{ marginTop: 15 }}
                   />
                 </>
               )}
