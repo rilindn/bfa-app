@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
     width: '100%',
     alignSelf: 'center',
     height: '100%',
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: Colors.gray3 + '50',
   },
   title: {
     color: Colors.light,
@@ -131,26 +134,26 @@ const styles = StyleSheet.create({
   },
   topTabContainer: {
     flexDirection: 'row',
-    alignSelf: 'center',
+    //alignSelf: 'center',
     marginTop: 20,
+    marginBottom: 20,
+    justifyContent: 'space-around',
   },
   leftTab: {
-    width: '47%',
+    width: '40%',
     padding: 6,
     justifyContent: 'center',
-    borderTopLeftRadius: 15,
-    borderTopWidth: 1,
+    borderRadius: 5,
+    borderWidth: 1,
     borderColor: Colors.gray3 + '50',
-    borderLeftWidth: 1,
   },
   rightTab: {
-    width: '47%',
+    width: '40%',
     padding: 6,
     justifyContent: 'center',
-    borderTopRightRadius: 15,
-    borderTopWidth: 1,
+    borderRadius: 5,
+    borderWidth: 1,
     borderColor: Colors.gray3 + '50',
-    borderRightWidth: 1,
   },
   bottomTabContainer: {
     width: '94%',
@@ -170,7 +173,7 @@ const styles = StyleSheet.create({
   cancelBtn: {
     width: 100,
     height: 40,
-    backgroundColor: Colors.orange,
+    backgroundColor: Colors.gray5,
   },
   cancelLabel: {
     fontFamily: 'poppins-regular',
@@ -202,6 +205,8 @@ const styles = StyleSheet.create({
     color: Colors.white,
   },
   inputText: {
+    width: 350,
+    alignSelf: 'center',
     marginTop: 20,
   },
   input: {
@@ -217,6 +222,12 @@ const styles = StyleSheet.create({
     color: Colors.white,
     padding: 10,
     fontFamily: 'poppins-regular',
+    fontSize: fontSizes.small,
+  },
+  styleLabel: {
+    fontFamily: 'poppins-regular',
+    color: Colors.white,
+    textAlign: 'center',
     fontSize: fontSizes.small,
   },
 });
