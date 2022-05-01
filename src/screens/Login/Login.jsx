@@ -75,7 +75,12 @@ export default function Login({ navigation }) {
                 errors={errors}
                 rules={rules.password}
               />
-              <CustomButton label="Login" onPress={handleSubmit(onSubmit)} loading={isLoading} />
+              <CustomButton
+                label="Login"
+                onPress={handleSubmit(onSubmit)}
+                loading={isLoading}
+                style={{ marginTop: 15 }}
+              />
             </View>
             <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
               <Text style={styles.forgotPassword}>Forgot password?</Text>

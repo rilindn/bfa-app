@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
     padding: 10,
     fontFamily: 'poppins-regular',
-    fontSize: fontSizes.extraSmall,
+    fontSize: fontSizes.small,
   },
   basicAccountBtn: {
     width: 120,

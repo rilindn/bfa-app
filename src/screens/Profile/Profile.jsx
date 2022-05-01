@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Avatar } from 'react-native-paper';
 
+// import { Avatar } from 'react-native-paper';
+import ImageProfile from '../../../assets/images/background1.png';
+import Avatar from '../../components/Avatar/Avatar';
 import CustomButton from '../../components/Button/Button';
 import Header from '../../components/Header/Header';
 import Colors from '../../constants/Colors';
+import { fontSizes } from '../../constants/Typography';
 import styles from './Profile.styles';
 
 export default function Profile() {
@@ -27,12 +30,11 @@ export default function Profile() {
             />
           </View>
           <Text style={styles.name}>Ake Kenned</Text>
-          <Avatar.Image
-            source={{
-              uri: 'https://w7.pngwing.com/pngs/223/244/png-transparent-computer-icons-avatar-user-profile-avatar-heroes-rectangle-black.png',
-            }}
-            size={80}
-            style={{ marginHorizontal: 15 }}
+          <Avatar
+            firstName="Ake"
+            lastName="Kenned"
+            avatarContainer={{ marginHorizontal: 15, marginTop: 5 }}
+            image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
           />
           <View style={styles.teamStatus}>
             <Text style={{ color: Colors.white }}>CURRENTLY WITHOUT A TEAM</Text>
@@ -120,11 +122,12 @@ export default function Profile() {
         <View style={styles.postSomethingWrapper}>
           <Text style={styles.postSomethingText}>Post Something</Text>
           <View style={styles.postSomethingAvatar}>
-            <Avatar.Image
-              source={{
-                uri: 'https://w7.pngwing.com/pngs/223/244/png-transparent-computer-icons-avatar-user-profile-avatar-heroes-rectangle-black.png',
-              }}
-              size={40}
+            <Avatar
+              firstName="Ake"
+              lastName="Kenned"
+              avatarContainer={{ width: 45, height: 45, borderRadius: 40 }}
+              initialStyle={{ fontSize: fontSizes.large }}
+              // image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
             />
             <View style={styles.postContainer}>
               <Text style={styles.postPlaceholder}>What's on your mind?</Text>

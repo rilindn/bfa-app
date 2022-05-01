@@ -106,7 +106,12 @@ export default function RegisterPlayer({ navigation }) {
                   validate: (value) => value === watch('password') || 'The passwords do not match',
                 }}
               />
-              <CustomButton loading={loading} label="Register" onPress={handleSubmit(onSubmit)} />
+              <CustomButton
+                loading={loading}
+                label="Register"
+                onPress={handleSubmit(onSubmit)}
+                style={{ marginTop: 15 }}
+              />
             </View>
             <View style={styles.bottomContainer}>
               <Text style={styles.bottomText}>Already have an account?</Text>
