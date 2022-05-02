@@ -210,17 +210,7 @@ export default function EditProfile() {
 }
 
 const rules = {
-  dateofbirth: {
-    required: {
-      value: true,
-      message: 'Date of birth is required',
-    },
-  },
   placeofbirth: {
-    required: {
-      value: true,
-      message: 'Place of birth is required',
-    },
     minLength: {
       value: 2,
       message: 'Place of birth must be more than 2 characters',
@@ -231,10 +221,6 @@ const rules = {
     },
   },
   nationality: {
-    required: {
-      value: true,
-      message: 'Nationality is required',
-    },
     minLength: {
       value: 2,
       message: 'Nationality must be more than 2 characters',
@@ -245,10 +231,6 @@ const rules = {
     },
   },
   zipcode: {
-    required: {
-      value: true,
-      message: 'Zip code is required',
-    },
     minLength: {
       value: 5,
       message: 'Zip code must not be more or less than 5 digits',
@@ -259,10 +241,6 @@ const rules = {
     },
   },
   height: {
-    required: {
-      value: true,
-      message: 'Height is required',
-    },
     minLength: {
       value: 50,
       message: 'Height must be more than 50 cm',
@@ -273,10 +251,6 @@ const rules = {
     },
   },
   weight: {
-    required: {
-      value: true,
-      message: 'Weight is required',
-    },
     minLength: {
       value: 50,
       message: 'Weight must be more than 30 kg',
@@ -287,24 +261,16 @@ const rules = {
     },
   },
   secposition: {
-    required: {
-      value: true,
-      message: 'Zip code is required',
-    },
     minLength: {
       value: 2,
-      message: 'Nationality must be more than 2 characters',
+      message: 'Second Position must be more than 2 characters',
     },
     maxLength: {
       value: 50,
-      message: 'Nationality must not be more or less than 50 characters',
+      message: 'Second Position must not be more or less than 50 characters',
     },
   },
   yourbacknum: {
-    required: {
-      value: true,
-      message: 'Zip code is required',
-    },
     minLength: {
       value: 1,
       message: 'Your back number must be more than 1',
@@ -312,12 +278,6 @@ const rules = {
     maxLength: {
       value: 99,
       message: 'Your back number must not be more or less than 99',
-    },
-  },
-  foot: {
-    required: {
-      value: true,
-      message: 'Your foot is required',
     },
   },
 };
