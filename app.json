@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ball-for-all-app",
-    "slug": "ball-for-all-app",
+    "name": "Ball For All",
+    "slug": "ball-for-all",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -15,9 +15,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -34,13 +32,7 @@
     },
     "packagerOpts": {
       "config": "metro.config.js",
-      "sourceExts": [
-        "js",
-        "jsx",
-        "json",
-        "wasm",
-        "svg"
-      ]
+      "sourceExts": ["js", "jsx", "json", "wasm", "svg"]
     }
   }
 }

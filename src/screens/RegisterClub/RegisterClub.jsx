@@ -82,12 +82,12 @@ export default function RegisterClub({ navigation }) {
                   errors={errors}
                   rules={rules.lastName}
                 />
-                <Text style={styles.selectInputLabel}>Recipient role in the club</Text>
                 <SelectInput
                   name="role"
                   control={control}
                   errors={errors}
                   rules={rules.role}
+                  label="Recipient role in the club"
                   placeholder="Choose a role"
                   options={[
                     { label: 'Coach', value: 'co' },

@@ -3,14 +3,12 @@ import { View, Text, Image } from 'react-native';
 
 import styles from './Avatar.styles';
 
-export default function Avatar({ image, name, avatarContainer, imageStyle, initialStyle }) {
+export default function Avatar({ image, size, name, avatarContainer, imageStyle, initialStyle }) {
   const [initials, setInitials] = useState('');
 
-  const fullName = name.split(' ');
-
   const extractInitials = () => {
-    const result = fullName[0].charAt(0) + (fullName?.[1]?.charAt(0) || '');
-    console.log(result);
+    const fullName = name?.split(' ');
+    const result = (fullName?.[0]?.charAt(0) || '') + (fullName?.[1]?.charAt(0) || '');
     setInitials(result);
   };
   useEffect(() => {
@@ -27,7 +25,7 @@ export default function Avatar({ image, name, avatarContainer, imageStyle, initi
   return (
     <View style={avatarContainer}>
       <Image
-        style={[styles.imageStyle, imageStyle]}
+        style={[styles.imageStyle, imageStyle, size && { width: size, height: size }]}
         source={{
           uri: image,
         }}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/Colors';
 import useAuth from '../../hooks/useAuth';
@@ -7,7 +8,7 @@ import Avatar from '../Avatar/Avatar';
 import CustomButton from '../Button/Button';
 import styles from './PlayerProfileCard.styles';
 
-export default function PlayerProfileCard() {
+export default function PlayerProfileCard({ navigation }) {
   const { authData } = useAuth();
 
   return (
@@ -16,11 +17,13 @@ export default function PlayerProfileCard() {
         <View style={styles.basicAccountBtn}>
           <Text style={styles.basicAccountLabel}>Basic account</Text>
         </View>
-        <CustomButton
-          label="Edit profile"
-          style={styles.editProfileBtn}
-          labelStyle={styles.editProfileLabel}
-        />
+        <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
+          <CustomButton
+            label="Edit profile"
+            style={styles.editProfileBtn}
+            labelStyle={styles.editProfileLabel}
+          />
+        </TouchableOpacity>
       </View>
       <Text style={styles.name}>
         {authData.Player.firstName} {authData.Player.lastName}
