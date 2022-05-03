@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 import Colors from '../../../constants/Colors';
 import { fontSizes } from '../../../constants/Typography';
@@ -20,36 +20,9 @@ const styles = StyleSheet.create({
   },
   title: {
     color: Colors.light,
-    fontSize: fontSizes.medium,
+    fontSize: fontSizes.title,
     marginHorizontal: 15,
     fontFamily: 'poppins-semibold',
-    alignSelf: 'center',
-  },
-  editProfileBtn: {
-    width: 160,
-    height: 40,
-    backgroundColor: Colors.orange,
-  },
-  editProfileLabel: {
-    fontSize: fontSizes.small,
-    fontFamily: 'poppins-regular',
-    color: Colors.white,
-  },
-  mainContent: {
-    paddingTop: 30,
-    borderTopWidth: 1,
-    borderColor: Colors.gray3 + '50',
-    flexDirection: 'row',
-  },
-  changePhoto: {
-    color: Colors.light,
-    fontSize: fontSizes.medium,
-  },
-  genInfo: {},
-  changeInfo: {
-    marginTop: 50,
-    color: Colors.light,
-    fontSize: fontSizes.medium,
     alignSelf: 'center',
   },
   infoBoxWrapper: {
@@ -65,170 +38,34 @@ const styles = StyleSheet.create({
     borderRightColor: Colors.gray3,
     borderRightWidth: 0.5,
   },
-  tabText: {
-    color: Colors.light,
-    alignSelf: 'center',
-    padding: 10,
-  },
-  postSomethingWrapper: {
-    width: '94%',
-    marginVertical: 20,
-    borderWidth: 1,
-    borderColor: Colors.gray3 + '50',
-    borderRadius: 15,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 10,
-  },
-  postSomethingAvatar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: 20,
-  },
-  postSomethingText: {
-    color: Colors.light,
-    fontSize: fontSizes.large,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.gray3 + '50',
-    paddingVertical: 10,
+  styleLabel: {
     fontFamily: 'poppins-semibold',
-  },
-  teamStatus: {
-    width: '93%',
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 10,
-    borderWidth: 0.5,
-    borderColor: Colors.white,
-    borderRadius: 6,
-    padding: 10,
-    marginVertical: 20,
-  },
-  statisticsNumber: {
     color: Colors.white,
-    fontFamily: 'poppins-semibold',
-    fontSize: fontSizes.medium,
-  },
-  statisticsText: {
-    color: Colors.gray3,
-  },
-  aboutText: {
-    color: Colors.white,
-    padding: 10,
-    fontFamily: 'poppins-regular',
-    fontSize: fontSizes.extraSmall,
-  },
-  basicAccountBtn: {
-    width: 120,
-    height: 25,
-    backgroundColor: Colors.gray4 + '50',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 6,
-  },
-  basicAccountLabel: {
-    fontSize: fontSizes.small,
-    color: Colors.white + '70',
-    fontFamily: 'poppins-regular',
+    textAlign: 'center',
+    fontSize: fontSizes.default,
   },
   topTabContainer: {
     flexDirection: 'row',
-    //alignSelf: 'center',
     marginTop: 20,
     marginBottom: 20,
     justifyContent: 'space-around',
   },
-  leftTab: {
-    width: '40%',
+  tab: {
+    width: Dimensions.get('window').width / 2.5,
     padding: 6,
     justifyContent: 'center',
     borderRadius: 5,
-    borderWidth: 1,
-    borderColor: Colors.gray3 + '50',
-  },
-  rightTab: {
-    width: '40%',
-    padding: 6,
-    justifyContent: 'center',
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: Colors.gray3 + '50',
+    backgroundColor: Colors.gray3 + 30,
   },
   bottomTabContainer: {
-    width: '94%',
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     borderWidth: 1,
     borderColor: Colors.gray3 + '50',
     alignSelf: 'center',
-  },
-  button: {
-    marginTop: 50,
-    flexDirection: 'row',
-    padding: 15,
-    //alignSelf: 'center',
-    justifyContent: 'space-between',
-  },
-  cancelBtn: {
-    width: 100,
-    height: 40,
-    backgroundColor: Colors.gray5,
-  },
-  cancelLabel: {
-    fontFamily: 'poppins-regular',
-    color: Colors.white,
-    textAlign: 'center',
-    fontSize: fontSizes.small,
-  },
-  saveBtn: {
-    width: 200,
-    height: 40,
-    //backgroundColor: Colors.orange,
-  },
-  saveLabel: {
-    fontFamily: 'poppins-regular',
-    color: Colors.white,
-    textAlign: 'center',
-    fontSize: fontSizes.small,
-  },
-  leftListItem: {
-    color: Colors.gray3 + '50',
-    fontFamily: 'poppins-regular',
-  },
-  rightListItem: {
-    color: Colors.white,
-    fontFamily: 'poppins-semibold',
-  },
-  playerCharacteristicText: {
-    fontFamily: 'poppins-semibold',
-    color: Colors.white,
-  },
-  inputText: {
-    width: 350,
-    alignSelf: 'center',
-    marginTop: 20,
-  },
-  input: {
-    backgroundColor: Colors.gray3,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: Colors.placeholder,
-    marginVertical: 10,
-    marginHorizontal: 8,
-  },
-  accSettings: {
-    marginTop: 50,
-    color: Colors.white,
-    padding: 10,
-    fontFamily: 'poppins-regular',
-    fontSize: fontSizes.small,
-  },
-  styleLabel: {
-    fontFamily: 'poppins-regular',
-    color: Colors.white,
-    textAlign: 'center',
-    fontSize: fontSizes.small,
+    marginBottom: 20,
+    borderRadius: 10,
+    width: '95%',
   },
 });
 

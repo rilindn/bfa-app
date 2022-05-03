@@ -69,7 +69,7 @@ export default function ChooseRole({ navigation }) {
             <CustomButton
               label="Continue"
               onPress={() => navigation.navigate(selectedRole)}
-              style={{ marginTop: 10 }}
+              style={styles.button}
             />
           </View>
         </View>

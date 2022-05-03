@@ -10,7 +10,7 @@ import PostSomething from '../../components/PostSomething/PostSomething';
 import useAuth from '../../hooks/useAuth';
 import styles from './Profile.styles';
 
-export default function Profile() {
+export default function Profile({ navigation }) {
   const { authData } = useAuth();
 
   return (
@@ -19,7 +19,7 @@ export default function Profile() {
       <ScrollView style={styles.container}>
         {authData.role === 'Player' ? (
           <>
-            <PlayerProfileCard />
+            <PlayerProfileCard navigation={navigation} />
             <PlayerBottomSection />
             <PostSomething name={`${authData.Player.firstName} ${authData.Player.lastName}`} />
           </>

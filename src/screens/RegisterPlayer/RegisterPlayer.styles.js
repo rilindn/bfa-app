@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     fontFamily: 'poppins-semibold',
   },
   middleContainer: {
-    width: '100%',
+    width: '90%',
     alignItems: 'center',
   },
 });

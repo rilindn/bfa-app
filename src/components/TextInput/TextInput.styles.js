@@ -5,7 +5,7 @@ import { fontSizes } from '../../constants/Typography';
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
+    width: '100%',
     marginBottom: 10,
     position: 'relative',
   },
@@ -37,4 +37,22 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
 });
-export default styles;
+
+const stylesDark = StyleSheet.create({
+  inputCtn: {
+    borderWidth: 0.5,
+    borderColor: Colors.light,
+    backgroundColor: Colors.green1 + '20',
+  },
+  textInputStyle: {
+    color: Colors.light,
+  },
+  title: {
+    color: Colors.gray3 + 50,
+  },
+  error: {
+    color: Colors.red,
+  },
+});
+
+export { styles, stylesDark };

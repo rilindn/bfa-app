@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    marginVertical: 30,
+    marginBottom: 30,
+    marginTop: 80,
   },
   header: {
     flexDirection: 'column',
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
     fontFamily: 'poppins-semibold',
   },
   middleContainer: {
-    width: '100%',
+    width: '90%',
     alignItems: 'center',
   },
   selectInputLabel: {

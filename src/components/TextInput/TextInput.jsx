@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 import { TextInput, View, Text } from 'react-native';
 
 import Colors from '../../constants/Colors';
-import styles from './TextInput.styles';
+import { styles, stylesDark } from './TextInput.styles';
 
 const CustomTextInput = ({
   control,
@@ -15,18 +15,25 @@ const CustomTextInput = ({
   inputStyle,
   secureTextEntry,
   errors,
+  numberOfLines,
+  labelStyle,
+  darkMode,
+  multiline,
 }) => {
   const [focused, setFocused] = useState(false);
   const error = errors?.[name]?.message;
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title ? title : placeholder}</Text>
+      <Text style={[styles.title, labelStyle, darkMode && stylesDark.title]}>
+        {title ? title : placeholder}
+      </Text>
       <View
         style={[
           styles.inputCtn,
           inputStyle,
           focused && { borderColor: Colors.mainGreen },
           error && { borderColor: Colors.red },
+          darkMode && stylesDark.inputCtn,
         ]}>
         <Controller
           control={control}
@@ -35,8 +42,7 @@ const CustomTextInput = ({
           render={({ field: { onChange, value } }) => (
             <TextInput
               placeholder={placeholder}
-              placeholderTextColor={Colors.placeholder}
-              style={[styles.textInputStyle, textInputStyle]}
+              placeholderTextColor={(darkMode && Colors.gray3 + 60) || Colors.gray3}
               onFocus={() => setFocused(true)}
               onEndEditing={() => setFocused(false)}
               value={value}
@@ -44,11 +50,14 @@ const CustomTextInput = ({
               secureTextEntry={secureTextEntry}
               selectionColor={Colors.green1}
               autoCapitalize="none"
+              multiline={multiline}
+              numberOfLines={numberOfLines}
+              style={[styles.textInputStyle, textInputStyle, darkMode && stylesDark.textInputStyle]}
             />
           )}
         />
       </View>
-      <Text style={styles.error}>{errors?.[name]?.message}</Text>
+      <Text style={[styles.error, darkMode && stylesDark.error]}>{errors?.[name]?.message}</Text>
     </View>
   );
 };

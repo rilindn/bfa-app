@@ -80,6 +80,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  button: {
+    marginTop: 10,
+    width: '90%',
+  },
 });
 
 export default styles;
