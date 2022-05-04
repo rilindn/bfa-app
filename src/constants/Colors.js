@@ -12,5 +12,6 @@ export default {
   green1: '#D9E1E7',
   light: '#E5E5E5',
   placeholder: '#CFCFCF',
-  headerBg: '#282424',
+  headerBg: '#1F1F1F',
+  bottomNavBg: '#1B1B1B',
 };

@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native-gesture-handler';
 
 import { loggedUser } from '../../api/ApiMethods';
+import Header from '../../components/Header/Header';
+import Post from '../../components/Post/Post';
+import PostSomething from '../../components/PostSomething/PostSomething';
 import useAuthContext from './../../hooks/useAuth';
 import styles from './Feed.styles';
 
-export default function Feed({ navigation }) {
+export default function Feed() {
   const [user, setUser] = useState({});
   const { authData } = useAuthContext();
 
@@ -15,10 +17,12 @@ export default function Feed({ navigation }) {
     setUser(result.data);
   }, []);
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Welcome {authData?.[authData?.role]?.firstName}</Text>
-      <Text style={{ color: 'black' }}>Email: {user?.user?.email}</Text>
-      <Text style={{ color: 'black' }}>Role: {user?.user?.role}</Text>
-    </SafeAreaView>
+    <>
+      <Header />
+      <ScrollView style={styles.container}>
+        <PostSomething name={`${authData.Player.firstName} ${authData.Player.lastName}`} />
+        <Post />
+      </ScrollView>
+    </>
   );
 }

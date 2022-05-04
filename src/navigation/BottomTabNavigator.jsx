@@ -22,7 +22,7 @@ function Tabs() {
       tabBarOptions={{
         showLabel: false,
       }}
-      barStyle={{ backgroundColor: Colors.gray5 }}>
+      barStyle={{ backgroundColor: Colors.bottomNavBg }}>
       <Tab.Screen name="Feed" getComponent={() => require('../screens/Feed/Feed').default} />
       <Tab.Screen
         name="Messages"

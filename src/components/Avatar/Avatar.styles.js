@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
   },
   imageStyle: {
-    width: 70,
-    height: 70,
-    borderRadius: 70,
+    width: 45,
+    height: 45,
+    borderRadius: 30,
   },
 });
 export default styles;
