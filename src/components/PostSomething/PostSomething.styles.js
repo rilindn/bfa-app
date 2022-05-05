@@ -7,8 +7,7 @@ const styles = StyleSheet.create({
   postSomethingWrapper: {
     width: '94%',
     marginVertical: 20,
-    borderWidth: 1,
-    borderColor: Colors.gray3 + '50',
+    backgroundColor: Colors.headerBg,
     borderRadius: 15,
     alignSelf: 'center',
     justifyContent: 'center',
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
   postSomethingText: {
     color: Colors.light,
     fontSize: fontSizes.large,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.5,
     borderBottomColor: Colors.gray3 + '50',
     paddingVertical: 10,
     fontFamily: 'poppins-semibold',
