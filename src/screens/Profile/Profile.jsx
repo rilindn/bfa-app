@@ -21,7 +21,10 @@ export default function Profile({ navigation }) {
           <>
             <PlayerProfileCard navigation={navigation} />
             <PlayerBottomSection />
-            <PostSomething name={`${authData.Player.firstName} ${authData.Player.lastName}`} />
+            <PostSomething
+              name={`${authData.Player.firstName} ${authData.Player.lastName}`}
+              image={authData.profilePic}
+            />
           </>
         ) : (
           <>

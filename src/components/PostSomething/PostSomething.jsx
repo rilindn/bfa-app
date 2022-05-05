@@ -5,7 +5,7 @@ import { fontSizes } from '../../constants/Typography';
 import Avatar from '../Avatar/Avatar';
 import styles from './PostSomething.styles';
 
-export default function PostSomething({ name }) {
+export default function PostSomething({ name, image }) {
   return (
     <View style={styles.postSomethingWrapper}>
       <Text style={styles.postSomethingText}>Post Something</Text>
@@ -14,6 +14,7 @@ export default function PostSomething({ name }) {
           name={name}
           avatarContainer={{ width: 45, height: 45, borderRadius: 40 }}
           initialStyle={{ fontSize: fontSizes.large }}
+          image={image}
         />
         <View style={styles.postContainer}>
           <Text style={styles.postPlaceholder}>What's on your mind?</Text>

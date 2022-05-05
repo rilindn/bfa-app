@@ -25,7 +25,11 @@ export default function Avatar({ image, size, name, avatarContainer, imageStyle,
   return (
     <View style={avatarContainer}>
       <Image
-        style={[styles.imageStyle, imageStyle, size && { width: size, height: size }]}
+        style={[
+          styles.imageStyle,
+          imageStyle,
+          size && { width: size, height: size, borderRadius: size },
+        ]}
         source={{
           uri: image,
         }}

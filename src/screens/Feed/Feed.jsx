@@ -8,7 +8,7 @@ import PostSomething from '../../components/PostSomething/PostSomething';
 import useAuthContext from './../../hooks/useAuth';
 import styles from './Feed.styles';
 
-export default function Feed() {
+export default function Feed({ navigation }) {
   const [user, setUser] = useState({});
   const { authData, loading } = useAuthContext();
 
@@ -21,10 +21,16 @@ export default function Feed() {
       <Header />
       <ScrollView style={styles.container}>
         {!loading && (
-          <PostSomething name={`${authData.Player.firstName} ${authData.Player.lastName}`} />
-          <Post />
-          )
-        }
+          <>
+            <PostSomething
+              name={`${authData.Player.firstName} ${authData.Player.lastName}`}
+              image={authData.profilePic}
+            />
+            <Post navigation={navigation} />
+            <Post navigation={navigation} />
+            <Post navigation={navigation} />
+          </>
+        )}
       </ScrollView>
     </>
   );

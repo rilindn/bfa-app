@@ -8,8 +8,6 @@ import styles from './PhotoView.styles';
 export default function CameraRN({ route, navigation }) {
   const photo = route.params?.photo;
 
-  console.log('firdsdfst', photo);
-
   return (
     <View style={styles.container}>
       <TouchableOpacity

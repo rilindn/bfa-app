@@ -30,15 +30,17 @@ const styles = StyleSheet.create({
     width: '85%',
     height: 45,
     justifyContent: 'center',
+    marginLeft: 5,
   },
   name: {
     color: Colors.white,
     fontFamily: 'poppins-semibold',
+    fontSize: fontSizes.large,
   },
   date: {
     color: Colors.gray3 + '80',
     fontFamily: 'poppins-regular',
-    fontSize: fontSizes.superSmall,
+    fontSize: fontSizes.extraSmall,
   },
   middleContainer: {
     width: '100%',
@@ -76,12 +78,18 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     height: 45,
     justifyContent: 'center',
+    marginLeft: 5,
   },
   commentText: {
     fontFamily: 'poppins-regular',
-    fontSize: fontSizes.superSmall,
+    fontSize: fontSizes.extraSmall,
     color: Colors.gray3 + '80',
     paddingLeft: 10,
+  },
+  commentName: {
+    color: Colors.white,
+    fontFamily: 'poppins-semibold',
+    fontSize: fontSizes.default,
   },
   halfContainer: {
     width: '50%',

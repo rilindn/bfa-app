@@ -36,6 +36,7 @@ export default function PlayerProfileCard({ navigation }) {
           name={`${authData.Player.firstName} ${authData.Player.lastName}`}
           avatarContainer={{ marginHorizontal: 15, marginTop: 5 }}
           image={authData.profilePic}
+          size={80}
         />
       </TouchableOpacity>
       <View style={styles.teamStatus}>
