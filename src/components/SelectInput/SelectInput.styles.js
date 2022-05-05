@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   textInputStyle: {
     fontSize: fontSizes.medium,
     marginLeft: 10,
-    color: Colors.gray4,
+    color: Colors.light,
     paddingLeft: 4,
   },
   title: {
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 const stylesDark = StyleSheet.create({
   inputCtn: {
     borderWidth: 0.5,
-    borderColor: Colors.light,
+    borderColor: Colors.light + '90',
     backgroundColor: Colors.green1 + '20',
   },
   textInputStyle: {

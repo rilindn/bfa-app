@@ -9,7 +9,17 @@ export async function getAllPlayer() {
 
 export async function registerPlayer(data) {
   try {
-    const result = await Client.post('player', { ...data });
+    const result = await Client.post(`player`, { ...data });
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+export async function editPlayer(userId, data) {
+  try {
+    const result = await Client.put(`player/${userId}`, { ...data });
     return result;
   } catch (err) {
     console.error(err);
@@ -46,9 +56,9 @@ export async function login(data) {
   }
 }
 
-export async function loggedUser(data) {
+export async function loggedUser() {
   try {
-    const result = await Client.get('loggedUser', { ...data });
+    const result = await Client.get('loggedUser');
     return result;
   } catch (err) {
     console.error(err);

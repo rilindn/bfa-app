@@ -9,13 +9,27 @@ const RootNavigator = ({ initialScreen, authData }) => {
       screenOptions={{
         headerShown: false,
       }}>
-      {authData?.token ? (
+      {authData?.id ? (
         <>
           <Root.Screen name="Root" getComponent={() => require('./DrawerNavigator').default} />
           <Root.Screen
             name="EditProfile"
             getComponent={() => require('../screens/Profile/EditProfile/EditProfile').default}
           />
+          <Root.Group screenOptions={{ presentation: 'modal' }}>
+            <Root.Screen
+              name="Camera"
+              getComponent={() => require('../screens/CameraRN/Camera').default}
+            />
+            <Root.Screen
+              name="ImagePicker"
+              getComponent={() => require('../screens/ImagePicker/ImagePicker').default}
+            />
+            <Root.Screen
+              name="PhotoView"
+              getComponent={() => require('../screens/PhotoView/PhotoView').default}
+            />
+          </Root.Group>
         </>
       ) : (
         <>

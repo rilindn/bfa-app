@@ -10,7 +10,7 @@ import styles from './Feed.styles';
 
 export default function Feed() {
   const [user, setUser] = useState({});
-  const { authData } = useAuthContext();
+  const { authData, loading } = useAuthContext();
 
   useEffect(async () => {
     const result = await loggedUser();
@@ -20,8 +20,11 @@ export default function Feed() {
     <>
       <Header />
       <ScrollView style={styles.container}>
-        <PostSomething name={`${authData.Player.firstName} ${authData.Player.lastName}`} />
-        <Post />
+        {!loading && (
+          <PostSomething name={`${authData.Player.firstName} ${authData.Player.lastName}`} />
+          <Post />
+          )
+        }
       </ScrollView>
     </>
   );

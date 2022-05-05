@@ -5,7 +5,6 @@ import { fontSizes } from '../../../constants/Typography';
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
@@ -19,7 +18,8 @@ const styles = StyleSheet.create({
   changePhoto: {
     color: Colors.light,
     fontSize: fontSizes.medium,
-    marginLeft: 20,
+    marginLeft: 10,
+    marginTop: 15,
   },
   genInfo: {
     width: '90%',
@@ -74,6 +74,9 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontFamily: 'poppins-regular',
     fontSize: fontSizes.small,
+  },
+  avatarMenu: {
+    left: 85,
   },
 });
 
