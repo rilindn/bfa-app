@@ -8,7 +8,7 @@ import styles from './Feed.styles';
 
 export default function Feed({ navigation }) {
   const [user, setUser] = useState({});
-  const { authData } = useAuthContext();
+  const { authData, loading } = useAuthContext();
 
   useEffect(async () => {
     const result = await loggedUser();
@@ -16,9 +16,13 @@ export default function Feed({ navigation }) {
   }, []);
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Welcome {authData?.[authData?.role]?.firstName}</Text>
-      <Text style={{ color: 'black' }}>Email: {user?.user?.email}</Text>
-      <Text style={{ color: 'black' }}>Role: {user?.user?.role}</Text>
+      {!loading && (
+        <>
+          <Text style={styles.title}>Welcome {authData?.[authData?.role]?.firstName}</Text>
+          <Text style={{ color: 'black' }}>Email: {user?.user?.email}</Text>
+          <Text style={{ color: 'black' }}>Role: {user?.user?.role}</Text>
+        </>
+      )}
     </SafeAreaView>
   );
 }

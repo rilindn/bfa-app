@@ -1,39 +1,94 @@
-import React from 'react';
+import { pickBy, identity } from 'lodash';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, ToastAndroid, Alert } from 'react-native';
+import { Menu, Divider } from 'react-native-paper';
 
+import { editPlayer } from '../../../api/ApiMethods';
 import Colors from '../../../constants/Colors';
+import DatePicker from '../../DatePicker/DatePicker';
 import TextInput from '../../TextInput/TextInput';
+import useAuth from './../../../hooks/useAuth';
+import Avatar from './../../Avatar/Avatar';
 import CustomButton from './../../Button/Button';
 import styles from './EditPlayerGeneral.styles';
-import Avatar from './../../Avatar/Avatar';
 
-const EditPlayerGeneral = ({ navigation }) => {
+const EditPlayerGeneral = ({ route, navigation }) => {
+  const [showAvatarMenu, setShowAvatarMenu] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { authData, handleSignIn } = useAuth();
+  const [birthDateVal, setBirthDateVal] = useState(authData.birthDate);
+  const profilePic = route?.params?.photo;
   const {
     control,
     formState: { errors },
     handleSubmit,
   } = useForm({ mode: 'onBlur' });
 
-  const onSubmit = (data) => {
-    console.log('first', data);
+  const onSubmit = async (data) => {
+    data.profilePic = profilePic;
+    data.birthDate = birthDateVal;
+    const payload = pickBy(data, identity);
+    setLoading(true);
+    try {
+      const result = await editPlayer(authData.id, payload);
+      if (result?.status === 200) {
+        handleSignIn(result.data);
+        navigation.navigate('Profile');
+        ToastAndroid.show('Your data have been changed successfully!', ToastAndroid.LONG);
+      } else {
+        const errorMsg = result.response.data.errors?.[0]?.message || result.response.data;
+        Alert.alert('Error occurred!', errorMsg);
+      }
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Error occurred!', 'Please try again!');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.avatar}>
-        <Avatar
-          image={
-            'https://w7.pngwing.com/pngs/223/244/png-transparent-computer-icons-avatar-user-profile-avatar-heroes-rectangle-black.png'
-          }
-        />
+        <Menu
+          visible={showAvatarMenu}
+          onDismiss={() => {
+            setShowAvatarMenu(false);
+          }}
+          contentStyle={styles.avatarMenu}
+          anchor={
+            <TouchableOpacity onPress={() => setShowAvatarMenu(true)}>
+              <Avatar
+                name="Ake Kenned"
+                avatarContainer={{ marginHorizontal: 15, marginTop: 5 }}
+                image={profilePic || authData.profilePic}
+              />
+            </TouchableOpacity>
+          }>
+          <Menu.Item
+            onPress={() => {
+              navigation.navigate('Camera');
+              setShowAvatarMenu(false);
+            }}
+            title="Take a photo"
+          />
+          <Divider />
+          <Menu.Item
+            onPress={() => {
+              navigation.navigate('ImagePicker');
+              setShowAvatarMenu(false);
+            }}
+            title="Choose from gallery"
+          />
+        </Menu>
         <Text style={styles.changePhoto}>Change Photo</Text>
       </View>
       <View style={styles.genInfo}>
         <Text style={styles.changeInfo}>Change general info</Text>
       </View>
       <View style={styles.inputsContainer}>
-        <TextInput
+        <DatePicker
           inputStyle={styles.input}
           darkMode
           name="birthDate"
@@ -41,6 +96,8 @@ const EditPlayerGeneral = ({ navigation }) => {
           control={control}
           rules={rules.birthDate}
           errors={errors}
+          defaultValue={birthDateVal}
+          setValue={(val) => setBirthDateVal(val)}
         />
         <TextInput
           inputStyle={styles.input}
@@ -50,6 +107,7 @@ const EditPlayerGeneral = ({ navigation }) => {
           control={control}
           rules={rules.placeOfBirth}
           errors={errors}
+          defaultValue={authData.Player.placeOfBirth}
         />
         <TextInput
           inputStyle={styles.input}
@@ -59,15 +117,17 @@ const EditPlayerGeneral = ({ navigation }) => {
           control={control}
           rules={rules.nationality}
           errors={errors}
+          defaultValue={authData.Player.nationality}
         />
         <TextInput
           inputStyle={styles.input}
           darkMode
-          name="zipcode"
+          name="zipCode"
           placeholder="Zip Code"
           control={control}
-          rules={rules.zipcode}
+          rules={rules.zipCode}
           errors={errors}
+          defaultValue={authData.Player.zipCode}
         />
         <TextInput
           inputStyle={[styles.input, { height: 100 }]}
@@ -79,6 +139,7 @@ const EditPlayerGeneral = ({ navigation }) => {
           multiline
           numberOfLines={6}
           darkMode
+          defaultValue={authData.Player.about}
         />
       </View>
       <Text style={styles.accSettings}>
@@ -93,6 +154,7 @@ const EditPlayerGeneral = ({ navigation }) => {
           onPress={handleSubmit(onSubmit)}
           style={styles.saveBtn}
           labelStyle={styles.saveLabel}
+          loading={loading}
         />
         <CustomButton
           label="Cancel"
@@ -126,8 +188,12 @@ const rules = {
       message: 'Nationality must not be more or less than 50 characters',
     },
   },
-  zipcode: {
-    length: {
+  zipCode: {
+    minLength: {
+      value: 5,
+      message: 'Zip code must not be more or less than 5 digits',
+    },
+    maxLength: {
       value: 5,
       message: 'Zip code must not be more or less than 5 digits',
     },

@@ -9,7 +9,7 @@ import Colors from '../../../constants/Colors';
 import EditPlayerGeneral from './../../../components/Profile/EditPlayerGeneral/EditPlayerGeneral';
 import styles from './EditProfile.styles';
 
-export default function EditProfile({ navigation }) {
+export default function EditProfile({ route, navigation }) {
   const [selectedTab, setSelectedTab] = useState('general');
 
   return (
@@ -40,7 +40,7 @@ export default function EditProfile({ navigation }) {
           </View>
           <View style={styles.bottomTabContainer}>
             {selectedTab === 'general' ? (
-              <EditPlayerGeneral navigation={navigation} />
+              <EditPlayerGeneral route={route} navigation={navigation} />
             ) : (
               <EditPlayerCharacteristics navigation={navigation} />
             )}

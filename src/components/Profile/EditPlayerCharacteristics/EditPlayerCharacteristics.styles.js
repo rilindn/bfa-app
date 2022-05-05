@@ -1,11 +1,10 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import Colors from '../../../constants/Colors';
 import { fontSizes } from '../../../constants/Typography';
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,

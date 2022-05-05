@@ -1,6 +1,7 @@
 import * as SecureStore from 'expo-secure-store';
 import React, { createContext, useState, useEffect } from 'react';
 
+import { loggedUser } from '../api/ApiMethods';
 import Client from './../api/ApiBase';
 
 const AuthContext = createContext();
@@ -9,13 +10,13 @@ const AuthContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [authData, setAuthData] = useState({});
 
-  const loadStorageData = async () => {
+  const loadAuthData = async () => {
     try {
-      const authDataSerialized = await SecureStore.getItemAsync('AuthData');
-      if (authDataSerialized) {
-        const _authData = JSON.parse(authDataSerialized);
-        setAuthData(_authData);
-        Client.defaults.headers.common['Authorization'] = 'Bearer ' + _authData?.token;
+      const token = await SecureStore.getItemAsync('AuthTok');
+      if (token) {
+        Client.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        const authData = await loggedUser();
+        setAuthData(authData.data.user);
       }
     } catch (error) {
       console.log(error);
@@ -25,18 +26,20 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const handleSignIn = async (data) => {
-    const _authData = JSON.stringify(data);
-    await SecureStore.setItemAsync('AuthData', _authData);
-    await loadStorageData();
+    if (data?.token) {
+      await SecureStore.setItemAsync('AuthTok', data?.token);
+      Client.defaults.headers.common['Authorization'] = 'Bearer ' + data?.token;
+    }
+    await loadAuthData();
   };
 
   const handleSignOut = async () => {
-    await SecureStore.deleteItemAsync('AuthData');
+    await SecureStore.deleteItemAsync('AuthTok');
     setAuthData({});
   };
 
   useEffect(() => {
-    loadStorageData();
+    loadAuthData();
   }, []);
 
   return (
