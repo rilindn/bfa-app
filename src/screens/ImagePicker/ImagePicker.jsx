@@ -31,8 +31,6 @@ export default function App({ navigation }) {
       quality: 1,
       base64: true,
     });
-    console.log(pickerResult.width);
-    console.log(pickerResult.height);
     setPreview(pickerResult);
   };
 
@@ -49,9 +47,8 @@ export default function App({ navigation }) {
       const result = await axios.post(apiUrl, {
         ...data,
       });
-      console.log('first', result.data);
       if (result.data.secure_url) {
-        navigation.navigate('Profile', {
+        navigation.navigate('EditProfile', {
           photo: result.data.secure_url,
         });
         ToastAndroid.show('Photo has been uploaded', ToastAndroid.LONG);

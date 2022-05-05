@@ -43,17 +43,17 @@ export default function RegisterClub({ navigation }) {
       const result = await registerClub(payload);
       if (result?.status === 200) {
         navigation.navigate('Login');
-        setLoading(false);
         reset();
         ToastAndroid.show('You have been registered successfully!', ToastAndroid.LONG);
       } else {
-        setLoading(false);
         const errorMsg = result.response.data.errors?.[0]?.message || result.response.data;
         Alert.alert('Error occurred!', errorMsg);
       }
     } catch (error) {
       console.log(error);
       Alert.alert('Error occurred!', 'Please try again!');
+    } finally {
+      setLoading(false);
     }
   };
 

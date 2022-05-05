@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
-import { TextInput, View, Text } from 'react-native';
+import { TextInput as RNTextInput, View, Text } from 'react-native';
 
 import Colors from '../../constants/Colors';
 import { styles, stylesDark } from './TextInput.styles';
 
-const CustomTextInput = ({
+const TextInput = ({
   control,
   name,
   placeholder,
@@ -19,6 +19,8 @@ const CustomTextInput = ({
   labelStyle,
   darkMode,
   multiline,
+  defaultValue,
+  keyboardType,
 }) => {
   const [focused, setFocused] = useState(false);
   const error = errors?.[name]?.message;
@@ -40,7 +42,7 @@ const CustomTextInput = ({
           name={name}
           rules={rules}
           render={({ field: { onChange, value } }) => (
-            <TextInput
+            <RNTextInput
               placeholder={placeholder}
               placeholderTextColor={(darkMode && Colors.gray3 + 60) || Colors.gray3}
               onFocus={() => setFocused(true)}
@@ -53,6 +55,8 @@ const CustomTextInput = ({
               multiline={multiline}
               numberOfLines={numberOfLines}
               style={[styles.textInputStyle, textInputStyle, darkMode && stylesDark.textInputStyle]}
+              defaultValue={defaultValue}
+              keyboardType={keyboardType}
             />
           )}
         />
@@ -61,4 +65,4 @@ const CustomTextInput = ({
     </View>
   );
 };
-export default CustomTextInput;
+export default TextInput;

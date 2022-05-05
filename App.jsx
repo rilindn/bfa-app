@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { UIManager, Platform } from 'react-native';
+import { Provider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import Colors from './src/constants/Colors';
@@ -18,14 +19,16 @@ export default function App() {
     return null;
   } else {
     return (
-      <AuthContextProvider>
-        <SafeAreaProvider>
-          <NavigationContainer>
-            <StatusBar style="light" backgroundColor={Colors.gray5} />
-            <Navigation />
-          </NavigationContainer>
-        </SafeAreaProvider>
-      </AuthContextProvider>
+      <Provider>
+        <AuthContextProvider>
+          <SafeAreaProvider>
+            <NavigationContainer>
+              <StatusBar style="light" backgroundColor={Colors.gray5} />
+              <Navigation />
+            </NavigationContainer>
+          </SafeAreaProvider>
+        </AuthContextProvider>
+      </Provider>
     );
   }
 }

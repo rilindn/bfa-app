@@ -9,7 +9,7 @@ const RootNavigator = ({ initialScreen, authData }) => {
       screenOptions={{
         headerShown: false,
       }}>
-      {authData?.token ? (
+      {authData?.id ? (
         <>
           <Root.Screen name="Root" getComponent={() => require('./DrawerNavigator').default} />
           <Root.Screen

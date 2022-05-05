@@ -1,8 +1,8 @@
 import { MaterialIcons, AntDesign, Entypo } from '@expo/vector-icons';
 import axios from 'axios';
 import { Camera } from 'expo-camera';
-import React, { useState, useRef } from 'react';
-import { View, TouchableOpacity, ActivityIndicator, ToastAndroid } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { View, TouchableOpacity, ActivityIndicator, ToastAndroid, Text } from 'react-native';
 
 import Colors from '../../constants/Colors';
 import useAuth from './../../hooks/useAuth';
@@ -15,8 +15,22 @@ export default function CameraRN({ navigation }) {
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [source, setSource] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  const [hasPermission, setHasPermission] = useState(null);
   const { authData } = useAuth();
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
+
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
 
   const onCameraReady = () => {
     setIsCameraReady(true);
@@ -62,7 +76,7 @@ export default function CameraRN({ navigation }) {
       console.log('first', authData.id);
       if (result.data.secure_url) {
         ToastAndroid.show('Photo has been uploaded', ToastAndroid.LONG);
-        navigation.navigate('Profile', {
+        navigation.navigate('EditProfile', {
           photo: result.data.secure_url,
         });
       }
@@ -71,7 +85,6 @@ export default function CameraRN({ navigation }) {
       ToastAndroid.show('Please try again later!', ToastAndroid.LONG);
     } finally {
       setLoading(false);
-      navigation.goBack();
     }
   };
 

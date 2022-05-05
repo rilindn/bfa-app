@@ -17,8 +17,10 @@ const SelectInput = ({
   label,
   darkMode,
   selectInputStyle,
+  defaultValue,
 }) => {
   const error = errors?.[name]?.message;
+
   return (
     <View style={styles.container}>
       <Text style={[styles.title, labelStyle, darkMode && stylesDark.title]}>
@@ -29,6 +31,8 @@ const SelectInput = ({
         name={name}
         rules={rules}
         render={({ field: { onChange, value } }) => {
+          if (defaultValue && !value)
+            value = options.find(({ value }) => value === defaultValue).value;
           return (
             <View
               style={[
@@ -41,11 +45,9 @@ const SelectInput = ({
                   label={placeholder}
                   value=""
                   enabled={false}
-                  color={Colors.placeholder}
+                  color={Colors.placeholder + 70}
                   style={
-                    (styles.selectInputStyle,
-                    selectInputStyle,
-                    darkMode && stylesDark.textInputStyle)
+                    (styles.textInputStyle, selectInputStyle, darkMode && stylesDark.textInputStyle)
                   }
                 />
                 {options.map((option) => (
@@ -53,7 +55,7 @@ const SelectInput = ({
                     label={option.label}
                     value={option.value}
                     key={option.value}
-                    color={darkMode && Colors.gray3 + 60}
+                    color={darkMode && Colors.gray3}
                     style={darkMode && { color: Colors.black }}
                   />
                 ))}

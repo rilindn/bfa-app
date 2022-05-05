@@ -28,10 +28,16 @@ export default function PlayerProfileCard({ navigation }) {
       <Text style={styles.name}>
         {authData.Player.firstName} {authData.Player.lastName}
       </Text>
-      <Avatar
-        name={`${authData.Player.firstName} ${authData.Player.lastName}`}
-        avatarContainer={{ marginHorizontal: 15, marginTop: 5 }}
-      />
+      <TouchableOpacity
+        onPress={() => {
+          authData.profilePic && navigation.navigate('PhotoView', { photo: authData.profilePic });
+        }}>
+        <Avatar
+          name={`${authData.Player.firstName} ${authData.Player.lastName}`}
+          avatarContainer={{ marginHorizontal: 15, marginTop: 5 }}
+          image={authData.profilePic}
+        />
+      </TouchableOpacity>
       <View style={styles.teamStatus}>
         <Text style={{ color: Colors.white }}>CURRENTLY WITHOUT A TEAM</Text>
       </View>
