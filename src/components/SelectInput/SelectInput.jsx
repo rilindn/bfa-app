@@ -31,8 +31,9 @@ const SelectInput = ({
         name={name}
         rules={rules}
         render={({ field: { onChange, value } }) => {
-          if (defaultValue && !value)
-            value = options.find(({ value }) => value === defaultValue).value;
+          if (defaultValue && !value) {
+            value = options.find(({ value }) => value === defaultValue)?.value;
+          }
           return (
             <View
               style={[

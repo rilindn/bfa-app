@@ -16,6 +16,12 @@ const RootNavigator = ({ initialScreen, authData }) => {
             name="EditProfile"
             getComponent={() => require('../screens/Profile/EditProfile/EditProfile').default}
           />
+          <Root.Screen
+            name="EditClubProfile"
+            getComponent={() =>
+              require('../screens/Profile/EditClubProfile/EditClubProfile').default
+            }
+          />
           <Root.Group screenOptions={{ presentation: 'modal' }}>
             <Root.Screen
               name="PhotoView"

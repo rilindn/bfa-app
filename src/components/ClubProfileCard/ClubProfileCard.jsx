@@ -6,7 +6,7 @@ import Avatar from '../Avatar/Avatar';
 import CustomButton from '../Button/Button';
 import styles from './ClubProfileCard.styles';
 
-export default function ClubProfileCard() {
+export default function ClubProfileCard({ navigation }) {
   const { authData } = useAuth();
 
   return (
@@ -19,6 +19,7 @@ export default function ClubProfileCard() {
           label="Edit profile"
           style={styles.editProfileBtn}
           labelStyle={styles.editProfileLabel}
+          onPress={() => navigation.navigate('EditClubProfile')}
         />
       </View>
       <View row marginB-25>
@@ -32,7 +33,7 @@ export default function ClubProfileCard() {
             <Text style={styles.leftListItem}>League</Text>
             <Text style={styles.leftListItem}>League level</Text>
           </View>
-          <View paddingL-20 center>
+          <View paddingL-20 center style={{ alignItems: 'flex-start' }}>
             <Text style={styles.rightListItem}>{authData.Club.clubName}</Text>
             <Text style={styles.rightListItem}>{authData.Club.league}</Text>
             <Text style={styles.rightListItem}>{authData.Club.leagueLevel}</Text>
