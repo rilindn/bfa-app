@@ -55,6 +55,16 @@ export async function registerClub(data) {
   }
 }
 
+export async function editClub(clubId, data) {
+  try {
+    const result = await Client.put(`club/${clubId}`, { ...data });
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
 // Authentication
 
 export async function login(data) {

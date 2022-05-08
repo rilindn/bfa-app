@@ -28,7 +28,7 @@ export default function Profile({ navigation }) {
           </>
         ) : (
           <>
-            <ClubProfileCard />
+            <ClubProfileCard navigation={navigation} />
             <ClubBottomSection />
             <PostSomething name={authData.Club.clubName} />
           </>
