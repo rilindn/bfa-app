@@ -48,12 +48,16 @@ export default function PlayerProfileCard({ navigation }) {
           <Text style={styles.statisticsText}>POST</Text>
         </View>
         <View style={styles.infoBox}>
-          <Text style={styles.statisticsNumber}>10</Text>
-          <Text style={styles.statisticsText}>FOLLOWERS</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Follow')}>
+            <Text style={styles.statisticsNumber}>10</Text>
+            <Text style={styles.statisticsText}>FOLLOWERS</Text>
+          </TouchableOpacity>
         </View>
         <View style={[styles.infoBox, { borderRightWidth: 0 }]}>
-          <Text style={styles.statisticsNumber}>12</Text>
-          <Text style={styles.statisticsText}>FOLLOWING</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Follow')}>
+            <Text style={styles.statisticsNumber}>12</Text>
+            <Text style={styles.statisticsText}>FOLLOWING</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
