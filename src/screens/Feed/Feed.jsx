@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { RefreshControl, ScrollView } from 'react-native';
+import { RefreshControl, ScrollView, Text, View } from 'react-native';
 
 import { getMyPosts } from '../../api/ApiMethods';
 import Header from '../../components/Header/Header';
@@ -40,14 +40,16 @@ export default function Feed({ navigation }) {
         }>
         {!loading && (
           <>
-            <PostSomething
-              name={`${authData.Player.firstName} ${authData.Player.lastName}`}
-              image={authData?.profilePic}
-            />
-            {posts &&
-              posts.map((post) => {
+            <PostSomething />
+            {posts?.length > 1 ? (
+              posts?.map((post) => {
                 return <Post key={post.id} post={post} navigation={navigation} />;
-              })}
+              })
+            ) : (
+              <View style={styles.noPostContainer}>
+                <Text style={styles.noPostText}>No posts found</Text>
+              </View>
+            )}
           </>
         )}
       </ScrollView>
