@@ -18,14 +18,6 @@ const RootNavigator = ({ initialScreen, authData }) => {
           />
           <Root.Group screenOptions={{ presentation: 'modal' }}>
             <Root.Screen
-              name="Camera"
-              getComponent={() => require('../screens/CameraRN/Camera').default}
-            />
-            <Root.Screen
-              name="ImagePicker"
-              getComponent={() => require('../screens/ImagePicker/ImagePicker').default}
-            />
-            <Root.Screen
               name="PhotoView"
               getComponent={() => require('../screens/PhotoView/PhotoView').default}
             />

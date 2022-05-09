@@ -6,7 +6,7 @@ import ClubProfileCard from '../../components/ClubProfileCard/ClubProfileCard';
 import Header from '../../components/Header/Header';
 import PlayerBottomSection from '../../components/PlayerBottomSection/PlayerBottomSection';
 import PlayerProfileCard from '../../components/PlayerProfileCard/PlayerProfileCard';
-import PostSomething from '../../components/PostSomething/PostSomething';
+import PostSomething from '../../components/Post/PostSomething/PostSomething';
 import useAuth from '../../hooks/useAuth';
 import styles from './Profile.styles';
 

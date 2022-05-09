@@ -8,7 +8,7 @@ const Navigation = () => {
   const { authData, loading } = useAuth();
   const [delay, setDelay] = useState(true);
 
-  setTimeout(() => setDelay(false), 1000); // delay a bit for better UX
+  setTimeout(() => setDelay(false), 500); // delay a bit for better UX
 
   if (loading || delay) {
     return <LoadingScreen />;

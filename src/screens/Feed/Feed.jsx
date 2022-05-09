@@ -1,34 +1,53 @@
 import { useEffect, useState } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
+import { RefreshControl, ScrollView } from 'react-native';
 
-import { loggedUser } from '../../api/ApiMethods';
+import { getMyPosts } from '../../api/ApiMethods';
 import Header from '../../components/Header/Header';
 import Post from '../../components/Post/Post';
-import PostSomething from '../../components/PostSomething/PostSomething';
+import PostSomething from '../../components/Post/PostSomething/PostSomething';
+import Colors from '../../constants/Colors';
 import useAuthContext from './../../hooks/useAuth';
 import styles from './Feed.styles';
 
 export default function Feed({ navigation }) {
-  const [user, setUser] = useState({});
   const { authData, loading } = useAuthContext();
+  const [posts, setPosts] = useState();
+  const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(async () => {
-    const result = await loggedUser();
-    setUser(result.data);
+  useEffect(() => {
+    fetchPosts();
   }, []);
+
+  const fetchPosts = async () => {
+    setRefreshing(true);
+    const posts = await getMyPosts(authData.id);
+    posts && setRefreshing(false);
+    setPosts(posts);
+  };
+
   return (
     <>
       <Header />
-      <ScrollView style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            enabled
+            colors={[Colors.mainGreen]}
+            onRefresh={fetchPosts}
+          />
+        }>
         {!loading && (
           <>
             <PostSomething
               name={`${authData.Player.firstName} ${authData.Player.lastName}`}
-              image={authData.profilePic}
+              image={authData?.profilePic}
             />
-            <Post navigation={navigation} />
-            <Post navigation={navigation} />
-            <Post navigation={navigation} />
+            {posts &&
+              posts.map((post) => {
+                return <Post key={post.id} post={post} navigation={navigation} />;
+              })}
           </>
         )}
       </ScrollView>

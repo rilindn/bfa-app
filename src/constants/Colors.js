@@ -3,7 +3,7 @@ export default {
   black: '#000',
   background: '#141414',
   gray3: '#ADADAD',
-  gray4: '#403C3C',
+  gray4: '#3c3c3c',
   gray5: '#242526',
   gray6: '#201F1F',
   orange: '#F4B61C',

@@ -6,19 +6,24 @@ import { Menu, Divider } from 'react-native-paper';
 
 import { editPlayer } from '../../../api/ApiMethods';
 import Colors from '../../../constants/Colors';
+import uploadToCloudinary from '../../../utils/uploadToCloudinary';
 import DatePicker from '../../DatePicker/DatePicker';
+import ImagePicker from '../../ImagePicker/ImagePicker';
 import TextInput from '../../TextInput/TextInput';
 import useAuth from './../../../hooks/useAuth';
 import Avatar from './../../Avatar/Avatar';
 import CustomButton from './../../Button/Button';
+import Camera from './../../Camera/Camera';
 import styles from './EditPlayerGeneral.styles';
 
-const EditPlayerGeneral = ({ route, navigation }) => {
+const EditPlayerGeneral = ({ navigation }) => {
   const [showAvatarMenu, setShowAvatarMenu] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [cameraVisible, setCameraVisible] = useState(false);
+  const [showImagePicker, setShowImagePicker] = useState(false);
+  const [media, setMedia] = useState();
   const { authData, handleSignIn } = useAuth();
   const [birthDateVal, setBirthDateVal] = useState(authData.birthDate);
-  const profilePic = route?.params?.photo;
   const {
     control,
     formState: { errors },
@@ -26,11 +31,12 @@ const EditPlayerGeneral = ({ route, navigation }) => {
   } = useForm({ mode: 'onBlur' });
 
   const onSubmit = async (data) => {
-    data.profilePic = profilePic;
-    data.birthDate = birthDateVal;
-    const payload = pickBy(data, identity);
     setLoading(true);
     try {
+      const avatarImage = await uploadToCloudinary(media);
+      data.profilePic = avatarImage;
+      data.birthDate = birthDateVal;
+      const payload = pickBy(data, identity);
       const result = await editPlayer(authData.id, payload);
       if (result?.status === 200) {
         handleSignIn(result.data);
@@ -48,6 +54,13 @@ const EditPlayerGeneral = ({ route, navigation }) => {
     }
   };
 
+  const setPhoto = (photo) => {
+    console.log('photo', photo);
+    photo && setMedia(photo);
+    setCameraVisible(false);
+    setShowImagePicker(false);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.avatar}>
@@ -61,14 +74,15 @@ const EditPlayerGeneral = ({ route, navigation }) => {
             <TouchableOpacity onPress={() => setShowAvatarMenu(true)}>
               <Avatar
                 name="Ake Kenned"
-                avatarContainer={{ marginHorizontal: 15, marginTop: 5 }}
-                image={profilePic || authData.profilePic}
+                // avatarContainer={{ marginHorizontal: 15, marginTop: 5 }}
+                size={75}
+                image={media || authData.profilePic}
               />
             </TouchableOpacity>
           }>
           <Menu.Item
             onPress={() => {
-              navigation.navigate('Camera');
+              setCameraVisible(true);
               setShowAvatarMenu(false);
             }}
             title="Take a photo"
@@ -76,14 +90,27 @@ const EditPlayerGeneral = ({ route, navigation }) => {
           <Divider />
           <Menu.Item
             onPress={() => {
-              navigation.navigate('ImagePicker');
+              setShowImagePicker(true);
               setShowAvatarMenu(false);
             }}
             title="Choose from gallery"
           />
         </Menu>
+        <Camera
+          visible={cameraVisible}
+          setPhoto={setPhoto}
+          closeModal={() => setCameraVisible(false)}
+        />
+        <ImagePicker
+          visible={showImagePicker}
+          allowsEditing
+          aspect={[4, 3]}
+          setPhoto={setPhoto}
+          closeModal={() => setShowImagePicker(false)}
+        />
         <Text style={styles.changePhoto}>Change Photo</Text>
       </View>
+
       <View style={styles.genInfo}>
         <Text style={styles.changeInfo}>Change general info</Text>
       </View>
