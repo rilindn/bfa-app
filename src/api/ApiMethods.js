@@ -1,5 +1,16 @@
 import Client from './ApiBase';
 
+// Users
+
+export async function getUserById(id) {
+  try {
+    const result = await Client.get(`user/${id}`);
+    return result.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 // Players
 
 export async function getAllPlayer() {
@@ -92,6 +103,28 @@ export async function resetPassword(userId, data) {
   try {
     const result = await Client.put(`resetPassword/${userId}`, { ...data });
     return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+// Posts
+
+export async function createPost(data) {
+  try {
+    const result = await Client.post('post', { ...data });
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+export async function getMyPosts(id) {
+  try {
+    const result = await Client.get(`post/user/${id}`);
+    return result.data;
   } catch (err) {
     console.error(err);
     return err;

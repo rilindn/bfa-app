@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-import Colors from '../../constants/Colors';
-import { fontSizes } from '../../constants/Typography';
+import Colors from '../../../constants/Colors';
+import { fontSizes } from '../../../constants/Typography';
 
 const styles = StyleSheet.create({
   postSomethingWrapper: {
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   postContainer: {
     backgroundColor: Colors.gray4,
     borderColor: Colors.gray3 + 50,
-    width: '85%',
+    width: '83%',
     borderWidth: 1,
     borderRadius: 6,
     height: 45,
@@ -39,6 +39,20 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     color: Colors.placeholder,
     fontFamily: 'poppins-regular',
+    includeFontPadding: false,
+    textAlignVertical: 'center',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.background,
+  },
+  modalView: {
+    borderRadius: 20,
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
   },
 });
 

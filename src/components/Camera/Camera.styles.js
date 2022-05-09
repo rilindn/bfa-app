@@ -1,7 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 import Colors from '../../constants/Colors';
-import { fontSizes } from '../../constants/Typography';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const CAPTURE_SIZE = Math.floor(WINDOW_HEIGHT * 0.08);

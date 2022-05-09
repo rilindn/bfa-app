@@ -6,7 +6,7 @@ import { fontSizes } from '../../constants/Typography';
 const styles = StyleSheet.create({
   container: {
     width: '94%',
-    marginVertical: 20,
+    marginVertical: 8,
     backgroundColor: Colors.headerBg,
     borderRadius: 15,
     alignSelf: 'center',
@@ -95,6 +95,11 @@ const styles = StyleSheet.create({
     width: '50%',
     flexDirection: 'row',
     justifyContent: 'center',
+  },
+  image: {
+    width: '100%',
+    height: 300,
+    alignSelf: 'center',
   },
 });
 

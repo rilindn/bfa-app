@@ -15,25 +15,27 @@ export default function Avatar({ image, size, name, avatarContainer, imageStyle,
     extractInitials();
   }, []);
 
-  if (!image) {
-    return (
-      <View style={[styles.avatarContainer, avatarContainer]}>
-        <Text style={[styles.initials, initialStyle]}>{initials}</Text>
-      </View>
-    );
-  }
   return (
-    <View style={avatarContainer}>
-      <Image
-        style={[
-          styles.imageStyle,
-          imageStyle,
-          size && { width: size, height: size, borderRadius: size },
-        ]}
-        source={{
-          uri: image,
-        }}
-      />
+    <View
+      style={[
+        styles.avatarContainer,
+        avatarContainer,
+        size && { width: size, height: size, borderRadius: size },
+      ]}>
+      {!image ? (
+        <Text style={[styles.initials, initialStyle, { fontSize: size / 2.5 }]}>{initials}</Text>
+      ) : (
+        <Image
+          style={[
+            styles.imageStyle,
+            imageStyle,
+            size && { width: size, height: size, borderRadius: size },
+          ]}
+          source={{
+            uri: image,
+          }}
+        />
+      )}
     </View>
   );
 }
