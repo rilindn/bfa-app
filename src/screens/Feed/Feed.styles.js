@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import Colors from '../../constants/Colors';
+import { fontSizes } from '../../constants/Typography';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,6 +15,14 @@ const styles = StyleSheet.create({
   },
   text: {
     color: Colors.text,
+  },
+  noPostContainer: {
+    alignItems: 'center',
+  },
+  noPostText: {
+    fontSize: fontSizes.small,
+    color: Colors.gray3 + '70',
+    marginTop: '50%',
   },
 });
 

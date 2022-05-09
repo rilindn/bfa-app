@@ -3,7 +3,14 @@ import { View, Text, Image } from 'react-native';
 
 import styles from './Avatar.styles';
 
-export default function Avatar({ image, size, name, avatarContainer, imageStyle, initialStyle }) {
+export default function Avatar({
+  image,
+  size = 50,
+  name,
+  avatarContainer,
+  imageStyle,
+  initialStyle,
+}) {
   const [initials, setInitials] = useState('');
 
   const extractInitials = () => {

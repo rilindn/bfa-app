@@ -1,4 +1,5 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { View, Text } from 'react-native-ui-lib';
 
 import useAuth from '../../hooks/useAuth';
@@ -23,10 +24,17 @@ export default function ClubProfileCard({ navigation }) {
         />
       </View>
       <View row marginB-25>
-        <Avatar
-          name={authData.Club.clubName}
-          avatarContainer={{ marginHorizontal: 15, marginTop: 5 }}
-        />
+        <TouchableOpacity
+          onPress={() => {
+            authData.profilePic && navigation.navigate('PhotoView', { photo: authData.profilePic });
+          }}>
+          <Avatar
+            name={authData.Club.clubName}
+            avatarContainer={{ marginHorizontal: 15, marginTop: 5 }}
+            image={authData.profilePic}
+            size={80}
+          />
+        </TouchableOpacity>
         <View style={styles.listContainer}>
           <View>
             <Text style={styles.leftListItem}>Club name</Text>
