@@ -20,7 +20,7 @@ export default function Avatar({
   };
   useEffect(() => {
     extractInitials();
-  }, []);
+  }, [name]);
 
   return (
     <View

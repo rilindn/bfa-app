@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { RefreshControl, ScrollView, Text, View } from 'react-native';
+import { RefreshControl, FlatList, ScrollView, Text, View } from 'react-native';
 
 import { getMyPosts } from '../../api/ApiMethods';
 import Header from '../../components/Header/Header';
@@ -28,31 +28,28 @@ export default function Feed({ navigation }) {
   return (
     <>
       <Header />
-      <ScrollView
-        style={styles.container}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            enabled
-            colors={[Colors.mainGreen]}
-            onRefresh={fetchPosts}
+      <View style={styles.container}>
+        {posts ? (
+          <FlatList
+            ListHeaderComponent={<PostSomething />}
+            data={posts}
+            renderItem={({ item }) => {
+              return <Post key={item.id} post={item} navigation={navigation} />;
+            }}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                colors={[Colors.mainGreen]}
+                onRefresh={fetchPosts}
+              />
+            }
           />
-        }>
-        {!loading && (
-          <>
-            <PostSomething />
-            {posts?.length > 1 ? (
-              posts?.map((post) => {
-                return <Post key={post.id} post={post} navigation={navigation} />;
-              })
-            ) : (
-              <View style={styles.noPostContainer}>
-                <Text style={styles.noPostText}>No posts found</Text>
-              </View>
-            )}
-          </>
+        ) : (
+          <View style={styles.noPostContainer}>
+            <Text style={styles.noPostText}>No posts found</Text>
+          </View>
         )}
-      </ScrollView>
+      </View>
     </>
   );
 }

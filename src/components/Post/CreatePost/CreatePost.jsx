@@ -110,7 +110,6 @@ export default function CreatePost({ name, closeModal }) {
       <Camera
         visible={cameraVisible}
         setPhoto={(photo) => {
-          console.log('first', media);
           setMedia(photo);
           setCameraVisible(false);
         }}
@@ -121,7 +120,6 @@ export default function CreatePost({ name, closeModal }) {
         allowsEditing={false}
         // aspect: [4, 3],
         setPhoto={(photo) => {
-          console.log('first', photo);
           photo && setMedia(photo);
           setShowImagePicker(false);
         }}

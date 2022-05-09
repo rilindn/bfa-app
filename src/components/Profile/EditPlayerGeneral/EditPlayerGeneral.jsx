@@ -55,7 +55,6 @@ const EditPlayerGeneral = ({ navigation }) => {
   };
 
   const setPhoto = (photo) => {
-    console.log('photo', photo);
     photo && setMedia(photo);
     setCameraVisible(false);
     setShowImagePicker(false);
@@ -73,9 +72,8 @@ const EditPlayerGeneral = ({ navigation }) => {
           anchor={
             <TouchableOpacity onPress={() => setShowAvatarMenu(true)}>
               <Avatar
-                name="Ake Kenned"
-                // avatarContainer={{ marginHorizontal: 15, marginTop: 5 }}
-                size={75}
+                name={`${authData.Player.firstName} ${authData.Player.lastName}`}
+                size={70}
                 image={media || authData.profilePic}
               />
             </TouchableOpacity>
@@ -157,7 +155,7 @@ const EditPlayerGeneral = ({ navigation }) => {
           defaultValue={authData.Player.zipCode}
         />
         <TextInput
-          inputStyle={[styles.input, { height: 100 }]}
+          textInputStyle={{ height: 100 }}
           name="about"
           placeholder="About"
           control={control}

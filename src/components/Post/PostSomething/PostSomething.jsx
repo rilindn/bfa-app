@@ -13,11 +13,12 @@ export default function PostSomething({ name, image }) {
 
   useEffect(() => {
     getUserFullName();
-  }, []);
+  }, [authData]);
 
-  const getUserFullName = (user) => {
-    if (user?.role === 'Player') setUserName(`${user.Player.firstName} ${user.Player.lastName}`);
-    else setUserName(user?.Club?.clubName);
+  const getUserFullName = () => {
+    if (authData?.role === 'Player')
+      setUserName(`${authData.Player.firstName} ${authData.Player.lastName}`);
+    else setUserName(authData?.Club?.clubName);
   };
 
   return (

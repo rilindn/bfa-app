@@ -31,7 +31,6 @@ const DatePicker = ({
 
   const onDateChange = (event, value) => {
     setIsPickerShow(false);
-    console.log('value', value);
     setDate(value);
     setValue(moment(value).format('MM/DD/YYYY').toString());
   };
