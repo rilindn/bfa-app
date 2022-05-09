@@ -62,12 +62,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  input: {
-    borderWidth: 0.5,
-    borderRadius: 5,
-    borderColor: Colors.gray3,
-    color: Colors.light,
-  },
   accSettings: {
     width: '100%',
     color: Colors.white,
@@ -96,8 +90,11 @@ const styles = StyleSheet.create({
   },
   changePhoto: {
     color: Colors.light,
-    fontSize: fontSizes.small,
+    fontSize: fontSizes.medium,
     textAlignVertical: 'center',
+  },
+  avatarMenu: {
+    left: 90,
   },
 });
 

@@ -26,12 +26,13 @@ export default function ClubProfileCard({ navigation }) {
       <View row marginB-25>
         <TouchableOpacity
           onPress={() => {
-            authData.profilePic && navigation.navigate('PhotoView', { photo: authData.profilePic });
+            authData?.profilePic &&
+              navigation.navigate('PhotoView', { photo: authData.profilePic });
           }}>
           <Avatar
             name={authData.Club.clubName}
             avatarContainer={{ marginHorizontal: 15, marginTop: 5 }}
-            image={authData.profilePic}
+            image={authData?.profilePic}
             size={80}
           />
         </TouchableOpacity>

@@ -50,8 +50,6 @@ export default function Camera({ visible, setPhoto, closeModal }) {
       const options = { quality: 0.1, base64: true, skipProcessing: true };
       const data = await cameraRef.current.takePictureAsync(options);
       setSource(data.base64);
-      const { base64, ...rest } = data;
-      console.log(rest);
       if (data) {
         setIsPreview(true);
         await cameraRef.current.pausePreview();

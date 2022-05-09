@@ -63,12 +63,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  input: {
-    borderWidth: 0.5,
-    borderRadius: 5,
-    borderColor: Colors.gray3,
-    color: Colors.light,
-  },
   accSettings: {
     width: '90%',
     color: Colors.white,

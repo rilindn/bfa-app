@@ -32,7 +32,6 @@ export default function ImagePicker({ visible, setPhoto, closePicker, allowsEdit
     });
     if (!pickerResult?.cancelled) setPreview(pickerResult);
     else {
-      console.log('callede');
       setPhoto();
     }
   };

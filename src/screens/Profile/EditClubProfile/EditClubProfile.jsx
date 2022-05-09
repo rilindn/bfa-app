@@ -80,7 +80,7 @@ const EditClubProfile = ({ navigation }) => {
                     name={authData.Club.clubName}
                     avatarContainer={{ marginHorizontal: 15, marginTop: 5 }}
                     size={75}
-                    image={media || authData.profilePic}
+                    image={media || authData?.profilePic}
                   />
                 </TouchableOpacity>
               }>
@@ -129,7 +129,7 @@ const EditClubProfile = ({ navigation }) => {
               defaultValue={authData.Club.stadiumName}
             />
             <TextInput
-              inputStyle={[styles.input, { height: 100 }]}
+              textInputStyle={{ height: 100 }}
               name="about"
               placeholder="About"
               title="Short info about team"
@@ -158,10 +158,12 @@ const EditClubProfile = ({ navigation }) => {
               darkMode
               placeholder="Country"
               options={[
-                { label: 'Prishtina', value: 'pr' },
-                { label: 'Ferizaj', value: 'fr' },
-                { label: 'Gjilan', value: 'gl' },
-                { label: 'Kamenice', value: 'km' },
+                { label: 'Kosovo', value: 'Kosovo' },
+                { label: 'Albania', value: 'Albania' },
+                { label: 'Macedonia', value: 'Macedonia' },
+                { label: 'Germany', value: 'Germany' },
+                { label: 'France', value: 'France' },
+                { label: 'Montenegro', value: 'Montenegro' },
               ]}
               defaultValue={authData.Club.country}
             />
@@ -219,10 +221,6 @@ const rules = {
     },
   },
   about: {
-    minLength: {
-      value: 30,
-      message: 'About must be at least 30 characters',
-    },
     maxLength: {
       value: 550,
       message: 'About can`t be longer than 550 characters',

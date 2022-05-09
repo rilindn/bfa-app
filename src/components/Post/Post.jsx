@@ -6,12 +6,10 @@ import { View, Text, Image } from 'react-native-ui-lib';
 import { getUserById } from '../../api/ApiMethods';
 import SvgIcon from '../../components/SvgIcon/SvgIcon';
 import { fontSizes } from '../../constants/Typography';
-import useAuthContext from '../../hooks/useAuth';
 import Avatar from '../Avatar/Avatar';
 import styles from './Post.styles';
 
 export default function Post({ post, navigation }) {
-  const { authData } = useAuthContext();
   const [user, setUser] = useState();
   const [userFullName, setUserFullName] = useState();
   const [loading, setLoading] = useState(true);
@@ -47,7 +45,6 @@ export default function Post({ post, navigation }) {
   }, []);
 
   const getUserFullName = (user) => {
-    console.log('first', user);
     if (user?.role === 'Player')
       setUserFullName(`${user.Player.firstName} ${user.Player.lastName}`);
     else setUserFullName(user?.Club?.clubName);
