@@ -17,7 +17,6 @@ function Tabs() {
             <SvgIcon name={iconName} size={40} color={focused && Colors.orange} focused={focused} />
           );
         },
-        headerShown: false,
       })}
       tabBarOptions={{
         showLabel: false,
