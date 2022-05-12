@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 10,
   },
-  postSomethingAvatar: {
+  postSomething: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 20,

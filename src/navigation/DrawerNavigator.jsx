@@ -4,6 +4,7 @@ import { DrawerActions } from '@react-navigation/native';
 import React from 'react';
 import { Dimensions, TouchableOpacity } from 'react-native';
 
+import Header from '../components/Header/Header';
 import CustomDrawerContent from '../components/Sidebar/Sidebar';
 import Colors from '../constants/Colors';
 import { fontSizes } from '../constants/Typography';
@@ -61,7 +62,9 @@ const DrawerNavigator = ({ initialScreen, navigation }) => {
       <Drawer.Screen
         name="Home"
         getComponent={() => require('./BottomTabNavigator').default}
-        options={{ headerShown: false }}
+        options={{
+          header: () => <Header />,
+        }}
       />
       <Drawer.Screen
         name="Settings"

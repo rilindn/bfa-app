@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, Modal } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import useAuth from '../../../hooks/useAuth';
 import Avatar from '../../Avatar/Avatar';
@@ -24,11 +25,13 @@ export default function PostSomething({ name, image }) {
   return (
     <View style={styles.postSomethingWrapper}>
       <Text style={styles.postSomethingText}>Post Something</Text>
-      <View style={styles.postSomethingAvatar}>
+      <View style={styles.postSomething}>
         <Avatar name={userName} size={45} image={authData?.profilePic} />
-        <TouchableOpacity style={styles.postContainer} onPress={() => setModalVisible(true)}>
-          <Text style={styles.postPlaceholder}>What's on your mind?</Text>
-        </TouchableOpacity>
+        <View style={styles.postContainer}>
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <Text style={styles.postPlaceholder}>What's on your mind?</Text>
+          </TouchableOpacity>
+        </View>
         <Modal
           animationType="slide"
           transparent

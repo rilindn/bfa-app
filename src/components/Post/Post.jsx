@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { View, Text, Image } from 'react-native-ui-lib';
 
 import { getUserById } from '../../api/ApiMethods';

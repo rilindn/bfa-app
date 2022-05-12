@@ -11,6 +11,15 @@ export async function getUserById(id) {
   }
 }
 
+export async function searchUsers(searchQuery) {
+  try {
+    const result = await Client.get(`user/search?q=${searchQuery}&limit=6`);
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 // Players
 
 export async function getAllPlayer() {
@@ -134,7 +143,7 @@ export async function createPost(data) {
 export async function getMyPosts(id) {
   try {
     const result = await Client.get(`post/user/${id}`);
-    return result.data;
+    return result;
   } catch (err) {
     console.error(err);
     return err;

@@ -20,9 +20,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   noPostText: {
-    fontSize: fontSizes.small,
+    fontSize: fontSizes.medium,
     color: Colors.gray3 + '70',
-    marginTop: '50%',
+    marginBottom: '50%',
   },
 });
 
