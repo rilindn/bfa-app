@@ -11,9 +11,12 @@ export async function getUserById(id) {
   }
 }
 
-export async function searchUsers(searchQuery) {
+export async function searchUsers({ ids, limit, searchQuery }) {
+  const exclude = ids?.join(',') || '';
   try {
-    const result = await Client.get(`user/search?q=${searchQuery}&limit=6`);
+    const result = await Client.get(
+      `user/search?q=${searchQuery}&limit=${limit}&exclude=${exclude}`
+    );
     return result;
   } catch (err) {
     console.log(err);

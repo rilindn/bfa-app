@@ -5,20 +5,22 @@ import { ActivityIndicator } from 'react-native-paper';
 
 import { searchUsers } from '../../api/ApiMethods';
 import Colors from '../../constants/Colors';
+import useAuth from './../../hooks/useAuth';
 import Avatar from './../Avatar/Avatar';
 import styles from './HeaderSearch.styles';
 
 export default function HeaderSearch({}) {
+  const { authData } = useAuth();
   const [showResults, setShowResults] = useState(false);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchUsers = async (value) => {
+  const fetchUsers = async (searchQuery) => {
     setLoading(true);
     setShowResults(true);
-    if (value?.length > 1) {
+    if (searchQuery?.length > 1) {
       try {
-        const users = await searchUsers(value);
+        const users = await searchUsers({ ids: [authData?.id], searchQuery, limit: 5 });
         if (users?.status === 200) {
           setLoading(false);
           setResults(users.data);
@@ -64,7 +66,7 @@ const Result = ({ user }) => {
       ? `${user.Player?.firstName} ${user.Player?.lastName}`
       : user.Club?.clubName;
   return (
-    <TouchableOpacity style={styles.result} onPress={() => console.log('This is printed never')}>
+    <TouchableOpacity style={styles.result}>
       <Avatar size={40} name={fullName} image={user?.profilePic} />
       <View style={styles.userInfos}>
         <Text style={styles.name}>{fullName}</Text>
