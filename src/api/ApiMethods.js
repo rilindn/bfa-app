@@ -152,3 +152,13 @@ export async function getMyPosts(id) {
     return err;
   }
 }
+
+export async function getAllPosts() {
+  try {
+    const result = await Client.get(`post`);
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
