@@ -28,6 +28,10 @@ const RootNavigator = ({ initialScreen, authData }) => {
               getComponent={() => require('../screens/PhotoView/PhotoView').default}
             />
           </Root.Group>
+          <Root.Screen
+            name="ViewProfile"
+            getComponent={() => require('../screens/ProfileView/ViewProfile').default}
+          />
         </>
       ) : (
         <>
