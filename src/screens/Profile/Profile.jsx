@@ -17,7 +17,7 @@ export default function Profile({ navigation }) {
       {authData.role === 'Player' ? (
         <>
           <PlayerProfileCard navigation={navigation} />
-          <PlayerBottomSection />
+          <PlayerBottomSection user={authData} />
           <PostSomething
             name={`${authData.Player.firstName} ${authData.Player.lastName}`}
             image={authData.profilePic}
@@ -26,7 +26,7 @@ export default function Profile({ navigation }) {
       ) : (
         <>
           <ClubProfileCard navigation={navigation} />
-          <ClubBottomSection />
+          <ClubBottomSection user={authData} />
           <PostSomething name={authData.Club.clubName} />
         </>
       )}

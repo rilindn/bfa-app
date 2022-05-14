@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 
 import Colors from '../../constants/Colors';
-import useAuth from '../../hooks/useAuth';
 import styles from './ClubBottomSection.styles';
 
-export default function BottomProfileClub() {
-  const { authData } = useAuth();
+export default function BottomProfileClub({ user }) {
   const [selectedTab, setSelectedTab] = useState('about');
 
   return (
@@ -50,7 +48,7 @@ export default function BottomProfileClub() {
         </TouchableOpacity>
       </View>
       <View style={styles.bottomTabContainer}>
-        {selectedTab === 'about' && <Text style={styles.aboutText}>{authData.Club.about}</Text>}
+        {selectedTab === 'about' && <Text style={styles.aboutText}>{user.Club?.about}</Text>}
         {selectedTab === 'team' && <Text style={styles.aboutText}>Team</Text>}
         {selectedTab === 'vacancies' && <Text style={styles.aboutText}>Vacancies</Text>}
       </View>

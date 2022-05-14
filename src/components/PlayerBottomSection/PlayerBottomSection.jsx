@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 
 import Colors from '../../constants/Colors';
-import useAuth from '../../hooks/useAuth';
-import CustomButton from '../Button/Button';
 import styles from './PlayerBottomSection.styles';
 
-export default function PlayerBottomSection() {
+export default function PlayerBottomSection({ user }) {
   const [selectedTab, setSelectedTab] = useState('about');
-  const { authData } = useAuth();
 
   return (
     <>
@@ -40,12 +37,11 @@ export default function PlayerBottomSection() {
       </View>
       <View style={styles.bottomTabContainer}>
         {selectedTab === 'about' ? (
-          <Text style={styles.aboutText}>{authData.Player.about}</Text>
+          <Text style={styles.aboutText}>{user.Player?.about}</Text>
         ) : (
           <>
             <View style={styles.playerCharacteristicContainer}>
               <Text style={styles.playerCharacteristicText}>Player characteristics</Text>
-              <CustomButton label="Edit" style={styles.editBtn} labelStyle={styles.editLabel} />
             </View>
             <View style={styles.listContainer}>
               <View>
@@ -58,13 +54,13 @@ export default function PlayerBottomSection() {
                 <Text style={styles.leftListItem}>Back number</Text>
               </View>
               <View>
-                <Text style={styles.rightListItem}>{authData.Player.nationality}</Text>
-                <Text style={styles.rightListItem}>{authData.Player.city}</Text>
-                <Text style={styles.rightListItem}>{authData.Player.birthDate}</Text>
-                <Text style={styles.rightListItem}>{authData.Player.height}</Text>
-                <Text style={styles.rightListItem}>{authData.Player.weight} kg</Text>
-                <Text style={styles.rightListItem}>{authData.Player.foot}</Text>
-                <Text style={styles.rightListItem}>{authData.Player.backNumber}</Text>
+                <Text style={styles.rightListItem}>{user.Player?.nationality}</Text>
+                <Text style={styles.rightListItem}>{user.Player?.city}</Text>
+                <Text style={styles.rightListItem}>{user.Player?.birthDate}</Text>
+                <Text style={styles.rightListItem}>{user.Player?.height}</Text>
+                <Text style={styles.rightListItem}>{user.Player?.weight} kg</Text>
+                <Text style={styles.rightListItem}>{user.Player?.foot}</Text>
+                <Text style={styles.rightListItem}>{user.Player?.backNumber}</Text>
               </View>
             </View>
           </>

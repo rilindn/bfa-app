@@ -1,29 +1,28 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, Text } from 'react-native-ui-lib';
 
 import Colors from '../../../constants/Colors';
-import useAuth from '../../../hooks/useAuth';
 import Avatar from '../../Avatar/Avatar';
 import CustomButton from '../../Button/Button';
 import styles from './ClubCard.styles';
 
-export default function ClubCard({ navigation }) {
-  const { authData } = useAuth();
+export default function ClubCard({ user }) {
+  const navigation = useNavigation();
 
   return (
     <View style={styles.main}>
-      <Text style={styles.basicAccountLabel}>{authData.Club.clubName}</Text>
+      <Text style={styles.basicAccountLabel}>{user.Club?.clubName}</Text>
       <View row marginB-25>
         <TouchableOpacity
           onPress={() => {
-            authData?.profilePic &&
-              navigation.navigate('PhotoView', { photo: authData.profilePic });
+            user?.profilePic && navigation.navigate('PhotoView', { photo: user.profilePic });
           }}>
           <Avatar
-            name={authData.Club.clubName}
+            name={user.Club.clubName}
             avatarContainer={{ marginHorizontal: 15, marginTop: 5 }}
-            image={authData?.profilePic}
+            image={user?.profilePic}
             size={80}
           />
         </TouchableOpacity>
@@ -34,9 +33,9 @@ export default function ClubCard({ navigation }) {
             <Text style={styles.leftListItem}>League level</Text>
           </View>
           <View paddingL-20 center style={{ alignItems: 'flex-start' }}>
-            <Text style={styles.rightListItem}>{authData.Club.clubName}</Text>
-            <Text style={styles.rightListItem}>{authData.Club.league}</Text>
-            <Text style={styles.rightListItem}>{authData.Club.leagueLevel}</Text>
+            <Text style={styles.rightListItem}>{user.Club?.clubName}</Text>
+            <Text style={styles.rightListItem}>{user.Club?.league}</Text>
+            <Text style={styles.rightListItem}>{user.Club?.leagueLevel}</Text>
           </View>
         </View>
       </View>

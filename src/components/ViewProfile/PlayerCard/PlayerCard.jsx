@@ -1,15 +1,15 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { View, Text } from 'react-native-ui-lib';
 
 import Colors from '../../../constants/Colors';
-import useAuth from '../../../hooks/useAuth';
 import Avatar from '../../Avatar/Avatar';
 import CustomButton from '../../Button/Button';
 import styles from './PlayerCard.styles';
 
-export default function PlayerCard({ navigation }) {
-  const { authData } = useAuth();
+export default function PlayerCard({ user }) {
+  const navigation = useNavigation();
 
   return (
     <View style={styles.main}>
@@ -21,23 +21,23 @@ export default function PlayerCard({ navigation }) {
       <TouchableOpacity
         style={{ flexDirection: 'row' }}
         onPress={() => {
-          authData.profilePic && navigation.navigate('PhotoView', { photo: authData.profilePic });
+          user.profilePic && navigation.navigate('PhotoView', { photo: user.profilePic });
         }}>
         <Avatar
-          name={`${authData.Player?.firstName} ${authData.Player?.lastName}`}
+          name={`${user.Player?.firstName} ${user.Player?.lastName}`}
           avatarContainer={{ marginHorizontal: 15, marginTop: 5 }}
-          image={authData.profilePic}
+          image={user.profilePic}
           size={80}
         />
         <View style={{ justifyContent: 'center' }}>
           <Text style={styles.name}>
-            {authData.Player?.firstName} {authData.Player?.lastName}
+            {user.Player?.firstName} {user.Player?.lastName}
           </Text>
           <Text style={styles.personalInfo}>
-            Gender: <Text style={{ color: Colors.white }}>M</Text>
+            Gender: <Text style={{ color: Colors.white }}>{user.Player?.gender}</Text>
           </Text>
           <Text style={styles.personalInfo}>
-            Back number: <Text style={{ color: Colors.white }}>18</Text>
+            Back number: <Text style={{ color: Colors.white }}>{user.Player?.backNumber}</Text>
           </Text>
         </View>
       </TouchableOpacity>
