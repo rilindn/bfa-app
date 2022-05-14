@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   playerCharacteristicContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     padding: 15,
   },
   listContainer: {

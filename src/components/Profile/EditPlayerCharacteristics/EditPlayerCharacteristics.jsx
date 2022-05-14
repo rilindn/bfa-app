@@ -54,7 +54,7 @@ const EditPlayerCharacteristics = ({ navigation }) => {
           rules={rules.height}
           errors={errors}
           darkMode
-          defaultValue={authData.Player.height.toString()}
+          defaultValue={authData.Player?.height?.toString()}
           keyboardType="decimal-pad"
         />
         <TextInput

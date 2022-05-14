@@ -46,7 +46,7 @@ export default function Post({ post, navigation }) {
 
   const getUserFullName = (user) => {
     if (user?.role === 'Player')
-      setUserFullName(`${user.Player.firstName} ${user.Player.lastName}`);
+      setUserFullName(`${user.Player?.firstName} ${user.Player?.lastName}`);
     else setUserFullName(user?.Club?.clubName);
   };
 
