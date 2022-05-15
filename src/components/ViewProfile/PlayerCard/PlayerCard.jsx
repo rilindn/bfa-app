@@ -1,15 +1,40 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { View, Text } from 'react-native-ui-lib';
 
+import { follow, verifyFollow, unFollow } from '../../../api/ApiMethods';
 import Colors from '../../../constants/Colors';
+import useAuth from '../../../hooks/useAuth';
 import Avatar from '../../Avatar/Avatar';
 import CustomButton from '../../Button/Button';
 import styles from './PlayerCard.styles';
 
 export default function PlayerCard({ user }) {
   const navigation = useNavigation();
+  const { authData } = useAuth();
+  const [isFollow, setIsFollow] = useState();
+
+  const followerId = authData.id;
+  const followedId = user.id;
+
+  const handleFollow = async () => {
+    await follow({ followerId, followedId });
+    await isFollowed();
+  };
+
+  const isFollowed = async () => {
+    const checkIsFollow = await verifyFollow({ followerId, followedId });
+    setIsFollow(checkIsFollow);
+  };
+
+  const handleUnfollow = async () => {
+    await unFollow({ followerId, followedId });
+    await isFollowed();
+  };
+  useEffect(() => {
+    isFollowed();
+  }, [user]);
 
   return (
     <View style={styles.main}>
@@ -55,11 +80,21 @@ export default function PlayerCard({ user }) {
           style={styles.bookmarkBtn}
           labelStyle={styles.sendMessageLabel}
         />
-        <CustomButton
-          label="Follow"
-          style={[styles.sendMessageBtn, { backgroundColor: Colors.orange }]}
-          labelStyle={styles.sendMessageLabel}
-        />
+        {!isFollow ? (
+          <CustomButton
+            label="Follow"
+            style={[styles.sendMessageBtn, { backgroundColor: Colors.orange }]}
+            labelStyle={styles.sendMessageLabel}
+            onPress={handleFollow}
+          />
+        ) : (
+          <CustomButton
+            label="Unfollow"
+            style={[styles.sendMessageBtn, { backgroundColor: Colors.orange }]}
+            labelStyle={styles.sendMessageLabel}
+            onPress={handleUnfollow}
+          />
+        )}
       </View>
       <View style={styles.infoBoxWrapper}>
         <View style={styles.infoBox}>

@@ -162,3 +162,35 @@ export async function getAllPosts() {
     return err;
   }
 }
+
+//Following
+
+export async function follow(data) {
+  try {
+    const result = await Client.post('follow', { ...data });
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+export async function verifyFollow({ followerId, followedId }) {
+  try {
+    const result = await Client.get(`follow/checkFollow/${followerId}/${followedId}`);
+    return result.data;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+export async function unFollow({ followerId, followedId }) {
+  try {
+    const result = await Client.delete(`follow/${followerId}/${followedId}`);
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
