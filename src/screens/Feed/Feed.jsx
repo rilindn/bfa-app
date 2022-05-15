@@ -1,20 +1,22 @@
 import { useEffect, useState, useRef } from 'react';
 import { RefreshControl, FlatList, Text, View } from 'react-native';
 
-import { getAllPosts } from '../../api/ApiMethods';
+import { getMyFollowingsPosts } from '../../api/ApiMethods';
 import Post from '../../components/Post/Post';
 import PostSomething from '../../components/Post/PostSomething/PostSomething';
 import Colors from '../../constants/Colors';
+import useAuth from './../../hooks/useAuth';
 import styles from './Feed.styles';
 
 export default function Feed({ navigation }) {
   const [posts, setPosts] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
   const flatListRef = useRef();
+  const { authData } = useAuth();
 
   const scrollToTop = () => {
     navigation.addListener('tabPress', () => {
-      flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
+      flatListRef?.current?.scrollToOffset({ animated: true, offset: 0 });
     });
   };
 
@@ -26,7 +28,7 @@ export default function Feed({ navigation }) {
   const fetchPosts = async () => {
     setRefreshing(true);
     try {
-      const posts = await getAllPosts();
+      const posts = await getMyFollowingsPosts(authData.id);
       if (posts?.status === 200) {
         setPosts(posts.data);
         setRefreshing(false);
