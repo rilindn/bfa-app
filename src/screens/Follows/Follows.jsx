@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import Colors from '../../../constants/Colors';
-import Followers from '../Followers/Followers';
-import Following from '../Following/Following';
-import styles from './FollowTopBar.styles';
+import Following from '../../components/Follow/Followings/Followings';
+import Colors from '../../constants/Colors';
+import Followers from './../../components/Follow/Followers/Followers';
+import useAuth from './../../hooks/useAuth';
+import styles from './Follows.styles';
 
 export default function Follow({ route, navigation }) {
-  const [selectedTab, setSelectedTab] = useState('followers');
+  const { authData } = useAuth();
+  const defaultSelectedTab = route.params.selectedTab;
+  const [selectedTab, setSelectedTab] = useState(defaultSelectedTab || 'followers');
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topTabContainer}>
@@ -41,9 +44,9 @@ export default function Follow({ route, navigation }) {
       </View>
       <View style={styles.bottomTabContainer}>
         {selectedTab === 'followers' ? (
-          <Followers route={route} navigation={navigation} />
+          <Followers user={authData} navigation={navigation} />
         ) : (
-          <Following navigation={navigation} />
+          <Following user={authData} navigation={navigation} />
         )}
       </View>
     </SafeAreaView>

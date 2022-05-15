@@ -2,25 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Modal } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import getFullName from '../../../helpers/extractFullname';
 import useAuth from '../../../hooks/useAuth';
 import Avatar from '../../Avatar/Avatar';
 import CreatePost from '../CreatePost/CreatePost';
 import styles from './PostSomething.styles';
 
 export default function PostSomething({ name, image }) {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [userName, setUserName] = useState();
   const { authData } = useAuth();
-
-  useEffect(() => {
-    getUserFullName();
-  }, [authData]);
-
-  const getUserFullName = () => {
-    if (authData?.role === 'Player')
-      setUserName(`${authData.Player.firstName} ${authData.Player.lastName}`);
-    else setUserName(authData?.Club?.clubName);
-  };
+  const [modalVisible, setModalVisible] = useState(false);
+  const [userName] = useState(getFullName(authData));
 
   return (
     <View style={styles.postSomethingWrapper}>

@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ActivityIndicator } from 'react-native-paper';
@@ -12,10 +12,11 @@ import styles from './HeaderSearch.styles';
 
 export default function HeaderSearch({}) {
   const { authData } = useAuth();
+  const navigation = useNavigation();
+  const searchInput = useRef();
+  const [loading, setLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const navigation = useNavigation();
 
   const fetchUsers = async (searchQuery) => {
     setLoading(true);
@@ -37,6 +38,7 @@ export default function HeaderSearch({}) {
     <View style={styles.container}>
       <View style={styles.search}>
         <TextInput
+          ref={searchInput}
           style={styles.searchInput}
           placeholder="Search"
           placeholderTextColor={Colors.gray3 + 60}
@@ -53,7 +55,17 @@ export default function HeaderSearch({}) {
             <Text style={styles.role}>No users found!</Text>
           ) : (
             results.map((result) => {
-              return <Result user={result} key={result.id} navigation={navigation} />;
+              return (
+                <Result
+                  user={result}
+                  key={result.id}
+                  navigation={navigation}
+                  dissmisResults={() => {
+                    setShowResults(false);
+                    searchInput.current.clear();
+                  }}
+                />
+              );
             })
           )}
         </View>
@@ -62,7 +74,7 @@ export default function HeaderSearch({}) {
   );
 }
 
-const Result = ({ user, navigation }) => {
+const Result = ({ user, navigation, dissmisResults }) => {
   const fullName =
     user.role === 'Player'
       ? `${user.Player?.firstName} ${user.Player?.lastName}`
@@ -70,11 +82,12 @@ const Result = ({ user, navigation }) => {
   return (
     <TouchableOpacity
       style={styles.result}
-      onPress={() =>
+      onPress={() => {
         navigation.navigate('ViewProfile', {
           id: user.id,
-        })
-      }>
+        });
+        dissmisResults();
+      }}>
       <Avatar size={40} name={fullName} image={user?.profilePic} />
       <View style={styles.userInfos}>
         <Text style={styles.name}>{fullName}</Text>
