@@ -23,8 +23,8 @@ const RootNavigator = ({ initialScreen, authData }) => {
             }
           />
           <Root.Screen
-            name="Follow"
-            getComponent={() => require('../screens/Follow/Follow').default}
+            name="Follows"
+            getComponent={() => require('../screens/Follows/Follows').default}
           />
           <Root.Group screenOptions={{ presentation: 'modal' }}>
             <Root.Screen

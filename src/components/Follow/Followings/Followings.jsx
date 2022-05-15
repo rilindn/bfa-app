@@ -1,26 +1,26 @@
 import { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Searchbar } from 'react-native-paper';
 
-import { getMyFollowers } from '../../../api/ApiMethods';
-import SearchBar from '../../SearchBar/Searchbar';
+import { getMyFollowings } from '../../../api/ApiMethods';
 import SingleFollow from '../SingleFollow/SingleFollow';
-import styles from './Followers.styles';
+import styles from './Followings.styles';
 
 export default function Followers({ user }) {
   const [loading, setLoading] = useState(false);
-  const [followers, setFollowers] = useState([]);
+  const [followings, setFollowings] = useState([]);
 
   useEffect(() => {
-    fetchFollowers();
+    fetchFollowings();
   }, []);
 
-  const fetchFollowers = async () => {
+  const fetchFollowings = async (query) => {
     setLoading(true);
     try {
-      const posts = await getMyFollowers(user.id);
+      const posts = await getMyFollowings(user.id, query);
       if (posts?.status === 200) {
-        setFollowers(posts.data);
+        setFollowings(posts.data);
       }
     } finally {
       setLoading(false);
@@ -29,21 +29,21 @@ export default function Followers({ user }) {
 
   return (
     <ScrollView style={styles.container}>
-      <SearchBar />
+      <Searchbar placeholder="Search" onChangeText={(val) => fetchFollowings(val)} />
       <View>
         <>
-          {followers?.map((follower) => (
+          {followings?.map((follow) => (
             <SingleFollow
-              type="followers"
+              type="followings"
               loggedUser={user}
-              user={follower}
-              key={follower.id}
-              refetchFollows={fetchFollowers}
+              user={follow}
+              key={follow.id}
+              refetchFollows={fetchFollowings}
             />
           ))}
-          {!loading && followers.length === 0 && (
+          {!loading && followings.length === 0 && (
             <View style={styles.noFollowContainer}>
-              <Text style={styles.noFollowText}>No followers found</Text>
+              <Text style={styles.noFollowText}>No followings found</Text>
             </View>
           )}
         </>

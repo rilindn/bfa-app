@@ -153,6 +153,16 @@ export async function getMyPosts(id) {
   }
 }
 
+export async function getMyFollowingsPosts(id) {
+  try {
+    const result = await Client.get(`post/followings/${id}`);
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
 export async function getAllPosts() {
   try {
     const result = await Client.get(`post`);
@@ -188,6 +198,26 @@ export async function verifyFollow({ followerId, followedId }) {
 export async function unFollow({ followerId, followedId }) {
   try {
     const result = await Client.delete(`follow/${followerId}/${followedId}`);
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+export async function getMyFollowers(id) {
+  try {
+    const result = await Client.get(`follow/followers/${id}`);
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+export async function getMyFollowings(id, query) {
+  try {
+    const result = await Client.get(`follow/followings/${id}?q=${query}`);
     return result;
   } catch (err) {
     console.error(err);

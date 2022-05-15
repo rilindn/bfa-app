@@ -8,7 +8,7 @@ import Avatar from '../../Avatar/Avatar';
 import CustomButton from '../../Button/Button';
 import styles from './ClubCard.styles';
 
-export default function ClubCard({ user }) {
+export default function ClubCard({ user, isFollow, handleFollow, handleUnfollow }) {
   const navigation = useNavigation();
 
   return (
@@ -50,11 +50,21 @@ export default function ClubCard({ user }) {
           style={styles.bookmarkBtn}
           labelStyle={styles.sendMessageLabel}
         />
-        <CustomButton
-          label="Follow"
-          style={[styles.sendMessageBtn, { backgroundColor: Colors.orange }]}
-          labelStyle={styles.sendMessageLabel}
-        />
+        {!isFollow ? (
+          <CustomButton
+            label="Follow"
+            style={[styles.sendMessageBtn, { backgroundColor: Colors.orange }]}
+            labelStyle={styles.sendMessageLabel}
+            onPress={handleFollow}
+          />
+        ) : (
+          <CustomButton
+            label="Unfollow"
+            style={[styles.sendMessageBtn, { backgroundColor: Colors.orange }]}
+            labelStyle={styles.sendMessageLabel}
+            onPress={handleUnfollow}
+          />
+        )}
       </View>
       <View style={styles.infoBoxWrapper}>
         <View style={styles.infoBox}>

@@ -91,9 +91,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   sendMessageBtn: {
-    width: 110,
+    width: '45%',
     height: 40,
     backgroundColor: Colors.mainGreen,
+  },
+  followBtn: {
+    width: '45%',
+    height: 40,
+    backgroundColor: Colors.orange,
   },
   sendMessageLabel: {
     fontSize: fontSizes.larges,

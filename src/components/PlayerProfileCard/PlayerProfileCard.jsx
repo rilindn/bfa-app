@@ -8,7 +8,7 @@ import Avatar from '../Avatar/Avatar';
 import CustomButton from '../Button/Button';
 import styles from './PlayerProfileCard.styles';
 
-export default function PlayerProfileCard({ navigation }) {
+export default function PlayerProfileCard({ navigation, followers, followings, posts }) {
   const { authData } = useAuth();
 
   return (
@@ -44,18 +44,20 @@ export default function PlayerProfileCard({ navigation }) {
       </View>
       <View style={styles.infoBoxWrapper}>
         <View style={styles.infoBox}>
-          <Text style={styles.statisticsNumber}>1</Text>
+          <Text style={styles.statisticsNumber}>{posts?.length}</Text>
           <Text style={styles.statisticsText}>POST</Text>
         </View>
         <View style={styles.infoBox}>
-          <TouchableOpacity onPress={() => navigation.navigate('Follow')}>
-            <Text style={styles.statisticsNumber}>10</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Follows', { selectedTab: 'followers' })}>
+            <Text style={styles.statisticsNumber}>{followers.length}</Text>
             <Text style={styles.statisticsText}>FOLLOWERS</Text>
           </TouchableOpacity>
         </View>
         <View style={[styles.infoBox, { borderRightWidth: 0 }]}>
-          <TouchableOpacity onPress={() => navigation.navigate('Follow')}>
-            <Text style={styles.statisticsNumber}>12</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Follows', { selectedTab: 'following' })}>
+            <Text style={styles.statisticsNumber}>{followings?.length}</Text>
             <Text style={styles.statisticsText}>FOLLOWING</Text>
           </TouchableOpacity>
         </View>
