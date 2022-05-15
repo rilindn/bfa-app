@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Searchbar } from 'react-native-paper';
 
 import { getMyFollowers } from '../../../api/ApiMethods';
-import SearchBar from '../../SearchBar/Searchbar';
 import SingleFollow from '../SingleFollow/SingleFollow';
 import styles from './Followers.styles';
 
@@ -15,10 +15,10 @@ export default function Followers({ user }) {
     fetchFollowers();
   }, []);
 
-  const fetchFollowers = async () => {
+  const fetchFollowers = async (query) => {
     setLoading(true);
     try {
-      const posts = await getMyFollowers(user.id);
+      const posts = await getMyFollowers(user.id, query);
       if (posts?.status === 200) {
         setFollowers(posts.data);
       }
@@ -29,7 +29,7 @@ export default function Followers({ user }) {
 
   return (
     <ScrollView style={styles.container}>
-      <SearchBar />
+      <Searchbar placeholder="Search" onChangeText={(val) => fetchFollowers(val)} />
       <View>
         <>
           {followers?.map((follower) => (

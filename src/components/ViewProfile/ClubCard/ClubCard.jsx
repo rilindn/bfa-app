@@ -45,11 +45,11 @@ export default function ClubCard({ user, isFollow, handleFollow, handleUnfollow 
           style={styles.sendMessageBtn}
           labelStyle={styles.sendMessageLabel}
         />
-        <CustomButton
+        {/* <CustomButton
           label="Bookmark"
           style={styles.bookmarkBtn}
           labelStyle={styles.sendMessageLabel}
-        />
+        /> */}
         {!isFollow ? (
           <CustomButton
             label="Follow"

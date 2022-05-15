@@ -205,9 +205,9 @@ export async function unFollow({ followerId, followedId }) {
   }
 }
 
-export async function getMyFollowers(id) {
+export async function getMyFollowers(id, query) {
   try {
-    const result = await Client.get(`follow/followers/${id}`);
+    const result = await Client.get(`follow/followers/${id}?q=${query || ''}`);
     return result;
   } catch (err) {
     console.error(err);
@@ -217,7 +217,7 @@ export async function getMyFollowers(id) {
 
 export async function getMyFollowings(id, query) {
   try {
-    const result = await Client.get(`follow/followings/${id}?q=${query}`);
+    const result = await Client.get(`follow/followings/${id}?q=${query || ''}`);
     return result;
   } catch (err) {
     console.error(err);
