@@ -37,7 +37,7 @@ export default function Followers({ user }) {
               type="followings"
               loggedUser={user}
               user={follow}
-              key={follow.id}
+              key={follow?.id}
               refetchFollows={fetchFollowings}
             />
           ))}

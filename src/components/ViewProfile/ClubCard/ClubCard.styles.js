@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.extraSmall,
   },
   sendMessageBtn: {
-    width: 110,
+    width: '45%',
     height: 40,
     backgroundColor: Colors.mainGreen,
   },
