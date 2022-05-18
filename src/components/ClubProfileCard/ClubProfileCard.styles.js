@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 0.5,
   },
   statisticsNumber: {
+    alignSelf: 'center',
     color: Colors.white,
     fontFamily: 'poppins-semibold',
     fontSize: fontSizes.medium,
