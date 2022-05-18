@@ -28,7 +28,7 @@ export default function CreatePost({ name, closeModal, visible, editPost, refetc
     formState: { errors },
   } = useForm({
     defaultValues: {
-      content: editPost?.content,
+      content: editPost?.content || '',
     },
   });
 
@@ -46,7 +46,7 @@ export default function CreatePost({ name, closeModal, visible, editPost, refetc
         : await updatePost(data, editPost.id);
       if (result?.status === 200) {
         closeModal();
-        await refetchPosts();
+        refetchPosts && (await refetchPosts());
         const successMsg = !editPost ? 'Post created' : 'Post was edited';
         ToastAndroid.show(successMsg, ToastAndroid.LONG);
       } else {
@@ -88,7 +88,6 @@ export default function CreatePost({ name, closeModal, visible, editPost, refetc
                 multiline
                 numberOfLines={6}
                 darkMode
-                defaultValue={editPost?.content}
               />
               {media && (
                 <View style={styles.mediaPreview}>
