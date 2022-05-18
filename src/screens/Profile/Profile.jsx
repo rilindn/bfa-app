@@ -31,6 +31,11 @@ export default function Profile({ navigation }) {
     setPosts(posts.data);
   }, [isFocused]);
 
+  const refetchPosts = async () => {
+    const posts = await getMyPosts(authData.id);
+    setPosts(posts.data);
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -43,7 +48,7 @@ export default function Profile({ navigation }) {
           />
         }
         data={posts}
-        renderItem={({ item }) => _renderitem({ item, navigation })}
+        renderItem={({ item }) => _renderitem({ refetchPosts, item, navigation })}
       />
     </View>
   );
@@ -79,6 +84,8 @@ const ListHeaderComponent = ({ navigation, followers, followings, posts }) => {
   );
 };
 
-const _renderitem = ({ item, navigation }) => {
-  return <Post key={item.id} post={item} navigation={navigation} />;
+const _renderitem = ({ refetchPosts, item, navigation }) => {
+  return (
+    <Post refetchPosts={refetchPosts} key={item.id} post={item} navigation={navigation} isOwnPost />
+  );
 };

@@ -1,18 +1,24 @@
+import { Entypo } from '@expo/vector-icons';
 import moment from 'moment';
 import React, { useState, useEffect } from 'react';
+import { View, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { View, Text, Image } from 'react-native-ui-lib';
+import { Divider, Menu } from 'react-native-paper';
 
-import { getUserById } from '../../api/ApiMethods';
+import { deletePost, getUserById } from '../../api/ApiMethods';
 import SvgIcon from '../../components/SvgIcon/SvgIcon';
+import Colors from '../../constants/Colors';
 import { fontSizes } from '../../constants/Typography';
 import Avatar from '../Avatar/Avatar';
+import CreatePost from './CreatePost/CreatePost';
 import styles from './Post.styles';
 
-export default function Post({ post, navigation }) {
+export default function Post({ post, navigation, refetchPosts, isOwnPost }) {
   const [user, setUser] = useState();
   const [userFullName, setUserFullName] = useState();
+  const [showEditMenu, setShowEditMenu] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const media = post?.media;
 
   const formatedDate = () => {
@@ -50,21 +56,71 @@ export default function Post({ post, navigation }) {
     else setUserFullName(user?.Club?.clubName);
   };
 
+  const handleDeletePost = async () => {
+    await Promise.all([deletePost(post.id), refetchPosts()]);
+    setShowEditMenu(false);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        {!loading && (
-          <Avatar
-            name={userFullName}
-            size={50}
-            initialStyle={{ fontSize: fontSizes.large }}
-            image={user?.profilePic}
-          />
-        )}
-        <View style={styles.dateContainer}>
-          <Text style={styles.name}>{userFullName}</Text>
-          <Text style={styles.date}>{formatedDate()}</Text>
+        <View style={styles.userDataContainer}>
+          {!loading && (
+            <Avatar
+              name={userFullName}
+              size={50}
+              initialStyle={{ fontSize: fontSizes.large }}
+              image={user?.profilePic}
+            />
+          )}
+          <View style={styles.dateContainer}>
+            <Text style={styles.name}>{userFullName}</Text>
+            <Text style={styles.date}>{formatedDate()}</Text>
+          </View>
         </View>
+        {isOwnPost && (
+          <>
+            <Menu
+              visible={showEditMenu}
+              onDismiss={() => setShowEditMenu(false)}
+              contentStyle={styles.menuContent}
+              anchor={
+                <TouchableOpacity onPress={() => setShowEditMenu(true)}>
+                  <Entypo
+                    style={styles.dotsIcon}
+                    name="dots-three-horizontal"
+                    size={20}
+                    color={Colors.gray3}
+                  />
+                </TouchableOpacity>
+              }>
+              <Menu.Item
+                icon="pencil"
+                title="Edit"
+                style={styles.menuItems}
+                titleStyle={styles.menuItemsTitle}
+                onPress={() => {
+                  setModalVisible(true);
+                  setShowEditMenu(false);
+                }}
+              />
+              <Divider />
+              <Menu.Item
+                icon="delete"
+                title="Delete"
+                style={styles.menuItems}
+                titleStyle={styles.menuItemsTitle}
+                onPress={() => handleDeletePost()}
+              />
+            </Menu>
+            <CreatePost
+              refetchPosts={refetchPosts}
+              editPost={post}
+              visible={modalVisible}
+              closeModal={() => setModalVisible(false)}
+            />
+          </>
+        )}
       </View>
       <View style={styles.middleContainer}>
         <Text style={styles.description}>{post?.content}</Text>

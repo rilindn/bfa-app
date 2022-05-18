@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 20,
   },
+  userDataContainer: {
+    flexDirection: 'row',
+  },
   postSomethingText: {
     color: Colors.light,
     fontSize: fontSizes.large,
@@ -27,10 +30,10 @@ const styles = StyleSheet.create({
     fontFamily: 'poppins-semibold',
   },
   dateContainer: {
-    width: '85%',
+    // width: '70%',
     height: 45,
     justifyContent: 'center',
-    marginLeft: 5,
+    marginLeft: 10,
   },
   name: {
     color: Colors.white,
@@ -41,6 +44,20 @@ const styles = StyleSheet.create({
     color: Colors.gray3 + '80',
     fontFamily: 'poppins-regular',
     fontSize: fontSizes.extraSmall,
+  },
+  dotsIcon: {
+    marginBottom: 5,
+    marginRight: 10,
+  },
+  menuContent: {
+    backgroundColor: Colors.gray4,
+    right: 0,
+  },
+  menuItems: {
+    width: 100,
+  },
+  menuItemsTitle: {
+    marginLeft: -25,
   },
   middleContainer: {
     width: '100%',
