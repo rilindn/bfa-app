@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Modal } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import getFullName from '../../../helpers/extractFullname';
@@ -8,7 +8,7 @@ import Avatar from '../../Avatar/Avatar';
 import CreatePost from '../CreatePost/CreatePost';
 import styles from './PostSomething.styles';
 
-export default function PostSomething({ name, image }) {
+export default function PostSomething() {
   const { authData } = useAuth();
   const [modalVisible, setModalVisible] = useState(false);
   const [userName] = useState(getFullName(authData));
@@ -23,17 +23,7 @@ export default function PostSomething({ name, image }) {
             <Text style={styles.postPlaceholder}>What's on your mind?</Text>
           </TouchableOpacity>
         </View>
-        <Modal
-          animationType="slide"
-          transparent
-          visible={modalVisible}
-          onRequestClose={() => setModalVisible(!modalVisible)}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <CreatePost closeModal={() => setModalVisible(false)} />
-            </View>
-          </View>
-        </Modal>
+        <CreatePost visible={modalVisible} closeModal={() => setModalVisible(false)} />
       </View>
     </View>
   );

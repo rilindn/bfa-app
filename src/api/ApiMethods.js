@@ -173,6 +173,26 @@ export async function getAllPosts() {
   }
 }
 
+export async function updatePost(data, id) {
+  try {
+    const result = await Client.put(`post/${id}`, { ...data });
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+export async function deletePost(id) {
+  try {
+    const result = await Client.delete(`post/${id}`);
+    return result;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
 //Following
 
 export async function follow(data) {

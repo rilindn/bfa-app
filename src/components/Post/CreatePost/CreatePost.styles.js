@@ -82,6 +82,18 @@ const styles = StyleSheet.create({
     left: 100,
     top: 5,
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.background,
+  },
+  modalView: {
+    borderRadius: 20,
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+  },
 });
 
 export default styles;
