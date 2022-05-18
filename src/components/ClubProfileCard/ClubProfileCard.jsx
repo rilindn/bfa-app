@@ -7,7 +7,7 @@ import Avatar from '../Avatar/Avatar';
 import CustomButton from '../Button/Button';
 import styles from './ClubProfileCard.styles';
 
-export default function ClubProfileCard({ navigation }) {
+export default function ClubProfileCard({ navigation, followers, followings, posts }) {
   const { authData } = useAuth();
 
   return (
@@ -51,16 +51,22 @@ export default function ClubProfileCard({ navigation }) {
       </View>
       <View style={styles.infoBoxWrapper}>
         <View style={styles.infoBox}>
-          <Text style={styles.statisticsNumber}>1</Text>
+          <Text style={styles.statisticsNumber}>{posts?.length}</Text>
           <Text style={styles.statisticsText}>POST</Text>
         </View>
         <View style={styles.infoBox}>
-          <Text style={styles.statisticsNumber}>10</Text>
-          <Text style={styles.statisticsText}>FOLLOWERS</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Follows', { selectedTab: 'followers' })}>
+            <Text style={styles.statisticsNumber}>{followers.length}</Text>
+            <Text style={styles.statisticsText}>FOLLOWERS</Text>
+          </TouchableOpacity>
         </View>
         <View style={[styles.infoBox, { borderRightWidth: 0 }]}>
-          <Text style={styles.statisticsNumber}>12</Text>
-          <Text style={styles.statisticsText}>FOLLOWING</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Follows', { selectedTab: 'following' })}>
+            <Text style={styles.statisticsNumber}>{followings?.length}</Text>
+            <Text style={styles.statisticsText}>FOLLOWING</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
