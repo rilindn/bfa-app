@@ -20,7 +20,7 @@ const EditPlayerGeneral = ({ navigation }) => {
   const [showAvatarMenu, setShowAvatarMenu] = useState(false);
   const [loading, setLoading] = useState(false);
   const [cameraVisible, setCameraVisible] = useState(false);
-  const [showImagePicker, setShowImagePicker] = useState(false);
+  const [showImagePicker, setShowMediaPicker] = useState(false);
   const [media, setMedia] = useState();
   const { authData, handleSignIn } = useAuth();
   const [birthDateVal, setBirthDateVal] = useState(authData.birthDate);
@@ -54,10 +54,10 @@ const EditPlayerGeneral = ({ navigation }) => {
     }
   };
 
-  const setPhoto = (photo) => {
+  const setSelectedMedia = (photo) => {
     photo && setMedia(photo);
     setCameraVisible(false);
-    setShowImagePicker(false);
+    setShowMediaPicker(false);
   };
 
   return (
@@ -88,7 +88,7 @@ const EditPlayerGeneral = ({ navigation }) => {
           <Divider />
           <Menu.Item
             onPress={() => {
-              setShowImagePicker(true);
+              setShowMediaPicker(true);
               setShowAvatarMenu(false);
             }}
             title="Choose from gallery"
@@ -96,15 +96,15 @@ const EditPlayerGeneral = ({ navigation }) => {
         </Menu>
         <Camera
           visible={cameraVisible}
-          setPhoto={setPhoto}
+          setPhoto={setSelectedMedia}
           closeModal={() => setCameraVisible(false)}
         />
         <ImagePicker
           visible={showImagePicker}
           allowsEditing
           aspect={[4, 3]}
-          setPhoto={setPhoto}
-          closeModal={() => setShowImagePicker(false)}
+          setSelectedMedia={setSelectedMedia}
+          closeModal={() => setShowMediaPicker(false)}
         />
         <Text style={styles.changePhoto}>Change Photo</Text>
       </View>

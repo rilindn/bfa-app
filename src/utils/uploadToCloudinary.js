@@ -12,12 +12,12 @@ const uploadToCloudinary = async (media) => {
     const result = await axios.post(apiUrl, {
       ...data,
     });
-    const photo = result.data.secure_url;
-    if (photo) {
-      return photo;
+    const media = result.data.secure_url;
+    if (media) {
+      return media;
     }
   } catch (err) {
-    console.log(err.response.data);
+    console.log('Cloudinary upload error: ', err?.response?.data);
   }
 };
 

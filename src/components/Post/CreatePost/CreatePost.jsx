@@ -1,4 +1,5 @@
 import { AntDesign, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
+import { Video } from 'expo-av';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { TouchableOpacity, Image, View, Text, ToastAndroid, Alert, Modal } from 'react-native';
@@ -15,17 +16,19 @@ import Avatar from './../../Avatar/Avatar';
 import TextInput from './../../TextInput/TextInput';
 import styles from './CreatePost.styles';
 
-export default function CreatePost({ name, closeModal, visible, editPost, refetchPosts }) {
+export default function CreatePost({ closeModal, visible, editPost, refetchPosts }) {
   const { authData } = useAuth();
   const [cameraVisible, setCameraVisible] = useState(false);
-  const [showImagePicker, setShowImagePicker] = useState(false);
+  const [showImagePicker, setShowMediaPicker] = useState(false);
   const [loading, setLoading] = useState(false);
   const [media, setMedia] = useState(editPost?.media);
   const [mediaChanged, setMediaChanged] = useState(false);
+  const [videoUri, setVideoUri] = useState();
   const {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       content: editPost?.content || '',
@@ -36,8 +39,8 @@ export default function CreatePost({ name, closeModal, visible, editPost, refetc
     setLoading(true);
     try {
       if (media && mediaChanged) {
-        const image = await uploadToCloudinary(media);
-        data.media = image;
+        const uploadedMedia = await uploadToCloudinary(media);
+        data.media = uploadedMedia;
       } else if (!media) {
         data.media = null;
       }
@@ -45,8 +48,9 @@ export default function CreatePost({ name, closeModal, visible, editPost, refetc
         ? await createPost({ ...data, UserId: authData.id })
         : await updatePost(data, editPost.id);
       if (result?.status === 200) {
-        closeModal();
-        refetchPosts && (await refetchPosts());
+        handleClose();
+        if (refetchPosts) await refetchPosts();
+
         const successMsg = !editPost ? 'Post created' : 'Post was edited';
         ToastAndroid.show(successMsg, ToastAndroid.LONG);
       } else {
@@ -61,8 +65,15 @@ export default function CreatePost({ name, closeModal, visible, editPost, refetc
     }
   };
 
+  const handleClose = () => {
+    closeModal();
+    reset();
+    setVideoUri();
+    setMedia();
+  };
+
   return (
-    <Modal animationType="slide" transparent visible={visible} onRequestClose={() => closeModal()}>
+    <Modal animationType="slide" transparent visible={visible} onRequestClose={() => handleClose()}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <View style={styles.container}>
@@ -91,15 +102,30 @@ export default function CreatePost({ name, closeModal, visible, editPost, refetc
               />
               {media && (
                 <View style={styles.mediaPreview}>
-                  <TouchableOpacity onPress={() => setMedia()} style={styles.removePreview}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setMedia();
+                      setVideoUri();
+                    }}
+                    style={styles.removePreview}>
                     <AntDesign name="closecircle" size={18} color={Colors.gray3} />
                   </TouchableOpacity>
-                  <Image
-                    style={styles.media}
-                    source={{
-                      uri: media,
-                    }}
-                  />
+                  {!videoUri ? (
+                    <Image
+                      style={styles.media}
+                      source={{
+                        uri: media,
+                      }}
+                    />
+                  ) : (
+                    <Video
+                      style={styles.media}
+                      source={{
+                        uri: videoUri,
+                      }}
+                      resizeMode="cover"
+                    />
+                  )}
                 </View>
               )}
               <View style={styles.uploadMedia}>
@@ -111,7 +137,7 @@ export default function CreatePost({ name, closeModal, visible, editPost, refetc
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.uploadMediaOptions}
-                  onPress={() => setShowImagePicker(true)}>
+                  onPress={() => setShowMediaPicker(true)}>
                   <FontAwesome5 name="images" size={16} color={Colors.orange} />
                   <Text style={styles.uploadText}>Choose from gallery</Text>
                 </TouchableOpacity>
@@ -137,12 +163,14 @@ export default function CreatePost({ name, closeModal, visible, editPost, refetc
               visible={showImagePicker}
               allowsEditing={false}
               // aspect: [4, 3],
-              setPhoto={(photo) => {
-                photo && setMedia(photo);
-                setShowImagePicker(false);
+              allowVideos
+              setSelectedMedia={(photo, uri) => {
+                setMedia(photo);
+                setVideoUri(uri);
+                setShowMediaPicker(false);
                 setMediaChanged(true);
               }}
-              closeModal={() => setShowImagePicker(false)}
+              closeModal={() => setShowMediaPicker(false)}
             />
           </View>
         </View>

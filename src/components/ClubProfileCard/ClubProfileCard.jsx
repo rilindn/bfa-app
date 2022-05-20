@@ -57,7 +57,7 @@ export default function ClubProfileCard({ navigation, followers, followings, pos
         <View style={styles.infoBox}>
           <TouchableOpacity
             onPress={() => navigation.navigate('Follows', { selectedTab: 'followers' })}>
-            <Text style={styles.statisticsNumber}>{followers.length}</Text>
+            <Text style={styles.statisticsNumber}>{followers?.length}</Text>
             <Text style={styles.statisticsText}>FOLLOWERS</Text>
           </TouchableOpacity>
         </View>

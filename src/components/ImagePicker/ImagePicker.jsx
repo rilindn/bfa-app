@@ -1,13 +1,22 @@
 import { AntDesign, Entypo } from '@expo/vector-icons';
+import { Video } from 'expo-av';
+import * as FileSystem from 'expo-file-system';
 import * as ImagePickerRN from 'expo-image-picker';
 import React, { useEffect, useState } from 'react';
-import { Image, Text, TouchableOpacity, View, ToastAndroid, Dimensions, Modal } from 'react-native';
+import { Image, Text, TouchableOpacity, View, ToastAndroid, Modal } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 
 import Colors from '../../constants/Colors';
 import styles from './ImagePicker.styles';
 
-export default function ImagePicker({ visible, setPhoto, closePicker, allowsEditing, aspect }) {
+export default function ImagePicker({
+  visible,
+  setSelectedMedia,
+  closeModal,
+  allowsEditing,
+  aspect,
+  allowVideos,
+}) {
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState('');
 
@@ -22,32 +31,47 @@ export default function ImagePicker({ visible, setPhoto, closePicker, allowsEdit
       alert('Permission to access camera roll is required!');
       return;
     }
+    const mediaTypes = !allowVideos
+      ? ImagePickerRN.MediaTypeOptions.Images
+      : ImagePickerRN.MediaTypeOptions.All;
 
     const pickerResult = await ImagePickerRN.launchImageLibraryAsync({
-      mediaTypes: ImagePickerRN.MediaTypeOptions.Images,
+      mediaTypes,
       allowsEditing,
       aspect,
       quality: 1,
       base64: true,
     });
+
     if (!pickerResult?.cancelled) setPreview(pickerResult);
     else {
-      setPhoto();
+      setSelectedMedia();
     }
   };
 
   const uploadPhoto = async () => {
     try {
       setLoading(true);
-      if (preview.base64) {
+      if (preview?.type === 'video') {
+        try {
+          const base64video = await FileSystem.readAsStringAsync(preview?.uri, {
+            encoding: 'base64',
+          });
+          const image = `data:video/mp4;base64,${base64video}`;
+          setSelectedMedia(image, preview?.uri);
+        } catch (err) {
+          console.log('error', err);
+        }
+      }
+      if (preview?.type === 'image' && preview.base64) {
         const image = `data:image/jpg;base64,${preview.base64}`;
-        setPhoto(image);
+        setSelectedMedia(image);
         setPreview('');
       } else {
-        closePicker();
+        closeModal();
       }
     } catch (err) {
-      console.log(err.response.data);
+      console.log(err);
       ToastAndroid.show('Please try again later!', ToastAndroid.LONG);
     } finally {
       setLoading(false);
@@ -55,7 +79,7 @@ export default function ImagePicker({ visible, setPhoto, closePicker, allowsEdit
   };
 
   return (
-    <Modal animationType="slide" transparent visible={visible} onRequestClose={closePicker}>
+    <Modal animationType="slide" transparent visible={visible} onRequestClose={closeModal}>
       <View style={styles.container}>
         {!preview ? (
           <>
@@ -65,15 +89,22 @@ export default function ImagePicker({ visible, setPhoto, closePicker, allowsEdit
           </>
         ) : (
           <View style={styles.container}>
-            <Image
-              source={{ uri: preview.uri }}
-              style={{
-                width: Dimensions.get('window').width,
-                flex: 1,
-                resizeMode: 'contain',
-              }}
-            />
-            <TouchableOpacity onPress={closePicker} style={styles.closeButton} activeOpacity={0.7}>
+            {preview?.type === 'image' ? (
+              <Image source={{ uri: preview?.uri }} style={styles.image} />
+            ) : (
+              <Video
+                style={styles.video}
+                source={{
+                  uri: preview?.uri,
+                }}
+                shouldPlay
+                useNativeControls
+                resizeMode="cover"
+                isLooping={false}
+                volume={0.5}
+              />
+            )}
+            <TouchableOpacity onPress={closeModal} style={styles.closeButton} activeOpacity={0.7}>
               <AntDesign name="close" size={32} color={Colors.light} />
             </TouchableOpacity>
             <View style={styles.savePhotoContainer}>

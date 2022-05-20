@@ -1,4 +1,5 @@
 import { Entypo } from '@expo/vector-icons';
+import { Video } from 'expo-av';
 import moment from 'moment';
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image } from 'react-native';
@@ -20,6 +21,7 @@ export default function Post({ post, navigation, refetchPosts, isOwnPost }) {
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const media = post?.media;
+  const isVideo = post?.media?.endsWith('.mp4');
 
   const formatedDate = () => {
     const date = post?.updatedAt;
@@ -124,22 +126,34 @@ export default function Post({ post, navigation, refetchPosts, isOwnPost }) {
       </View>
       <View style={styles.middleContainer}>
         <Text style={styles.description}>{post?.content}</Text>
-        {media && (
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('PhotoView', {
-                photo: media,
-              })
-            }>
-            <Image
+        {media &&
+          (!isVideo ? (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('PhotoView', {
+                  photo: media,
+                })
+              }>
+              <Image
+                source={{
+                  uri: media,
+                }}
+                style={styles.image}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+          ) : (
+            <Video
+              style={styles.image}
               source={{
                 uri: media,
               }}
-              style={styles.image}
+              volume={0.5}
+              useNativeControls
               resizeMode="contain"
+              isLooping={false}
             />
-          </TouchableOpacity>
-        )}
+          ))}
       </View>
       <View style={styles.reactionContainer}>
         <View style={styles.halfContainer}>

@@ -38,6 +38,7 @@ const EditClubProfile = ({ navigation }) => {
       data.profilePic = avatarImage;
       const payload = pickBy(data, identity);
       const result = await editClub(authData.id, payload);
+
       if (result?.status === 200) {
         handleSignIn(result.data);
         navigation.navigate('Profile');
@@ -54,7 +55,7 @@ const EditClubProfile = ({ navigation }) => {
     }
   };
 
-  const setPhoto = (photo) => {
+  const setSelectedMedia = (photo) => {
     photo && setMedia(photo);
     setCameraVisible(false);
     setShowImagePicker(false);
@@ -102,14 +103,14 @@ const EditClubProfile = ({ navigation }) => {
             </Menu>
             <Camera
               visible={cameraVisible}
-              setPhoto={setPhoto}
+              setPhoto={setSelectedMedia}
               closeModal={() => setCameraVisible(false)}
             />
             <ImagePicker
               visible={showImagePicker}
               allowsEditing
               aspect={[4, 3]}
-              setPhoto={setPhoto}
+              setSelectedMedia={setSelectedMedia}
               closeModal={() => setShowImagePicker(false)}
             />
             <Text style={styles.changePhoto}>Change Photo</Text>
