@@ -29,6 +29,15 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  image: {
+    width: Dimensions.get('window').width,
+    flex: 1,
+    resizeMode: 'contain',
+  },
+  video: {
+    width: Dimensions.get('window').width,
+    height: '75%',
+  },
   text: {
     color: Colors.white,
   },

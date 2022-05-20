@@ -41,7 +41,7 @@ export default function Followers({ user }) {
               refetchFollows={fetchFollowers}
             />
           ))}
-          {!loading && followers.length === 0 && (
+          {!loading && followers?.length === 0 && (
             <View style={styles.noFollowContainer}>
               <Text style={styles.noFollowText}>No followers found</Text>
             </View>
