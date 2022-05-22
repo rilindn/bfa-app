@@ -5,20 +5,26 @@ import { fontSizes } from '../../constants/Typography';
 
 const styles = StyleSheet.create({
   container: {
-    width: '70%',
+    width: '80%',
     position: 'relative',
   },
   search: {
     borderRadius: 6,
-    borderWidth: 0.5,
-    borderColor: Colors.light + '90',
-    backgroundColor: Colors.green1 + '20',
+    borderWidth: 1,
+    position: 'relative',
+    backgroundColor: Colors.gray4,
+    borderColor: Colors.gray3 + 80,
   },
   searchInput: {
     color: Colors.light,
     fontSize: fontSizes.medium,
     marginLeft: 10,
     height: 45,
+  },
+  searchIcon: {
+    position: 'absolute',
+    right: 12,
+    top: 9,
   },
   resultsContainer: {
     position: 'absolute',

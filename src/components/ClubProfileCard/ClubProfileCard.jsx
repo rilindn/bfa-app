@@ -23,6 +23,9 @@ export default function ClubProfileCard({ navigation, followers, followings, pos
           onPress={() => navigation.navigate('EditClubProfile')}
         />
       </View>
+      <Text style={styles.name}>
+        {authData.Club.firstName} {authData.Club.lastName}
+      </Text>
       <View row marginB-25>
         <TouchableOpacity
           onPress={() => {

@@ -6,7 +6,7 @@ import { fontSizes } from '../../../constants/Typography';
 const styles = StyleSheet.create({
   postSomethingWrapper: {
     width: '94%',
-    marginVertical: 20,
+    marginVertical: 10,
     backgroundColor: Colors.headerBg,
     borderRadius: 15,
     alignSelf: 'center',

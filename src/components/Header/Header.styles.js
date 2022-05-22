@@ -14,5 +14,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  logo: {
+    width: 40,
+    height: 40,
+    marginRight: 7,
+  },
 });
 export default styles;

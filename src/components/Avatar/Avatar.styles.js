@@ -11,6 +11,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 70,
+    borderWidth: 1,
+    borderColor: Colors.light,
   },
   initials: {
     fontSize: customFontSizes(32),
@@ -24,6 +26,9 @@ const styles = StyleSheet.create({
     width: 45,
     height: 45,
     borderRadius: 30,
+    padding: 5,
+    borderWidth: 0.5,
+    borderColor: Colors.gray3,
   },
 });
 export default styles;
