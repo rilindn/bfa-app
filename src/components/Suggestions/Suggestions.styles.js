@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-import Colors from '../../../../constants/Colors';
-import { fontSizes } from '../../../../constants/Typography';
+import Colors from '../../constants/Colors';
+import { fontSizes } from '../../constants/Typography';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.headerBg,
     padding: 5,
+    marginVertical: 10,
   },
   suggestedPlayers: {
     color: Colors.white,
