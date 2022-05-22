@@ -1,4 +1,4 @@
-import { API_URL } from '@env';
+import { API_URL, API_URL_PROD } from '@env';
 import axios from 'axios';
 import Constants from 'expo-constants';
 
@@ -8,8 +8,10 @@ if (API_URL.includes('localhost')) {
   API_URL = API_URL.replace('localhost', manifest.debuggerHost.split(':').shift());
 }
 
+const apiUrl = !__DEV__ ? API_URL_PROD : API_URL;
+
 const Client = axios.create({
-  baseURL: API_URL,
+  baseURL: apiUrl,
   timeout: 10000,
   headers: {
     Accept: 'application/json',

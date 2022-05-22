@@ -11,23 +11,22 @@ import styles from './SuggestionCard.styles';
 
 const SuggestionCard = ({ loading, user, navigation }) => {
   const { authData } = useAuth();
-  const [isFollow, setIsFollow] = useState();
+  const [isFollow, setIsFollow] = useState(false);
   const followerId = authData.id;
-
-  const handleFollow = async () => {
-    await Promise.all([follow({ followerId, followedId: user.id }), isFollowed()]);
-  };
+  const fullName = getFullName(user);
 
   const isFollowed = async () => {
     const checkIsFollow = await verifyFollow({ followerId, followedId: user.id });
     setIsFollow(checkIsFollow);
   };
 
+  const handleFollow = async () => {
+    await Promise.all([follow({ followerId, followedId: user.id }), isFollowed()]);
+  };
+
   const handleUnfollow = async () => {
     await Promise.all([unFollow({ followerId, followedId: user.id }), isFollowed()]);
   };
-
-  const fullName = getFullName(user);
 
   return (
     <TouchableOpacity
