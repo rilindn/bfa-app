@@ -1,3 +1,4 @@
+import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState, useRef } from 'react';
 import { View, Text, TextInput } from 'react-native';
@@ -45,6 +46,7 @@ export default function HeaderSearch({}) {
           selectionColor={Colors.green1}
           onChangeText={(val) => fetchUsers(val)}
         />
+        <FontAwesome style={styles.searchIcon} name="search" size={24} color={Colors.gray3 + 50} />
       </View>
       {showResults && (
         <View style={styles.resultsContainer}>

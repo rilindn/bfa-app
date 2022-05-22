@@ -8,7 +8,15 @@ import Avatar from '../../Avatar/Avatar';
 import CustomButton from '../../Button/Button';
 import styles from './PlayerCard.styles';
 
-export default function PlayerCard({ user, isFollow, handleFollow, handleUnfollow }) {
+export default function PlayerCard({
+  user,
+  isFollow,
+  handleFollow,
+  handleUnfollow,
+  followers,
+  followings,
+  posts,
+}) {
   const navigation = useNavigation();
 
   return (
@@ -73,15 +81,15 @@ export default function PlayerCard({ user, isFollow, handleFollow, handleUnfollo
       </View>
       <View style={styles.infoBoxWrapper}>
         <View style={styles.infoBox}>
-          <Text style={styles.statisticsNumber}>1</Text>
+          <Text style={styles.statisticsNumber}>{posts?.length}</Text>
           <Text style={styles.statisticsText}>POST</Text>
         </View>
         <View style={styles.infoBox}>
-          <Text style={styles.statisticsNumber}>10</Text>
+          <Text style={styles.statisticsNumber}>{followers?.length}</Text>
           <Text style={styles.statisticsText}>FOLLOWERS</Text>
         </View>
         <View style={[styles.infoBox, { borderRightWidth: 0 }]}>
-          <Text style={styles.statisticsNumber}>12</Text>
+          <Text style={styles.statisticsNumber}>{followings?.length}</Text>
           <Text style={styles.statisticsText}>FOLLOWING</Text>
         </View>
       </View>

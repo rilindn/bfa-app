@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     fontFamily: 'poppins-semibold',
     includeFontPadding: false,
     textAlign: 'center',
+    color: Colors.green1,
   },
   button: {
     alignSelf: 'center',
@@ -16,6 +17,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.mainGreen,
     borderRadius: 6,
     height: 45,
+    justifyContent: 'center',
   },
 });
 export default styles;

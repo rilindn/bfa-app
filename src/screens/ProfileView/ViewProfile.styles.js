@@ -7,6 +7,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
   },
+  listHeader: {
+    marginBottom: 13,
+  },
 });
 
 export default styles;

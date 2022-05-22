@@ -18,9 +18,13 @@ export default function Profile({ navigation }) {
   const [followings, setFollowings] = useState([]);
   const [posts, setPosts] = useState([]);
   const isFocused = useIsFocused();
+  const id = authData.id;
 
-  useEffect(async () => {
-    const id = authData.id;
+  useEffect(() => {
+    fetchResources();
+  }, [isFocused]);
+
+  const fetchResources = async () => {
     const [followers, followings, posts] = await Promise.all([
       getMyFollowers(id),
       getMyFollowings(id),
@@ -29,10 +33,10 @@ export default function Profile({ navigation }) {
     setFollowers(followers.data);
     setFollowings(followings.data);
     setPosts(posts.data);
-  }, [isFocused]);
+  };
 
   const refetchPosts = async () => {
-    const posts = await getMyPosts(authData.id);
+    const posts = await getMyPosts(id);
     setPosts(posts.data);
   };
 
@@ -47,6 +51,7 @@ export default function Profile({ navigation }) {
             posts={posts}
           />
         }
+        initialNumToRender={10}
         data={posts}
         renderItem={({ item }) => _renderitem({ refetchPosts, item, navigation })}
       />
@@ -54,28 +59,18 @@ export default function Profile({ navigation }) {
   );
 }
 
-const ListHeaderComponent = ({ navigation, followers, followings, posts }) => {
+const ListHeaderComponent = ({ ...rest }) => {
   const { authData } = useAuth();
   return (
     <View>
       {authData.role === 'Player' ? (
         <>
-          <PlayerProfileCard
-            navigation={navigation}
-            followers={followers}
-            followings={followings}
-            posts={posts}
-          />
+          <PlayerProfileCard {...rest} />
           <PlayerBottomSection user={authData} />
         </>
       ) : (
         <>
-          <ClubProfileCard
-            navigation={navigation}
-            followers={followers}
-            followings={followings}
-            posts={posts}
-          />
+          <ClubProfileCard {...rest} />
           <ClubBottomSection user={authData} />
         </>
       )}

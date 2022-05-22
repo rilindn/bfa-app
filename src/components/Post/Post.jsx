@@ -38,10 +38,10 @@ export default function Post({ post, navigation, refetchPosts, isOwnPost }) {
 
   const fetchUser = async () => {
     try {
-      const user = await getUserById(post.UserId);
-      if (user) {
-        setUser(user);
-        getUserFullName(user);
+      const userResult = await getUserById(post.UserId);
+      if (userResult) {
+        setUser(userResult);
+        getUserFullName(userResult);
       }
     } finally {
       setLoading(false);
@@ -50,7 +50,7 @@ export default function Post({ post, navigation, refetchPosts, isOwnPost }) {
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [post]);
 
   const getUserFullName = (user) => {
     if (user?.role === 'Player')
@@ -65,113 +65,119 @@ export default function Post({ post, navigation, refetchPosts, isOwnPost }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.topContainer}>
-        <View style={styles.userDataContainer}>
-          {!loading && (
-            <Avatar
-              name={userFullName}
-              size={50}
-              initialStyle={{ fontSize: fontSizes.large }}
-              image={user?.profilePic}
-            />
-          )}
-          <View style={styles.dateContainer}>
-            <Text style={styles.name}>{userFullName}</Text>
-            <Text style={styles.date}>{formatedDate()}</Text>
+      {user && (
+        <>
+          <View style={styles.topContainer}>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              onPress={() => navigation.navigate('ViewProfile', { id: user.id })}
+              style={styles.userDataContainer}>
+              <Avatar
+                name={userFullName}
+                size={50}
+                initialStyle={{ fontSize: fontSizes.large }}
+                image={user?.profilePic}
+              />
+              <View style={styles.dateContainer}>
+                <Text style={styles.name}>{userFullName}</Text>
+                <Text style={styles.date}>{formatedDate()}</Text>
+              </View>
+            </TouchableOpacity>
+            {isOwnPost && (
+              <>
+                <Menu
+                  visible={showEditMenu}
+                  onDismiss={() => setShowEditMenu(false)}
+                  contentStyle={styles.menuContent}
+                  anchor={
+                    <TouchableOpacity onPress={() => setShowEditMenu(true)}>
+                      <Entypo
+                        style={styles.dotsIcon}
+                        name="dots-three-horizontal"
+                        size={20}
+                        color={Colors.gray3}
+                      />
+                    </TouchableOpacity>
+                  }>
+                  <Menu.Item
+                    icon="pencil"
+                    title="Edit"
+                    style={styles.menuItems}
+                    titleStyle={styles.menuItemsTitle}
+                    onPress={() => {
+                      setModalVisible(true);
+                      setShowEditMenu(false);
+                    }}
+                  />
+                  <Divider />
+                  <Menu.Item
+                    icon="delete"
+                    title="Delete"
+                    style={styles.menuItems}
+                    titleStyle={styles.menuItemsTitle}
+                    onPress={() => handleDeletePost()}
+                  />
+                </Menu>
+                <CreatePost
+                  refetchPosts={refetchPosts}
+                  editPost={post}
+                  visible={modalVisible}
+                  closeModal={() => setModalVisible(false)}
+                />
+              </>
+            )}
           </View>
-        </View>
-        {isOwnPost && (
-          <>
-            <Menu
-              visible={showEditMenu}
-              onDismiss={() => setShowEditMenu(false)}
-              contentStyle={styles.menuContent}
-              anchor={
-                <TouchableOpacity onPress={() => setShowEditMenu(true)}>
-                  <Entypo
-                    style={styles.dotsIcon}
-                    name="dots-three-horizontal"
-                    size={20}
-                    color={Colors.gray3}
+          <View style={styles.middleContainer}>
+            <Text style={styles.description}>{post?.content}</Text>
+            {media &&
+              (!isVideo ? (
+                <TouchableOpacity
+                  activeOpacity={0.9}
+                  onPress={() =>
+                    navigation.navigate('PhotoView', {
+                      photo: media,
+                    })
+                  }>
+                  <Image
+                    source={{
+                      uri: media,
+                    }}
+                    style={styles.image}
+                    resizeMode="contain"
                   />
                 </TouchableOpacity>
-              }>
-              <Menu.Item
-                icon="pencil"
-                title="Edit"
-                style={styles.menuItems}
-                titleStyle={styles.menuItemsTitle}
-                onPress={() => {
-                  setModalVisible(true);
-                  setShowEditMenu(false);
-                }}
-              />
-              <Divider />
-              <Menu.Item
-                icon="delete"
-                title="Delete"
-                style={styles.menuItems}
-                titleStyle={styles.menuItemsTitle}
-                onPress={() => handleDeletePost()}
-              />
-            </Menu>
-            <CreatePost
-              refetchPosts={refetchPosts}
-              editPost={post}
-              visible={modalVisible}
-              closeModal={() => setModalVisible(false)}
-            />
-          </>
-        )}
-      </View>
-      <View style={styles.middleContainer}>
-        <Text style={styles.description}>{post?.content}</Text>
-        {media &&
-          (!isVideo ? (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('PhotoView', {
-                  photo: media,
-                })
-              }>
-              <Image
-                source={{
-                  uri: media,
-                }}
-                style={styles.image}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
-          ) : (
-            <Video
-              style={styles.image}
-              source={{
-                uri: media,
-              }}
-              volume={0.5}
-              useNativeControls
-              resizeMode="contain"
-              isLooping={false}
-            />
-          ))}
-      </View>
-      <View style={styles.reactionContainer}>
-        <View style={styles.halfContainer}>
-          <SvgIcon name="like" width={20} height={20} />
-          <Text style={styles.reactText}>2 Likes</Text>
-        </View>
-        <View style={styles.halfContainer}>
-          <SvgIcon name="comment" width={20} height={20} />
-          <Text style={styles.reactText}>1 Post</Text>
-        </View>
-      </View>
-      <View style={styles.bottomContainer}>
-        <Avatar name="Filan Fisteku" size={45} />
-        <View style={styles.commentContainer}>
-          <Text style={[styles.commentName, { paddingLeft: 10 }]}>Filan Fisteku</Text>
-          <Text style={styles.commentText}>Awesome!</Text>
-        </View>
-      </View>
+              ) : (
+                <Video
+                  style={styles.image}
+                  source={{
+                    uri: media,
+                  }}
+                  volume={0.5}
+                  useNativeControls
+                  resizeMode="contain"
+                  isLooping={false}
+                />
+              ))}
+          </View>
+          <View style={styles.reactionContainer}>
+            <View style={styles.halfContainer}>
+              <SvgIcon name="like" width={20} height={20} />
+              <Text style={styles.reactText}>2 Likes</Text>
+            </View>
+            <View style={styles.halfContainer}>
+              <SvgIcon name="comment" width={20} height={20} />
+              <Text style={styles.reactText}>1 Post</Text>
+            </View>
+          </View>
+          <View style={styles.bottomContainer}>
+            <Avatar name="Filan Fisteku" size={45} />
+            <View style={styles.commentContainer}>
+              <Text style={[styles.commentName, { paddingLeft: 10 }]}>Filan Fisteku</Text>
+              <Text style={styles.commentText}>Awesome!</Text>
+            </View>
+          </View>
+        </>
+      )}
     </View>
   );
 }

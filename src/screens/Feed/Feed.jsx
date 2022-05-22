@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { RefreshControl, FlatList, Text, View } from 'react-native';
+import { Divider } from 'react-native-paper';
 
 import { getMyFollowingsPosts, getSuggestions } from '../../api/ApiMethods';
 import Post from '../../components/Post/Post';
@@ -66,7 +67,7 @@ export default function Feed({ navigation }) {
     <View style={styles.container}>
       <FlatList
         ref={flatListRef}
-        ListHeaderComponent={<PostSomething />}
+        ListHeaderComponent={<ListHeaderComponent />}
         data={content}
         renderItem={({ item, index }) => _renderitem({ item, index, navigation, suggestionUsers })}
         refreshControl={
@@ -76,6 +77,7 @@ export default function Feed({ navigation }) {
             onRefresh={composeFeedContent}
           />
         }
+        keyExtractor={(item, index) => index.toString()}
       />
       {!refreshing && content?.length === 0 && (
         <View style={styles.noPostContainer}>
@@ -87,7 +89,14 @@ export default function Feed({ navigation }) {
 }
 const _renderitem = ({ item, index, navigation, suggestionUsers }) => {
   if (index % 10 === 0 && index > 0 && suggestionUsers?.length >= 2) {
-    return <Suggestions key={item[0].id} items={item} navigation={navigation} />;
+    return <Suggestions users={item} navigation={navigation} />;
   }
-  return <Post key={item.id} post={item} navigation={navigation} />;
+  return <Post post={item} navigation={navigation} />;
 };
+
+const ListHeaderComponent = () => (
+  <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+    <PostSomething />
+    <Divider style={{ width: '80%' }} />
+  </View>
+);

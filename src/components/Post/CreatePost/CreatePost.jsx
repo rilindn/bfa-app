@@ -84,7 +84,7 @@ export default function CreatePost({ closeModal, visible, editPost, refetchPosts
               </TouchableOpacity>
             </View>
             <View style={styles.userDataContainer}>
-              <Avatar size={40} name={getFullName(authData)} />
+              <Avatar size={40} name={getFullName(authData)} image={authData?.profilePic} />
               <Text style={styles.userName}>{getFullName(authData)}</Text>
             </View>
             <View style={styles.form}>
