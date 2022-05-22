@@ -224,3 +224,15 @@ export async function getMyFollowings(id, query) {
     return err;
   }
 }
+
+//sugesstions
+
+export async function getSuggestions({ userId }) {
+  try {
+    const result = await Client.get(`follow/suggestions/${userId}`);
+    return result.data;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
