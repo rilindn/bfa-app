@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/Colors';
+import getMyS from '../../helpers/getMyS';
 import useAuth from '../../hooks/useAuth';
 import Avatar from '../Avatar/Avatar';
 import CustomButton from '../Button/Button';
@@ -45,20 +46,24 @@ export default function PlayerProfileCard({ navigation, followers, followings, p
       <View style={styles.infoBoxWrapper}>
         <View style={styles.infoBox}>
           <Text style={styles.statisticsNumber}>{posts?.length}</Text>
-          <Text style={styles.statisticsText}>POST</Text>
+          <Text style={styles.statisticsText}>{getMyS(posts?.length, 'POST', true, 'S')}</Text>
         </View>
         <View style={styles.infoBox}>
           <TouchableOpacity
             onPress={() => navigation.navigate('Follows', { selectedTab: 'followers' })}>
             <Text style={styles.statisticsNumber}>{followers?.length}</Text>
-            <Text style={styles.statisticsText}>FOLLOWERS</Text>
+            <Text style={styles.statisticsText}>
+              {getMyS(followers?.length, 'FOLLOWER', true, 'S')}
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={[styles.infoBox, { borderRightWidth: 0 }]}>
           <TouchableOpacity
             onPress={() => navigation.navigate('Follows', { selectedTab: 'following' })}>
             <Text style={styles.statisticsNumber}>{followings?.length}</Text>
-            <Text style={styles.statisticsText}>FOLLOWING</Text>
+            <Text style={styles.statisticsText}>
+              {getMyS(followings?.length, 'FOLLOWING', true, 'S')}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

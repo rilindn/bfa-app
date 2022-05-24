@@ -12,6 +12,7 @@ export default function PlayerBottomSection({ user }) {
       <View style={styles.topTabContainer}>
         <TouchableOpacity
           onPress={() => setSelectedTab('about')}
+          activeOpacity={0.9}
           style={[
             styles.leftTab,
             selectedTab === 'about' && { borderBottomColor: Colors.orange, borderBottomWidth: 1 },
@@ -22,6 +23,7 @@ export default function PlayerBottomSection({ user }) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setSelectedTab('characteristics')}
+          activeOpacity={0.9}
           style={[
             styles.rightTab,
             selectedTab === 'characteristics' && {
