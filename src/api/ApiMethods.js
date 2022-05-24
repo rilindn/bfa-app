@@ -7,7 +7,7 @@ export async function getUserById(id) {
     const result = await Client.get(`user/${id}`);
     return result.data;
   } catch (err) {
-    console.log(err);
+    console.error('getUserById', err);
   }
 }
 
@@ -19,15 +19,19 @@ export async function searchUsers({ ids, limit, searchQuery }) {
     );
     return result;
   } catch (err) {
-    console.log(err);
+    console.error('searchUsers', err);
   }
 }
 
 // Players
 
 export async function getAllPlayer() {
-  const result = await Client.get('player');
-  return result.data;
+  try {
+    const result = await Client.get('player');
+    return result.data;
+  } catch (err) {
+    console.error('getAllPlayer', err);
+  }
 }
 
 export async function registerPlayer(data) {
@@ -35,7 +39,7 @@ export async function registerPlayer(data) {
     const result = await Client.post(`player`, { ...data });
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('registerPlayer', err);
     return err;
   }
 }
@@ -45,7 +49,7 @@ export async function editPlayer(userId, data) {
     const result = await Client.put(`player/${userId}`, { ...data });
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('editPlayer', err);
     return err;
   }
 }
@@ -53,8 +57,13 @@ export async function editPlayer(userId, data) {
 //Clubs
 
 export async function getAllClubs() {
-  const result = await Client.get('club');
-  return result.data;
+  try {
+    const result = await Client.get('club');
+    return result.data;
+  } catch (err) {
+    console.error('getAllClubs', err);
+    return err;
+  }
 }
 
 export async function registerClub(data) {
@@ -62,7 +71,7 @@ export async function registerClub(data) {
     const result = await Client.post('club', { ...data });
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('registerClub', err);
     return err;
   }
 }
@@ -72,7 +81,7 @@ export async function editClub(clubId, data) {
     const result = await Client.put(`club/${clubId}`, { ...data });
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('editClub', err);
     return err;
   }
 }
@@ -84,7 +93,7 @@ export async function login(data) {
     const result = await Client.post('login', { ...data });
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('login', err);
     return err;
   }
 }
@@ -94,7 +103,7 @@ export async function loggedUser() {
     const result = await Client.get('loggedUser');
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('loggedUser', err);
     return err;
   }
 }
@@ -106,7 +115,7 @@ export async function requestResetPassword(data) {
     const result = await Client.post('requestResetPassword', { ...data });
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('requestResetPassword', err);
     return err;
   }
 }
@@ -116,7 +125,7 @@ export async function validateResetPasswordCode(data) {
     const result = await Client.post('validateResetPasswordCode', { ...data });
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('validateResetPasswordCode', err);
     return err;
   }
 }
@@ -126,7 +135,7 @@ export async function resetPassword(userId, data) {
     const result = await Client.put(`resetPassword/${userId}`, { ...data });
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('resetPassword', err);
     return err;
   }
 }
@@ -138,7 +147,7 @@ export async function createPost(data) {
     const result = await Client.post('post', { ...data });
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('createPost', err);
     return err;
   }
 }
@@ -148,7 +157,7 @@ export async function getMyPosts(id) {
     const result = await Client.get(`post/user/${id}`);
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('getMyPosts', err);
     return err;
   }
 }
@@ -158,7 +167,7 @@ export async function getMyFollowingsPosts(id) {
     const result = await Client.get(`post/followings/${id}`);
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('getMyFollowingsPosts', err);
     return err;
   }
 }
@@ -168,7 +177,7 @@ export async function getAllPosts() {
     const result = await Client.get(`post`);
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('getAllPosts', err);
     return err;
   }
 }
@@ -178,7 +187,7 @@ export async function updatePost(data, id) {
     const result = await Client.put(`post/${id}`, { ...data });
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('updatePost', err);
     return err;
   }
 }
@@ -188,7 +197,7 @@ export async function deletePost(id) {
     const result = await Client.delete(`post/${id}`);
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('deletePost', err);
     return err;
   }
 }
@@ -200,7 +209,7 @@ export async function follow(data) {
     const result = await Client.post('follow', { ...data });
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('follow', err);
     return err;
   }
 }
@@ -210,7 +219,7 @@ export async function verifyFollow({ followerId, followedId }) {
     const result = await Client.get(`follow/checkFollow/${followerId}/${followedId}`);
     return result.data;
   } catch (err) {
-    console.error(err);
+    console.error('verifyFollow', err);
     return err;
   }
 }
@@ -220,7 +229,7 @@ export async function unFollow({ followerId, followedId }) {
     const result = await Client.delete(`follow/${followerId}/${followedId}`);
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('unFollow', err);
     return err;
   }
 }
@@ -230,7 +239,7 @@ export async function getMyFollowers(id, query) {
     const result = await Client.get(`follow/followers/${id}?q=${query || ''}`);
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('getMyFollowers', err);
     return err;
   }
 }
@@ -240,7 +249,7 @@ export async function getMyFollowings(id, query) {
     const result = await Client.get(`follow/followings/${id}?q=${query || ''}`);
     return result;
   } catch (err) {
-    console.error(err);
+    console.error('getMyFollowings', err);
     return err;
   }
 }
@@ -252,7 +261,49 @@ export async function getSuggestions({ userId }) {
     const result = await Client.get(`follow/suggestions/${userId}`);
     return result.data;
   } catch (err) {
-    console.error(err);
+    console.error('getSuggestions', err);
+    return err;
+  }
+}
+
+// likes
+
+export async function getPostLikes(postId) {
+  try {
+    const result = await Client.get(`like/${postId}`);
+    return result.data;
+  } catch (err) {
+    console.error('getPostLikes', err);
+    return err;
+  }
+}
+
+export async function likePost(data) {
+  try {
+    const result = await Client.post(`like`, { ...data });
+    return result.data;
+  } catch (err) {
+    console.error('getPostLikes', err);
+    return err;
+  }
+}
+
+export async function checkIfLiked(data) {
+  try {
+    const result = await Client.post(`like/check`, { ...data });
+    return result.data;
+  } catch (err) {
+    console.error('getPostLikes', err);
+    return err;
+  }
+}
+
+export async function unlikePost(data) {
+  try {
+    const result = await Client.post(`like/unlike`, { ...data });
+    return result.data;
+  } catch (err) {
+    console.error('getPostLikes', err);
     return err;
   }
 }

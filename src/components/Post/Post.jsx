@@ -7,12 +7,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Divider, Menu } from 'react-native-paper';
 
 import { deletePost, getUserById } from '../../api/ApiMethods';
-import SvgIcon from '../../components/SvgIcon/SvgIcon';
 import Colors from '../../constants/Colors';
 import { fontSizes } from '../../constants/Typography';
 import Avatar from '../Avatar/Avatar';
 import CreatePost from './CreatePost/CreatePost';
 import styles from './Post.styles';
+import PostReactions from './PostReactions/PostReactions';
 
 export default function Post({ post, navigation, refetchPosts, isOwnPost }) {
   const [user, setUser] = useState();
@@ -159,23 +159,7 @@ export default function Post({ post, navigation, refetchPosts, isOwnPost }) {
                 />
               ))}
           </View>
-          <View style={styles.reactionContainer}>
-            <View style={styles.halfContainer}>
-              <SvgIcon name="like" width={20} height={20} />
-              <Text style={styles.reactText}>2 Likes</Text>
-            </View>
-            <View style={styles.halfContainer}>
-              <SvgIcon name="comment" width={20} height={20} />
-              <Text style={styles.reactText}>1 Post</Text>
-            </View>
-          </View>
-          <View style={styles.bottomContainer}>
-            <Avatar name="Filan Fisteku" size={45} />
-            <View style={styles.commentContainer}>
-              <Text style={[styles.commentName, { paddingLeft: 10 }]}>Filan Fisteku</Text>
-              <Text style={styles.commentText}>Awesome!</Text>
-            </View>
-          </View>
+          <PostReactions post={post} />
         </>
       )}
     </View>
