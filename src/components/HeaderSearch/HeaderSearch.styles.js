@@ -36,29 +36,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.light + '90',
     backgroundColor: Colors.gray4,
   },
-  result: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: Colors.gray5 + 40,
-    padding: 7,
-    borderRadius: 5,
-    marginVertical: 3,
-  },
-  userInfos: {
-    color: Colors.white,
-    paddingLeft: 10,
-  },
-  name: {
-    fontSize: fontSizes.medium,
-    fontFamily: 'poppins-bold',
-    includeFontPadding: false,
-    textAlign: 'center',
-    color: Colors.light,
-  },
-  role: {
-    color: Colors.gray3,
-  },
   resultsText: {
     fontSize: fontSizes.extraLarge,
     fontFamily: 'poppins-bold',

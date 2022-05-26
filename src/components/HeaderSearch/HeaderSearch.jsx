@@ -2,13 +2,12 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState, useRef } from 'react';
 import { View, Text, TextInput } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ActivityIndicator } from 'react-native-paper';
 
 import { searchUsers } from '../../api/ApiMethods';
 import Colors from '../../constants/Colors';
+import UserSingleCard from '../Profile/UserSingleCard/UserSingleCard';
 import useAuth from './../../hooks/useAuth';
-import Avatar from './../Avatar/Avatar';
 import styles from './HeaderSearch.styles';
 
 export default function HeaderSearch({}) {
@@ -58,7 +57,7 @@ export default function HeaderSearch({}) {
           ) : (
             results.map((result) => {
               return (
-                <Result
+                <UserSingleCard
                   user={result}
                   key={result.id}
                   navigation={navigation}
@@ -75,26 +74,3 @@ export default function HeaderSearch({}) {
     </View>
   );
 }
-
-const Result = ({ user, navigation, dissmisResults }) => {
-  const fullName =
-    user.role === 'Player'
-      ? `${user.Player?.firstName} ${user.Player?.lastName}`
-      : user.Club?.clubName;
-  return (
-    <TouchableOpacity
-      style={styles.result}
-      onPress={() => {
-        navigation.navigate('ViewProfile', {
-          id: user.id,
-        });
-        dissmisResults();
-      }}>
-      <Avatar size={40} name={fullName} image={user?.profilePic} />
-      <View style={styles.userInfos}>
-        <Text style={styles.name}>{fullName}</Text>
-        <Text style={styles.role}>{user.role}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
