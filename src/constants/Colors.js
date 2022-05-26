@@ -7,6 +7,7 @@ export default {
   gray5: '#242526',
   gray6: '#201F1F',
   orange: '#F4B61C',
+  red2: '#ff6600',
   red: '#FF0000',
   mainGreen: '#228176',
   green1: '#D9E1E7',
@@ -15,5 +16,6 @@ export default {
   headerBg: '#1F1F1F',
   bottomNavBg: '#1B1B1B',
   blue1: '#0066cc',
-  red2: '#ff6600',
+  lightBlue: '#0096FF',
+  darkBlue: '#0000FF',
 };

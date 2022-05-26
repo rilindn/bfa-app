@@ -1,0 +1,22 @@
+import { StyleSheet } from 'react-native';
+
+import Colors from '../../constants/Colors';
+import { fontSizes } from '../../constants/Typography';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background,
+  },
+  commentsContainer: {
+    marginHorizontal: 10,
+    marginTop: 20,
+  },
+  divider: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: Colors.gray3 + '50',
+    padding: 15,
+    marginBottom: 0,
+  },
+});
+export default styles;
