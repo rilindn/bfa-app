@@ -8,11 +8,13 @@ import getMyS from '../../../helpers/getMyS';
 import Avatar from '../../Avatar/Avatar';
 import useAuth from './../../../hooks/useAuth';
 import SvgIcon from './../../SvgIcon/SvgIcon';
+import PostLikesModal from './PostLikesModal/PostLikesModal';
 import styles from './PostReactions.styles';
 
 const PostReactions = ({ post }) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState([]);
+  const [likesModalVisible, setLikesModalVisible] = useState(false);
   const { authData } = useAuth();
   const payload = {
     UserId: authData.id,
@@ -39,7 +41,6 @@ const PostReactions = ({ post }) => {
   const checkIfLikedPost = async () => {
     const result = await checkIfLiked(payload);
     setLiked(!!result);
-    console.info('firssdft', result);
   };
 
   useEffect(() => {
@@ -57,10 +58,12 @@ const PostReactions = ({ post }) => {
 
   return (
     <View>
-      <View style={styles.likeNumbersSection}>
+      <TouchableOpacity
+        style={styles.likeNumbersSection}
+        onPress={() => setLikesModalVisible(!likesModalVisible)}>
         <AntDesign name="like1" size={12} color={Colors.green1} style={styles.roundLikeBtn} />
         <Text style={styles.likeNumbers}>{getLikesRepresentation()}</Text>
-      </View>
+      </TouchableOpacity>
       <View style={styles.reactionContainer}>
         <TouchableOpacity onPress={reactToPost} style={styles.halfContainer}>
           <SvgIcon name="like" width={20} height={20} color={liked && Colors.orange} />
@@ -78,6 +81,7 @@ const PostReactions = ({ post }) => {
           <Text style={styles.commentText}>Awesome!</Text>
         </View>
       </View>
+      <PostLikesModal likes={likes} visible={likesModalVisible} setVisible={setLikesModalVisible} />
     </View>
   );
 };
