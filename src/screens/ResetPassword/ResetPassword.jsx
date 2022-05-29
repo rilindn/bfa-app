@@ -23,7 +23,6 @@ import {
 } from '../../api/ApiMethods';
 import CustomButton from '../../components/Button/Button';
 import TextInput from '../../components/TextInput/TextInput';
-import useAuth from '../../hooks/useAuth';
 import styles from './ResetPassword.styles';
 
 export default function Login({ navigation }) {
@@ -31,7 +30,6 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [resetCodeData, setResetCodeData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const { handleSignIn } = useAuth();
   const {
     control,
     handleSubmit,
@@ -178,7 +176,6 @@ export default function Login({ navigation }) {
                 </>
               )}
             </View>
-
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <Text style={styles.forgotPassword}>Login instead?</Text>
             </TouchableOpacity>
