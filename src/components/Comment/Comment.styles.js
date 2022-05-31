@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
   commentText: {
     fontFamily: 'poppins-regular',
-    fontSize: fontSizes.superSmall,
+    fontSize: fontSizes.small,
     color: Colors.gray3 + '80',
     paddingLeft: 10,
   },

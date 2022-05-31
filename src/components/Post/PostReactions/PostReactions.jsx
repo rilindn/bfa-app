@@ -3,10 +3,15 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 
-import { checkIfLiked, getPostLikes, likePost, unlikePost } from '../../../api/ApiMethods';
+import {
+  checkIfLiked,
+  getPostLikes,
+  likePost,
+  unlikePost,
+  getPostComments,
+} from '../../../api/ApiMethods';
 import Colors from '../../../constants/Colors';
 import getMyS from '../../../helpers/getMyS';
-import Comment from '../../Comment/Comment';
 import useAuth from './../../../hooks/useAuth';
 import SvgIcon from './../../SvgIcon/SvgIcon';
 import PostLikesModal from './PostLikesModal/PostLikesModal';
@@ -17,6 +22,8 @@ const PostReactions = ({ post }) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState([]);
   const [likesModalVisible, setLikesModalVisible] = useState(false);
+  const [comments, setComments] = useState([]);
+
   const { authData } = useAuth();
   const payload = {
     UserId: authData.id,
@@ -26,6 +33,11 @@ const PostReactions = ({ post }) => {
   const fetchPostLikes = async () => {
     const likes = await getPostLikes(post.id);
     setLikes(likes);
+  };
+
+  const fetchPostComments = async () => {
+    const result = await getPostComments(post.id);
+    setComments(result);
   };
 
   const reactToPost = async () => {
@@ -48,6 +60,7 @@ const PostReactions = ({ post }) => {
   useEffect(() => {
     fetchPostLikes();
     checkIfLikedPost();
+    fetchPostComments();
   }, [post]);
 
   const getLikesRepresentation = () => {
@@ -72,10 +85,10 @@ const PostReactions = ({ post }) => {
           <Text style={[styles.reactText, liked && styles.liked]}>Like</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate('AllComments')}
+          onPress={() => navigation.navigate('AllComments', { id: post.id })}
           style={styles.halfContainer}>
           <SvgIcon name="comment" width={20} height={20} />
-          <Text style={styles.reactText}>{getMyS(1, 'Comments')}</Text>
+          <Text style={styles.reactText}>{getMyS(comments.length, 'Comment')}</Text>
         </TouchableOpacity>
       </View>
       <PostLikesModal likes={likes} visible={likesModalVisible} setVisible={setLikesModalVisible} />

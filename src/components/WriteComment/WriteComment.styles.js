@@ -6,16 +6,14 @@ import { customFontSizes, fontSizes } from '../../constants/Typography';
 const styles = StyleSheet.create({
   bottomContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     backgroundColor: Colors.headerBg,
     alignItems: 'center',
     padding: 25,
   },
   commentContainer: {
     backgroundColor: Colors.gray3 + '20',
-    width: '70%',
     borderRadius: 6,
-    height: 45,
     justifyContent: 'center',
   },
   subContainer: {
