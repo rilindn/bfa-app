@@ -14,4 +14,6 @@ export default {
   placeholder: '#CFCFCF',
   headerBg: '#1F1F1F',
   bottomNavBg: '#1B1B1B',
+  blue1: '#0066cc',
+  red2: '#ff6600',
 };

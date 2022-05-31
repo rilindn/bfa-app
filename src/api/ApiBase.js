@@ -11,7 +11,7 @@ if (API_URL.includes('localhost')) {
 const apiUrl = !__DEV__ ? API_URL_PROD : API_URL;
 
 const Client = axios.create({
-  baseURL: apiUrl,
+  baseURL: 'http://fc1a-37-35-66-180.ngrok.io',
   timeout: 10000,
   headers: {
     Accept: 'application/json',
