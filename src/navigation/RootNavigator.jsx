@@ -50,6 +50,18 @@ const RootNavigator = ({ initialScreen, authData }) => {
               headerTintColor: Colors.white,
             }}
           />
+          <Root.Screen
+            name="Chat"
+            getComponent={() => require('../screens/Messages/Chat/Chat').default}
+            options={{
+              title: 'Chat',
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: Colors.background,
+              },
+              headerTintColor: Colors.white,
+            }}
+          />
         </>
       ) : (
         <>

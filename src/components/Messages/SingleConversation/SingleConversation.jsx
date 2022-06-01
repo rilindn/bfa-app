@@ -1,11 +1,11 @@
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { Drawer } from 'react-native-ui-lib';
 
 import Colors from '../../../constants/Colors';
 import Avatar from '../../Avatar/Avatar';
 import styles from './SingleConversation.styles';
 
-const SingleConversation = () => {
+const SingleConversation = ({ onPress }) => {
   return (
     <Drawer
       fullSwipeLeft={false}
@@ -23,7 +23,7 @@ const SingleConversation = () => {
           onPress: () => console.log('read pressed'),
         },
       ]}>
-      <View style={styles.conversationRow}>
+      <TouchableOpacity onPress={onPress} style={styles.conversationRow}>
         <View style={styles.userData}>
           <Avatar name="Rilind Nuha" size={42} />
           <View style={{ marginLeft: 10 }}>
@@ -32,7 +32,7 @@ const SingleConversation = () => {
           </View>
         </View>
         <Text style={styles.dateTime}>16 May 2022 at 12:30</Text>
-      </View>
+      </TouchableOpacity>
     </Drawer>
   );
 };
