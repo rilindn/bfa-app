@@ -12,6 +12,7 @@ import {
 } from '../../../api/ApiMethods';
 import Colors from '../../../constants/Colors';
 import getMyS from '../../../helpers/getMyS';
+import Comment from '../../Comment/Comment';
 import useAuth from './../../../hooks/useAuth';
 import SvgIcon from './../../SvgIcon/SvgIcon';
 import PostLikesModal from './PostLikesModal/PostLikesModal';
@@ -92,8 +93,10 @@ const PostReactions = ({ post }) => {
         </TouchableOpacity>
       </View>
       <PostLikesModal likes={likes} visible={likesModalVisible} setVisible={setLikesModalVisible} />
+      {comments?.length >= 1 && <Comment item={comments?.[0]} />}
     </View>
   );
 };
 
 export default PostReactions;
+1;
