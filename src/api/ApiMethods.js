@@ -307,3 +307,25 @@ export async function unlikePost(data) {
     return err;
   }
 }
+
+//comments
+
+export async function getPostComments(postId) {
+  try {
+    const result = await Client.get(`comment/${postId}`);
+    return result.data;
+  } catch (err) {
+    console.error('getPostComments', err);
+    return err;
+  }
+}
+
+export async function createComment(data) {
+  try {
+    const result = await Client.post(`comment`, { ...data });
+    return result.data;
+  } catch (err) {
+    console.error('commentPost', err);
+    return err;
+  }
+}

@@ -21,14 +21,18 @@ const TextInput = ({
   multiline,
   defaultValue,
   keyboardType,
+  noTitle,
+  containerStyle,
 }) => {
   const [focused, setFocused] = useState(false);
   const error = errors?.[name]?.message;
   return (
-    <View style={styles.container}>
-      <Text style={[styles.title, labelStyle, darkMode && stylesDark.title]}>
-        {title ? title : placeholder}
-      </Text>
+    <View style={[styles.container, containerStyle]}>
+      {!noTitle && (
+        <Text style={[styles.title, labelStyle, darkMode && stylesDark.title]}>
+          {title ? title : placeholder}
+        </Text>
+      )}
       <View
         style={[
           styles.inputCtn,

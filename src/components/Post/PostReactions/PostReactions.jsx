@@ -1,20 +1,30 @@
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 
-import { checkIfLiked, getPostLikes, likePost, unlikePost } from '../../../api/ApiMethods';
+import {
+  checkIfLiked,
+  getPostLikes,
+  likePost,
+  unlikePost,
+  getPostComments,
+} from '../../../api/ApiMethods';
 import Colors from '../../../constants/Colors';
 import getMyS from '../../../helpers/getMyS';
-import Avatar from '../../Avatar/Avatar';
+import Comment from '../../Comment/Comment';
 import useAuth from './../../../hooks/useAuth';
 import SvgIcon from './../../SvgIcon/SvgIcon';
 import PostLikesModal from './PostLikesModal/PostLikesModal';
 import styles from './PostReactions.styles';
 
 const PostReactions = ({ post }) => {
+  const navigation = useNavigation();
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState([]);
   const [likesModalVisible, setLikesModalVisible] = useState(false);
+  const [comments, setComments] = useState([]);
+
   const { authData } = useAuth();
   const payload = {
     UserId: authData.id,
@@ -24,6 +34,11 @@ const PostReactions = ({ post }) => {
   const fetchPostLikes = async () => {
     const likes = await getPostLikes(post.id);
     setLikes(likes);
+  };
+
+  const fetchPostComments = async () => {
+    const result = await getPostComments(post.id);
+    setComments(result);
   };
 
   const reactToPost = async () => {
@@ -46,6 +61,7 @@ const PostReactions = ({ post }) => {
   useEffect(() => {
     fetchPostLikes();
     checkIfLikedPost();
+    fetchPostComments();
   }, [post]);
 
   const getLikesRepresentation = () => {
@@ -69,21 +85,18 @@ const PostReactions = ({ post }) => {
           <SvgIcon name="like" width={20} height={20} color={liked && Colors.orange} />
           <Text style={[styles.reactText, liked && styles.liked]}>Like</Text>
         </TouchableOpacity>
-        <View style={styles.halfContainer}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('AllComments', { id: post.id })}
+          style={styles.halfContainer}>
           <SvgIcon name="comment" width={20} height={20} />
-          <Text style={styles.reactText}>{getMyS(1, 'Comment')}</Text>
-        </View>
-      </View>
-      <View style={styles.bottomContainer}>
-        <Avatar name="Filan Fisteku" size={45} />
-        <View style={styles.commentContainer}>
-          <Text style={[styles.commentName, { paddingLeft: 10 }]}>Filan Fisteku</Text>
-          <Text style={styles.commentText}>Awesome!</Text>
-        </View>
+          <Text style={styles.reactText}>{getMyS(comments.length, 'Comment')}</Text>
+        </TouchableOpacity>
       </View>
       <PostLikesModal likes={likes} visible={likesModalVisible} setVisible={setLikesModalVisible} />
+      {comments?.length >= 1 && <Comment item={comments?.[0]} />}
     </View>
   );
 };
 
 export default PostReactions;
+1;

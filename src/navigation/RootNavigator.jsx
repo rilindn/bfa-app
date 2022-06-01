@@ -1,6 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
+import Colors from '../constants/Colors';
+
 const Root = createNativeStackNavigator();
 
 const RootNavigator = ({ initialScreen, authData }) => {
@@ -35,6 +37,18 @@ const RootNavigator = ({ initialScreen, authData }) => {
           <Root.Screen
             name="ViewProfile"
             getComponent={() => require('../screens/ProfileView/ViewProfile').default}
+          />
+          <Root.Screen
+            name="AllComments"
+            getComponent={() => require('../screens/AllComments/AllComments').default}
+            options={{
+              title: 'Comments',
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: Colors.background,
+              },
+              headerTintColor: Colors.white,
+            }}
           />
         </>
       ) : (
