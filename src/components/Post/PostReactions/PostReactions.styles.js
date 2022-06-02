@@ -75,6 +75,12 @@ const styles = StyleSheet.create({
   liked: {
     color: Colors.orange,
   },
+  latestCommentContainer: {
+    backgroundColor: Colors.gray3 + 20,
+    borderRadius: 10,
+    marginBottom: 10,
+    padding: 8,
+  },
 });
 
 export default styles;

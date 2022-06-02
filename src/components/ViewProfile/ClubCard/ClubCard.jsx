@@ -16,6 +16,7 @@ export default function ClubCard({
   followers,
   followings,
   posts,
+  newChatMessage,
 }) {
   const navigation = useNavigation();
 
@@ -52,6 +53,7 @@ export default function ClubCard({
           label="Message"
           style={styles.sendMessageBtn}
           labelStyle={styles.sendMessageLabel}
+          onPress={newChatMessage}
         />
         {/* <CustomButton
           label="Bookmark"

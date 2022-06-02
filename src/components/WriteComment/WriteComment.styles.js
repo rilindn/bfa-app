@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: Colors.headerBg,
     alignItems: 'center',
-    padding: 25,
+    padding: 17,
   },
   commentContainer: {
     backgroundColor: Colors.gray3 + '20',

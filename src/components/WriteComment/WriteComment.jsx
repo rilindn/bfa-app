@@ -11,7 +11,7 @@ import Avatar from '../Avatar/Avatar';
 import TextInput from '../TextInput/TextInput';
 import styles from './WriteComment.styles';
 
-const WriteComment = ({ bottomContainer, PostId, fetchPostComments }) => {
+const WriteComment = ({ PostId, fetchPostComments }) => {
   const { authData } = useAuth();
   const [userName] = useState(getFullName(authData));
   const { control, handleSubmit, reset, watch } = useForm();
@@ -24,7 +24,7 @@ const WriteComment = ({ bottomContainer, PostId, fetchPostComments }) => {
   };
 
   return (
-    <View style={[styles.bottomContainer, bottomContainer]}>
+    <View style={styles.bottomContainer}>
       <Avatar name={userName} size={45} image={authData?.profilePic} />
       <TextInput
         containerStyle={{ marginBottom: 0, width: '70%' }}

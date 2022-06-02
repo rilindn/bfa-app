@@ -4,10 +4,9 @@ import Colors from '../../constants/Colors';
 import { fontSizes } from '../../constants/Typography';
 
 const styles = StyleSheet.create({
-  bottomContainer: {
+  container: {
     flexDirection: 'row',
-    marginBottom: 20,
-    alignSelf: 'center',
+    padding: 12,
   },
   commentContainer: {
     width: '85%',
@@ -18,7 +17,7 @@ const styles = StyleSheet.create({
   commentText: {
     fontFamily: 'poppins-regular',
     fontSize: fontSizes.small,
-    color: Colors.gray3 + '80',
+    color: Colors.gray3,
     paddingLeft: 10,
   },
   commentName: {

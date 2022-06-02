@@ -16,6 +16,7 @@ export default function PlayerCard({
   followers,
   followings,
   posts,
+  newChatMessage,
 }) {
   const navigation = useNavigation();
 
@@ -57,6 +58,7 @@ export default function PlayerCard({
           label="Message"
           style={styles.sendMessageBtn}
           labelStyle={styles.sendMessageLabel}
+          onPress={newChatMessage}
         />
         {/* <CustomButton
           label="Bookmark"

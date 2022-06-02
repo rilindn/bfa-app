@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 
 import {
+  createChat,
   follow,
   getMyFollowers,
   getMyFollowings,
@@ -67,6 +68,15 @@ export default function ViewProfile({ navigation, route }) {
     setPosts(posts.data);
   };
 
+  const newChatMessage = async () => {
+    const payload = {
+      firstUser: authData.id,
+      secondUser: userData.id,
+    };
+    const result = await createChat(payload);
+    result && navigation.navigate('Messages');
+  };
+
   return (
     <View style={styles.container}>
       <Header />
@@ -89,6 +99,7 @@ export default function ViewProfile({ navigation, route }) {
             followers={followers}
             followings={followings}
             posts={posts}
+            newChatMessage={newChatMessage}
           />
         }
         data={posts}
