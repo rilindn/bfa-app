@@ -25,5 +25,15 @@ const styles = StyleSheet.create({
     fontFamily: 'poppins-semibold',
     fontSize: fontSizes.default,
   },
+  deleteContainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+  },
+  delete: {
+    color: Colors.red + '30',
+    fontFamily: 'poppins-regular',
+    fontSize: fontSizes.small,
+  },
 });
 export default styles;

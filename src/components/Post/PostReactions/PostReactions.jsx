@@ -94,9 +94,11 @@ const PostReactions = ({ post }) => {
       </View>
       <PostLikesModal likes={likes} visible={likesModalVisible} setVisible={setLikesModalVisible} />
       {comments?.length >= 1 && (
-        <TouchableOpacity onPress={() => navigation.navigate('AllComments', { id: post.id })}>
-          <Comment item={comments?.[0]} containerStyle={styles.latestCommentContainer} />
-        </TouchableOpacity>
+        <Comment
+          onPress={() => navigation.navigate('AllComments', { id: post.id })}
+          item={comments?.[0]}
+          containerStyle={styles.latestCommentContainer}
+        />
       )}
     </View>
   );
