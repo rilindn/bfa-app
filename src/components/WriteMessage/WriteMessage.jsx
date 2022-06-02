@@ -11,10 +11,15 @@ import SvgIcon from '../SvgIcon/SvgIcon';
 import TextInput from '../TextInput/TextInput';
 import styles from './WriteMessage.styles';
 
-const WriteMessage = () => {
+const WriteMessage = ({ handleSendMessage }) => {
   const { authData } = useAuth();
   const [userName] = useState(getFullName(authData));
-  const { control, watch } = useForm();
+  const { control, handleSubmit, watch, reset } = useForm();
+
+  const onSubmit = (data) => {
+    reset();
+    handleSendMessage(data);
+  };
 
   return (
     <View style={styles.bottomContainer}>
@@ -28,11 +33,13 @@ const WriteMessage = () => {
         noTitle
         multiline
         numberOfLines={6}
+        placeholder="Send a message"
       />
       <TouchableOpacity
+        onPress={handleSubmit(onSubmit)}
         style={[styles.buttonContainer, watch('message') && { backgroundColor: Colors.mainGreen }]}
         disabled={!watch('message')}>
-        <SvgIcon name="send" width={30} height={25} />
+        <SvgIcon name="send" width={25} height={25} />
       </TouchableOpacity>
     </View>
   );

@@ -7,8 +7,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
-    justifyContent: 'space-between',
-    width: '100%',
+  },
+  scrollContainer: {
+    flexDirection: 'column-reverse',
+  },
+  messageWrapper: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    flexDirection: 'row-reverse',
+    paddingHorizontal: 10,
+    paddingBottom: 15,
+    paddingTop: 2,
   },
   message: {
     backgroundColor: Colors.gray3,
@@ -17,23 +26,23 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.small,
     padding: 10,
     borderRadius: 20,
-  },
-  time: {
-    fontFamily: 'poppins-regular',
-    fontSize: fontSizes.small,
-    color: Colors.gray3,
-    marginLeft: 20,
+    includeFontPadding: false,
+    textAlign: 'center',
+    marginHorizontal: 10,
   },
   timeSend: {
     fontFamily: 'poppins-regular',
-    fontSize: fontSizes.small,
+    fontSize: fontSizes.extraSmall,
+    includeFontPadding: false,
+    textAlign: 'center',
     color: Colors.gray3,
-    marginRight: 20,
+    marginHorizontal: 7,
   },
-  subContainer: {
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
+  unread: {
+    width: 5,
+    height: 5,
+    borderRadius: 50,
+    backgroundColor: Colors.red2,
   },
 });
 

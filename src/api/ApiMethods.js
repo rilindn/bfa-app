@@ -352,6 +352,16 @@ export async function getMyChats(userId) {
   }
 }
 
+export async function getChatById(chatId) {
+  try {
+    const result = await Client.get(`chat/byId/${chatId}`);
+    return result.data;
+  } catch (err) {
+    console.error('getChatById', err);
+    return err;
+  }
+}
+
 export async function createChat(data) {
   try {
     const result = await Client.post(`chat`, { ...data });
@@ -362,9 +372,29 @@ export async function createChat(data) {
   }
 }
 
+export async function newChatMessage(data, chatId) {
+  try {
+    const result = await Client.post(`chat/${chatId}`, { ...data });
+    return result.data;
+  } catch (err) {
+    console.error('newChatMessage', err);
+    return err;
+  }
+}
+
 export async function deleteChat(chatid) {
   try {
     const result = await Client.delete(`chat/${chatid}`);
+    return result.data;
+  } catch (err) {
+    console.error('deleteChat', err);
+    return err;
+  }
+}
+
+export async function deleteChatMessage(chatid, messageid) {
+  try {
+    const result = await Client.delete(`chat/${chatid}/${messageid}`);
     return result.data;
   } catch (err) {
     console.error('deleteChat', err);

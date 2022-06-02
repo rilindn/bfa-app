@@ -4,14 +4,19 @@ import { Drawer } from 'react-native-ui-lib';
 import { deleteChat } from '../../../api/ApiMethods';
 import Colors from '../../../constants/Colors';
 import formatDate from '../../../helpers/formatDate';
+import { decryptMsg } from '../../../helpers/messageEncrypt';
 import Avatar from '../../Avatar/Avatar';
 import getFullName from './../../../helpers/extractFullname';
 import styles from './SingleConversation.styles';
 
 const SingleConversation = ({ chatData, refetchChats, onPress }) => {
   const fullName = getFullName(chatData.user);
-  const lastMessage = chatData.chat.messages?.[0]?.content;
   const formatedDate = formatDate(chatData.chat.updatedAt);
+
+  const getLastMessage = () => {
+    const lastMessage = chatData.chat.messages?.[chatData.chat.messages.length - 1];
+    return decryptMsg(lastMessage?.content, chatData.chat._id, lastMessage.sender);
+  };
 
   const handleDelete = async () => {
     await Promise.all(deleteChat(chatData.chat._id), refetchChats());
@@ -39,7 +44,7 @@ const SingleConversation = ({ chatData, refetchChats, onPress }) => {
           <Avatar name={fullName} size={42} />
           <View style={{ marginLeft: 10 }}>
             <Text style={styles.userName}>{fullName}</Text>
-            <Text style={styles.messageText}>{lastMessage}</Text>
+            <Text style={styles.messageText}>{getLastMessage()}</Text>
           </View>
         </View>
         <Text style={styles.dateTime}>{formatedDate}</Text>
