@@ -1,11 +1,22 @@
 import { Text, View, TouchableOpacity } from 'react-native';
 import { Drawer } from 'react-native-ui-lib';
 
+import { deleteChat } from '../../../api/ApiMethods';
 import Colors from '../../../constants/Colors';
+import formatDate from '../../../helpers/formatDate';
 import Avatar from '../../Avatar/Avatar';
+import getFullName from './../../../helpers/extractFullname';
 import styles from './SingleConversation.styles';
 
-const SingleConversation = ({ onPress }) => {
+const SingleConversation = ({ chatData, refetchChats, onPress }) => {
+  const fullName = getFullName(chatData.user);
+  const lastMessage = chatData.chat.messages?.[0]?.content;
+  const formatedDate = formatDate(chatData.chat.updatedAt);
+
+  const handleDelete = async () => {
+    await Promise.all(deleteChat(chatData.chat._id), refetchChats());
+  };
+
   return (
     <Drawer
       fullSwipeLeft={false}
@@ -14,7 +25,7 @@ const SingleConversation = ({ onPress }) => {
       leftItem={{
         text: 'Delete',
         background: Colors.red,
-        onPress: () => console.log('delete pressed'),
+        onPress: handleDelete,
       }}
       rightItems={[
         {
@@ -25,13 +36,13 @@ const SingleConversation = ({ onPress }) => {
       ]}>
       <TouchableOpacity onPress={onPress} style={styles.conversationRow}>
         <View style={styles.userData}>
-          <Avatar name="Rilind Nuha" size={42} />
+          <Avatar name={fullName} size={42} />
           <View style={{ marginLeft: 10 }}>
-            <Text style={styles.userName}>Rilind Nuha</Text>
-            <Text style={styles.messageText}>Hello</Text>
+            <Text style={styles.userName}>{fullName}</Text>
+            <Text style={styles.messageText}>{lastMessage}</Text>
           </View>
         </View>
-        <Text style={styles.dateTime}>16 May 2022 at 12:30</Text>
+        <Text style={styles.dateTime}>{formatedDate}</Text>
       </TouchableOpacity>
     </Drawer>
   );

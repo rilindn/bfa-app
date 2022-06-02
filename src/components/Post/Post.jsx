@@ -9,6 +9,7 @@ import { Divider, Menu } from 'react-native-paper';
 import { deletePost, getUserById } from '../../api/ApiMethods';
 import Colors from '../../constants/Colors';
 import { fontSizes } from '../../constants/Typography';
+import formatDate from '../../helpers/formatDate';
 import Avatar from '../Avatar/Avatar';
 import CreatePost from './CreatePost/CreatePost';
 import styles from './Post.styles';
@@ -22,19 +23,6 @@ export default function Post({ post, navigation, refetchPosts, isOwnPost }) {
   const [modalVisible, setModalVisible] = useState(false);
   const media = post?.media;
   const isVideo = post?.media?.endsWith('.mp4');
-
-  const formatedDate = () => {
-    const date = post?.updatedAt;
-    const today = moment().startOf('day');
-    const createdDate = moment(date, 'YYYY-MM-DD').startOf('day');
-    const diff = today.diff(createdDate, 'days');
-
-    if (diff < 5) {
-      return moment(date).fromNow();
-    } else {
-      return moment(date).format('DD MMM YYYY [at] HH:mm');
-    }
-  };
 
   const fetchUser = async () => {
     try {
@@ -80,7 +68,7 @@ export default function Post({ post, navigation, refetchPosts, isOwnPost }) {
               />
               <View style={styles.dateContainer}>
                 <Text style={styles.name}>{userFullName}</Text>
-                <Text style={styles.date}>{formatedDate()}</Text>
+                <Text style={styles.date}>{formatDate(post?.updatedAt)}</Text>
               </View>
             </TouchableOpacity>
             {isOwnPost && (

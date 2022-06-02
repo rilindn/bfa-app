@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
   commentsContainer: {
     marginHorizontal: 10,
-    marginTop: 20,
+    marginTop: 5,
   },
   divider: {
     borderBottomWidth: 0.5,

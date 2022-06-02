@@ -325,7 +325,39 @@ export async function createComment(data) {
     const result = await Client.post(`comment`, { ...data });
     return result.data;
   } catch (err) {
-    console.error('commentPost', err);
+    console.error('createComment', err);
+    return err;
+  }
+}
+
+// chat
+
+export async function getMyChats(userId) {
+  try {
+    const result = await Client.get(`chat/${userId}`);
+    return result.data;
+  } catch (err) {
+    console.error('getMyChats', err);
+    return err;
+  }
+}
+
+export async function createChat(data) {
+  try {
+    const result = await Client.post(`chat`, { ...data });
+    return result.data;
+  } catch (err) {
+    console.error('createChat', err);
+    return err;
+  }
+}
+
+export async function deleteChat(chatid) {
+  try {
+    const result = await Client.delete(`chat/${chatid}`);
+    return result.data;
+  } catch (err) {
+    console.error('deleteChat', err);
     return err;
   }
 }
