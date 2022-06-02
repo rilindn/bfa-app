@@ -330,6 +330,16 @@ export async function createComment(data) {
   }
 }
 
+export async function deleteComment(id) {
+  try {
+    const result = await Client.delete(`comment/${id}`);
+    return result.data;
+  } catch (err) {
+    console.error('deleteComment', err);
+    return err;
+  }
+}
+
 // chat
 
 export async function getMyChats(userId) {
