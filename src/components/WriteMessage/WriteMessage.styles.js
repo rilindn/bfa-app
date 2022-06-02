@@ -9,12 +9,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: Colors.headerBg,
     alignItems: 'center',
-    padding: 25,
+    paddingVertical: 20,
+    paddingHorizontal: 15,
   },
   messageContainer: {
     backgroundColor: Colors.gray3 + '20',
     borderRadius: 6,
     justifyContent: 'center',
+    marginHorizontal: 2,
   },
   post: {
     fontSize: customFontSizes(18),

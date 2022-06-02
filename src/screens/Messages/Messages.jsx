@@ -25,20 +25,20 @@ export default function Messages({ name }) {
   }, [isFocused]);
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Searchbar placeholder="Search" />
-      <View style={styles.chat}>
-        {chats.map((chat) => {
+      <ScrollView style={styles.chat}>
+        {chats.map((item) => {
           return (
             <SingleConversation
-              key={chat.user.id}
-              onPress={() => navigation.navigate('Chat')}
-              chatData={chat}
+              key={item.user.id}
+              onPress={() => navigation.navigate('Chat', { id: item.chat._id })}
+              chatData={item}
               refetchChats={fetchChats}
             />
           );
         })}
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }
