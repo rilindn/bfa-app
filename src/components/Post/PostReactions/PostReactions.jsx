@@ -1,15 +1,10 @@
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import {
-  checkIfLiked,
-  getPostLikes,
-  likePost,
-  unlikePost,
-  getPostComments,
-} from '../../../api/ApiMethods';
+import { getPostLikes, likePost, unlikePost, getPostComments } from '../../../api/ApiMethods';
 import Colors from '../../../constants/Colors';
 import getMyS from '../../../helpers/getMyS';
 import Comment from '../../Comment/Comment';
@@ -32,8 +27,10 @@ const PostReactions = ({ post }) => {
   };
 
   const fetchPostLikes = async () => {
-    const likes = await getPostLikes(post.id);
-    setLikes(likes);
+    const likesRes = await getPostLikes(post.id);
+    const isLiked = likesRes.find(({ UserId }) => UserId === authData.id);
+    setLiked(!!isLiked);
+    setLikes(likesRes);
   };
 
   const fetchPostComments = async () => {
@@ -53,14 +50,8 @@ const PostReactions = ({ post }) => {
     }
   };
 
-  const checkIfLikedPost = async () => {
-    const result = await checkIfLiked(payload);
-    setLiked(!!result);
-  };
-
   useEffect(() => {
     fetchPostLikes();
-    checkIfLikedPost();
     fetchPostComments();
   }, [post]);
 
@@ -94,15 +85,12 @@ const PostReactions = ({ post }) => {
       </View>
       <PostLikesModal likes={likes} visible={likesModalVisible} setVisible={setLikesModalVisible} />
       {comments?.length >= 1 && (
-        <Comment
-          onPress={() => navigation.navigate('AllComments', { id: post.id })}
-          item={comments?.[0]}
-          containerStyle={styles.latestCommentContainer}
-        />
+        <TouchableOpacity onPress={() => navigation.navigate('AllComments', { id: post.id })}>
+          <Comment item={comments?.[0]} containerStyle={styles.latestCommentContainer} viewOnly />
+        </TouchableOpacity>
       )}
     </View>
   );
 };
 
 export default PostReactions;
-1;

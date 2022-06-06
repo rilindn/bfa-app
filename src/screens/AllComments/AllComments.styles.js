@@ -18,5 +18,14 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 0,
   },
+  deleteText: {
+    color: Colors.red + 80,
+    textAlign: 'center',
+    fontFamily: 'poppins-regular',
+  },
+  deleteOption: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 });
 export default styles;

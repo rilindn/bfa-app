@@ -37,5 +37,10 @@ const styles = StyleSheet.create({
   input: {
     width: '80%',
   },
+  submitBtn: {
+    height: 50,
+    display: 'flex',
+    justifyContent: 'center',
+  },
 });
 export default styles;

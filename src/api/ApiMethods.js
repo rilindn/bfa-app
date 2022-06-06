@@ -1,4 +1,4 @@
-import Client from './ApiBase';
+import { Client } from './ApiBase';
 
 // Users
 
@@ -352,9 +352,9 @@ export async function getMyChats(userId) {
   }
 }
 
-export async function getChatById(chatId) {
+export async function getChatById(chatId, userId) {
   try {
-    const result = await Client.get(`chat/byId/${chatId}`);
+    const result = await Client.get(`chat/${chatId}/${userId}`);
     return result.data;
   } catch (err) {
     console.error('getChatById', err);

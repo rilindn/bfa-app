@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { Text, View, TouchableOpacity } from 'react-native';
 
 import { unFollow } from '../../../api/ApiMethods';
@@ -7,6 +8,7 @@ import styles from './SingleFollow.styles';
 
 export default function SingleFollow({ type, loggedUser, user, refetchFollows }) {
   const fullName = getFullName(user);
+  const navigation = useNavigation();
 
   const handleUnfollow = async () => {
     const followerId = type === 'followers' ? user.id : loggedUser.id;
@@ -16,7 +18,9 @@ export default function SingleFollow({ type, loggedUser, user, refetchFollows })
   };
 
   return (
-    <View style={styles.wrapper}>
+    <TouchableOpacity
+      style={styles.wrapper}
+      onPress={() => navigation.navigate('ViewProfile', { id: user.id })}>
       <Avatar name={fullName} size={50} image={user?.profilePic} />
       <View style={styles.content}>
         <View style={styles.dataContent}>
@@ -28,6 +32,6 @@ export default function SingleFollow({ type, loggedUser, user, refetchFollows })
           <Text style={styles.removeLabel}>Remove</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
