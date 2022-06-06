@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { Drawer } from 'react-native-ui-lib';
 
@@ -10,13 +11,27 @@ import getFullName from './../../../helpers/extractFullname';
 import styles from './SingleConversation.styles';
 
 const SingleConversation = ({ chatData, refetchChats, onPress }) => {
-  const fullName = getFullName(chatData.user);
-  const formatedDate = formatDate(chatData.chat.updatedAt);
+  const [messageData, setMessageData] = useState({});
 
   const getLastMessage = () => {
+    const fullName = getFullName(chatData?.user);
     const lastMessage = chatData.chat.messages?.[chatData.chat.messages.length - 1];
-    return decryptMsg(lastMessage?.content, chatData.chat._id, lastMessage.sender);
+    if (!lastMessage) {
+      const chatDate = formatDate(chatData.chat.createdAt);
+      return setMessageData({ userName: fullName, date: chatDate });
+    }
+    const lastMessageDate = formatDate(lastMessage?.createdAt);
+    const plainTextMsg = decryptMsg(lastMessage?.content, chatData.chat._id);
+    setMessageData({
+      text: plainTextMsg,
+      userName: fullName,
+      date: lastMessageDate,
+    });
   };
+
+  useEffect(() => {
+    getLastMessage();
+  }, []);
 
   const handleDelete = async () => {
     await Promise.all(deleteChat(chatData.chat._id), refetchChats());
@@ -41,13 +56,13 @@ const SingleConversation = ({ chatData, refetchChats, onPress }) => {
       ]}>
       <TouchableOpacity onPress={onPress} style={styles.conversationRow}>
         <View style={styles.userData}>
-          <Avatar name={fullName} size={42} />
+          <Avatar name={messageData?.userName} size={42} />
           <View style={{ marginLeft: 10 }}>
-            <Text style={styles.userName}>{fullName}</Text>
-            <Text style={styles.messageText}>{getLastMessage()}</Text>
+            <Text style={styles.userName}>{messageData?.userName}</Text>
+            <Text style={styles.messageText}>{messageData?.text}</Text>
           </View>
         </View>
-        <Text style={styles.dateTime}>{formatedDate}</Text>
+        <Text style={styles.dateTime}>{messageData?.date}</Text>
       </TouchableOpacity>
     </Drawer>
   );

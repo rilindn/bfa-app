@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 import Colors from '../../../constants/Colors';
 import { fontSizes } from '../../../constants/Typography';
@@ -25,10 +25,12 @@ const styles = StyleSheet.create({
     fontFamily: 'poppins-regular',
     fontSize: fontSizes.small,
     padding: 10,
-    borderRadius: 20,
+    borderRadius: 17,
+    overflow: 'hidden',
     includeFontPadding: false,
     textAlign: 'center',
     marginHorizontal: 10,
+    maxWidth: Dimensions.get('window').width - 100,
   },
   timeSend: {
     fontFamily: 'poppins-regular',
@@ -36,7 +38,16 @@ const styles = StyleSheet.create({
     includeFontPadding: false,
     textAlign: 'center',
     color: Colors.gray3,
-    marginHorizontal: 7,
+    // marginHorizontal: 7,
+  },
+  deleteOption: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  deleteText: {
+    color: Colors.red + 80,
+    textAlign: 'center',
+    fontFamily: 'poppins-regular',
   },
   unread: {
     width: 5,

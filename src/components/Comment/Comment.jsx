@@ -1,39 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Divider } from 'react-native-paper';
-import { View, Text } from 'react-native-ui-lib';
-import { TouchableOpacity } from 'react-native';
+
+import Colors from '../../constants/Colors';
 import getFullName from '../../helpers/extractFullname';
 import Avatar from '../Avatar/Avatar';
+import formatDate from './../../helpers/formatDate';
 import styles from './Comment.styles';
-import useAuth from '../../hooks/useAuth';
-const Comment = ({ containerStyle, item, handleDeleteComment }) => {
+const Comment = ({ containerStyle, item, setDeleteOptionData, viewOnly }) => {
   const fullName = getFullName(item?.User);
-  const { authData } = useAuth();
-  const [modalvisible, setModalVisible] = useState(false);
 
-  const deleteSubmit = async () => {
-    await handleDeleteComment(item.id);
-    setModalVisible(false);
-  };
   return (
-    <>
+    <View>
       <TouchableOpacity
-        onPress={() => setModalVisible(!modalvisible)}
+        onLongPress={() => !viewOnly && setDeleteOptionData({ state: true, id: item.id })}
         style={[styles.container, containerStyle]}>
         <Avatar name={fullName} size={45} />
         <View style={styles.commentContainer}>
           <Text style={[styles.commentName, { paddingLeft: 10 }]}>{fullName}</Text>
           <Text style={styles.commentText}>{item?.content}</Text>
         </View>
+        <Text style={styles.commentDate}>{formatDate(item?.createdAt)}</Text>
       </TouchableOpacity>
-
       <Divider />
-      {modalvisible && authData.id === item.UserId && (
-        <TouchableOpacity onPress={() => deleteSubmit()} style={styles.deleteContainer}>
-          <Text style={styles.delete}>Delete</Text>
-        </TouchableOpacity>
-      )}
-    </>
+    </View>
   );
 };
 export default Comment;

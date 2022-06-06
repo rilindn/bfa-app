@@ -11,13 +11,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderTopWidth: 0.5,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginBottom: 20,
   },
   likeNumbersSection: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingBottom: 6,
+    width: '50%',
   },
   likeNumbers: {
     color: Colors.gray3 + 70,
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.default,
   },
   halfContainer: {
-    width: '50%',
+    // width: '50%',
     flexDirection: 'row',
     justifyContent: 'center',
     paddingVertical: 10,

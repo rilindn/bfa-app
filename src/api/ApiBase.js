@@ -1,6 +1,7 @@
 import { API_URL, API_URL_PROD } from '@env';
 import axios from 'axios';
 import Constants from 'expo-constants';
+import io from 'socket.io-client';
 
 const { manifest } = Constants;
 
@@ -19,4 +20,12 @@ const Client = axios.create({
   },
 });
 
-export default Client;
+const socket = io(apiUrl, {
+  extraHeaders: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  autoConnect: false,
+});
+
+export { Client, socket };

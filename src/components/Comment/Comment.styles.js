@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   commentContainer: {
-    width: '85%',
+    width: '60%',
     borderRadius: 6,
     justifyContent: 'center',
     marginLeft: 10,
@@ -23,7 +23,13 @@ const styles = StyleSheet.create({
   commentName: {
     color: Colors.white,
     fontFamily: 'poppins-semibold',
-    fontSize: fontSizes.default,
+    fontSize: fontSizes.medium,
+  },
+  commentDate: {
+    color: Colors.light,
+    fontSize: fontSizes.extraSmall,
+    textAlign: 'right',
+    width: '25%',
   },
   deleteContainer: {
     position: 'absolute',

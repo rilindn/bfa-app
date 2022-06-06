@@ -28,16 +28,17 @@ export default function Messages({ name }) {
     <View style={styles.container}>
       <Searchbar placeholder="Search" />
       <ScrollView style={styles.chat}>
-        {chats.map((item) => {
-          return (
-            <SingleConversation
-              key={item.user.id}
-              onPress={() => navigation.navigate('Chat', { id: item.chat._id })}
-              chatData={item}
-              refetchChats={fetchChats}
-            />
-          );
-        })}
+        {chats &&
+          chats?.map((item) => {
+            return (
+              <SingleConversation
+                key={item.user.id}
+                onPress={() => navigation.navigate('Chat', { id: item.chat._id })}
+                chatData={item}
+                refetchChats={fetchChats}
+              />
+            );
+          })}
       </ScrollView>
     </View>
   );

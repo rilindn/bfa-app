@@ -6,6 +6,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import Colors from './src/constants/Colors';
 import { AuthContextProvider } from './src/contexts/AuthContext';
+import { SocketContextProvider } from './src/contexts/SocketContext';
 import useCachedResources from './src/hooks/useCachedResources';
 import Navigation from './src/navigation';
 
@@ -21,12 +22,14 @@ export default function App() {
     return (
       <Provider>
         <AuthContextProvider>
-          <SafeAreaProvider>
-            <NavigationContainer>
-              <StatusBar style="light" backgroundColor={Colors.gray5} />
-              <Navigation />
-            </NavigationContainer>
-          </SafeAreaProvider>
+          <SocketContextProvider>
+            <SafeAreaProvider>
+              <NavigationContainer>
+                <StatusBar style="light" backgroundColor={Colors.gray5} />
+                <Navigation />
+              </NavigationContainer>
+            </SafeAreaProvider>
+          </SocketContextProvider>
         </AuthContextProvider>
       </Provider>
     );
