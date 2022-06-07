@@ -9,7 +9,6 @@ import {
   getMyPosts,
   getUserById,
   unFollow,
-  verifyFollow,
 } from '../../api/ApiMethods';
 import ClubBottomSection from '../../components/ClubBottomSection/ClubBottomSection';
 import Header from '../../components/Header/Header';
@@ -37,21 +36,21 @@ export default function ViewProfile({ navigation, route }) {
   };
 
   const handleFollow = async () => {
+    setIsFollow(true);
     await follow({ followerId, followedId: userId });
-    await isFollowed();
   };
 
-  const isFollowed = async () => {
-    const checkIsFollow = await verifyFollow({ followerId, followedId: userId });
-    setIsFollow(checkIsFollow);
+  const isFollowed = async (followers) => {
+    const checkIsFollow = followers.find((user) => user.id === followerId);
+    setIsFollow(!!checkIsFollow);
   };
 
   const handleUnfollow = async () => {
+    setIsFollow(false);
     await unFollow({ followerId, followedId: userId });
-    await isFollowed();
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     fetchResources();
   }, [userId]);
 
@@ -61,8 +60,8 @@ export default function ViewProfile({ navigation, route }) {
       getMyFollowings(userId),
       getMyPosts(userId),
       getUser(),
-      isFollowed(),
     ]);
+    isFollowed(followers.data);
     setFollowers(followers.data);
     setFollowings(followings.data);
     setPosts(posts.data);
