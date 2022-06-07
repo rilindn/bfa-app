@@ -15,18 +15,25 @@ const SingleConversation = ({ chatData, refetchChats, onPress }) => {
 
   const getLastMessage = () => {
     const fullName = getFullName(chatData?.user);
+    const chatDate = formatDate(chatData.chat.createdAt);
     const lastMessage = chatData.chat.messages?.[chatData.chat.messages.length - 1];
     if (!lastMessage) {
-      const chatDate = formatDate(chatData.chat.createdAt);
-      return setMessageData({ userName: fullName, date: chatDate });
+      setMessageData({
+        userName: fullName,
+        image: chatData?.user?.profilePic,
+        date: chatDate,
+      });
+    } else {
+      const lastMessageDate = formatDate(lastMessage?.createdAt);
+      const plainTextMsg = decryptMsg(lastMessage?.content, chatData.chat._id);
+      setMessageData({
+        userName: fullName,
+        image: chatData?.user?.profilePic,
+        text: plainTextMsg,
+        date: lastMessageDate,
+      });
     }
-    const lastMessageDate = formatDate(lastMessage?.createdAt);
-    const plainTextMsg = decryptMsg(lastMessage?.content, chatData.chat._id);
-    setMessageData({
-      text: plainTextMsg,
-      userName: fullName,
-      date: lastMessageDate,
-    });
+    return messageData;
   };
 
   useEffect(() => {
@@ -47,16 +54,16 @@ const SingleConversation = ({ chatData, refetchChats, onPress }) => {
         background: Colors.red,
         onPress: handleDelete,
       }}
-      rightItems={[
-        {
-          text: 'Read',
-          background: Colors.mainGreen,
-          onPress: () => console.log('read pressed'),
-        },
-      ]}>
+      // rightItems={[
+      //   {
+      //     text: 'Read',
+      //     background: Colors.mainGreen,
+      //   },
+      // ]}
+    >
       <TouchableOpacity onPress={onPress} style={styles.conversationRow}>
         <View style={styles.userData}>
-          <Avatar name={messageData?.userName} size={42} />
+          <Avatar name={messageData?.userName} image={messageData?.image} size={42} />
           <View style={{ marginLeft: 10 }}>
             <Text style={styles.userName}>{messageData?.userName}</Text>
             <Text style={styles.messageText}>{messageData?.text}</Text>

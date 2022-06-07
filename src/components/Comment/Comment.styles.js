@@ -7,9 +7,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     padding: 12,
+    width: '100%',
   },
   commentContainer: {
-    width: '60%',
+    width: '55%',
     borderRadius: 6,
     justifyContent: 'center',
     marginLeft: 10,

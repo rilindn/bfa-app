@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { TouchableOpacity } from 'react-native';
@@ -21,7 +22,7 @@ const WriteComment = ({ PostId, setComments }) => {
     const payload = { UserId: authData.id, PostId, content: data?.content };
     reset();
     setComments((prev) => {
-      return [...prev, { ...payload, _id: uuidv4(), User: authData }];
+      return [...prev, { ...payload, _id: uuidv4(), User: authData, createdAt: moment() }];
     });
     await createComment(payload);
   };

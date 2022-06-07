@@ -7,13 +7,13 @@ import getFullName from '../../helpers/extractFullname';
 import Avatar from '../Avatar/Avatar';
 import formatDate from './../../helpers/formatDate';
 import styles from './Comment.styles';
-const Comment = ({ containerStyle, item, setDeleteOptionData, viewOnly }) => {
+const Comment = ({ containerStyle, item, setDeleteOptionData, editable }) => {
   const fullName = getFullName(item?.User);
 
   return (
     <View>
       <TouchableOpacity
-        onLongPress={() => !viewOnly && setDeleteOptionData({ state: true, id: item.id })}
+        onLongPress={() => editable && setDeleteOptionData({ state: true, id: item.id })}
         style={[styles.container, containerStyle]}>
         <Avatar name={fullName} size={45} />
         <View style={styles.commentContainer}>
