@@ -2,7 +2,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
 
 import { socket } from '../../../api/ApiBase';
@@ -32,12 +32,12 @@ export default function Chat({ route }) {
     });
   };
 
-  const handleSendMessage = async (data) => {
+  const handleSendMessage = async ({ data, isMedia = false }) => {
     const content = encryptMsg(data.message, chatId);
     const payload = {
       sender: authData.id,
-      content,
       receiver: user.id,
+      ...(!isMedia ? { content } : { media: content }),
     };
     setMessages((prev) => [...prev, { ...payload, _id: uuidv4() }]);
     socket.emit('new-msg', { chatId, payload });
@@ -98,15 +98,40 @@ const _renderItem = ({ item, index, authData, ...rest }) => {
 };
 
 const Message = ({ isOwn, item, chatId, setDeleteOptionData }) => {
-  const message = decryptMsg(item.content, chatId);
+  const hasMedia = item?.media;
+  const msgContent = hasMedia ? item.media : item?.content;
+  const content = decryptMsg(msgContent, chatId);
   const date = moment(item?.createdAt).format('HH:mm A');
+  const navigation = useNavigation();
+
   return (
     <View style={[styles.messageWrapper, isOwn && { flexDirection: 'row' }]}>
       <Text style={styles.timeSend}>{date}</Text>
-      <TouchableOpacity
-        onLongPress={() => isOwn && setDeleteOptionData({ state: true, id: item._id })}>
-        <Text style={[styles.message, isOwn && { backgroundColor: Colors.orange }]}>{message}</Text>
-      </TouchableOpacity>
+      {hasMedia ? (
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onLongPress={() => isOwn && setDeleteOptionData({ state: true, id: item._id })}
+          onPress={() =>
+            navigation.navigate('PhotoView', {
+              photo: content,
+            })
+          }>
+          <Image
+            source={{
+              uri: content,
+            }}
+            style={styles.mediaMessage}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          onLongPress={() => isOwn && setDeleteOptionData({ state: true, id: item._id })}>
+          <Text style={[styles.message, isOwn && { backgroundColor: Colors.orange }]}>
+            {content}
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

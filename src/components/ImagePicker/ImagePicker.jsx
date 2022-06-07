@@ -16,6 +16,7 @@ export default function ImagePicker({
   allowsEditing,
   aspect,
   allowVideos,
+  uploading,
 }) {
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState('');
@@ -66,7 +67,7 @@ export default function ImagePicker({
       if (preview?.type === 'image' && preview.base64) {
         const image = `data:image/jpg;base64,${preview.base64}`;
         setSelectedMedia(image);
-        setPreview('');
+        // setPreview('');
       } else {
         closeModal();
       }
@@ -81,7 +82,7 @@ export default function ImagePicker({
   return (
     <Modal animationType="slide" transparent visible={visible} onRequestClose={closeModal}>
       <View style={styles.container}>
-        {!preview ? (
+        {!preview && !uploading ? (
           <>
             <Text style={styles.instructions}>
               To share a photo from your phone, just press the button below!
@@ -118,7 +119,7 @@ export default function ImagePicker({
                 onPress={uploadPhoto}
                 activeOpacity={0.7}
                 style={styles.savePhotoButton}>
-                {!loading ? (
+                {!loading && !uploading ? (
                   <Entypo name="check" size={37} color={Colors.gray3} />
                 ) : (
                   <ActivityIndicator size="small" color={Colors.white} animating />

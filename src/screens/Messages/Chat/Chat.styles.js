@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
   message: {
     backgroundColor: Colors.gray3,
     color: Colors.white,
-    fontFamily: 'poppins-regular',
-    fontSize: fontSizes.small,
+    fontFamily: 'poppins-medium',
+    fontSize: fontSizes.default,
     padding: 10,
     borderRadius: 17,
     overflow: 'hidden',
@@ -31,6 +31,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginHorizontal: 10,
     maxWidth: Dimensions.get('window').width - 100,
+  },
+  mediaMessage: {
+    minWidth: 200,
+    minHeight: 260,
+    borderRadius: 50,
+    marginHorizontal: 10,
   },
   timeSend: {
     fontFamily: 'poppins-regular',

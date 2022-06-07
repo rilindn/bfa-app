@@ -24,10 +24,11 @@ const styles = StyleSheet.create({
   userName: {
     color: Colors.light,
     fontFamily: 'poppins-semibold',
-    fontSize: fontSizes.medium,
+    fontSize: fontSizes.large,
+    includeFontPadding: false,
   },
   messageText: {
-    color: Colors.light,
+    color: Colors.light + 90,
     fontSize: fontSizes.default,
   },
   dateTime: {
