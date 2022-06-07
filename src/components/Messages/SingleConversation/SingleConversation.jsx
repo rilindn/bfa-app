@@ -25,7 +25,10 @@ const SingleConversation = ({ chatData, refetchChats, onPress }) => {
       });
     } else {
       const lastMessageDate = formatDate(lastMessage?.createdAt);
-      const plainTextMsg = decryptMsg(lastMessage?.content, chatData.chat._id);
+      const hasMedia = lastMessage?.media;
+      const plainTextMsg = hasMedia
+        ? 'Sent a photo'
+        : decryptMsg(lastMessage?.content, chatData.chat._id);
       setMessageData({
         userName: fullName,
         image: chatData?.user?.profilePic,
@@ -63,7 +66,7 @@ const SingleConversation = ({ chatData, refetchChats, onPress }) => {
     >
       <TouchableOpacity onPress={onPress} style={styles.conversationRow}>
         <View style={styles.userData}>
-          <Avatar name={messageData?.userName} image={messageData?.image} size={42} />
+          <Avatar name={messageData?.userName} image={messageData?.image} size={47} />
           <View style={{ marginLeft: 10 }}>
             <Text style={styles.userName}>{messageData?.userName}</Text>
             <Text style={styles.messageText}>{messageData?.text}</Text>

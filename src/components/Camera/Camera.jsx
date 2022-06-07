@@ -4,16 +4,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import { View, TouchableOpacity, ActivityIndicator, ToastAndroid, Text, Modal } from 'react-native';
 
 import Colors from '../../constants/Colors';
-import useAuth from '../../hooks/useAuth';
 import styles from './Camera.styles';
 
-export default function Camera({ visible, setPhoto, closeModal }) {
+export default function Camera({ visible, setPhoto, closeModal, uploading }) {
   const cameraRef = useRef();
   const [cameraType, setCameraType] = useState(CameraRN.Constants.Type.back);
   const [isPreview, setIsPreview] = useState(false);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [source, setSource] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(uploading);
   const [hasPermission, setHasPermission] = useState(null);
 
   useEffect(() => {
@@ -63,12 +62,12 @@ export default function Camera({ visible, setPhoto, closeModal }) {
       setLoading(true);
       if (image) {
         setPhoto(image);
-        await cameraRef.current.resumePreview();
+        // await cameraRef.current.resumePreview();
         setIsPreview(false);
       }
     } catch (err) {
       console.log(err.response.data);
-      ToastAndroid.show('Please try again later!', ToastAndroid.LONG);
+      ToastAndroid.show('Please try again!', ToastAndroid.LONG);
     } finally {
       setLoading(false);
     }
@@ -95,23 +94,23 @@ export default function Camera({ visible, setPhoto, closeModal }) {
           <TouchableOpacity onPress={cancel} style={styles.closeButton} activeOpacity={0.7}>
             <AntDesign name="close" size={32} color={Colors.light} />
           </TouchableOpacity>
-          {isPreview && (
+          {(isPreview || uploading) && (
             <>
               <View style={styles.savePhotoContainer}>
                 <TouchableOpacity
                   onPress={uploadPhoto}
                   activeOpacity={0.7}
                   style={styles.savePhotoButton}>
-                  {!loading ? (
-                    <Entypo name="check" size={37} color={Colors.gray3} />
-                  ) : (
+                  {loading || uploading ? (
                     <ActivityIndicator size="large" color={Colors.white} animating />
+                  ) : (
+                    <Entypo name="check" size={37} color={Colors.gray3} />
                   )}
                 </TouchableOpacity>
               </View>
             </>
           )}
-          {!isPreview && (
+          {!isPreview && !uploading && (
             <View style={styles.bottomButtonsContainer}>
               <TouchableOpacity disabled={!isCameraReady} onPress={switchCamera}>
                 <MaterialIcons name="flip-camera-ios" size={28} color="white" />
