@@ -60,7 +60,7 @@ const PostReactions = ({ post }) => {
       ? likes.length
       : likes.length === 1
       ? `You`
-      : `You and ${getMyS(likes.length - 1, 'other')}`;
+      : `You and ${getMyS({ value: likes.length - 1, string: 'other' })}`;
   };
 
   return (
@@ -80,7 +80,9 @@ const PostReactions = ({ post }) => {
           onPress={() => navigation.navigate('AllComments', { id: post.id })}
           style={styles.halfContainer}>
           <SvgIcon name="comment" width={20} height={20} />
-          <Text style={styles.reactText}>{getMyS(comments.length, 'Comment')}</Text>
+          <Text style={styles.reactText}>
+            {getMyS({ value: comments.length, string: 'Comment' })}
+          </Text>
         </TouchableOpacity>
       </View>
       <PostLikesModal likes={likes} visible={likesModalVisible} setVisible={setLikesModalVisible} />

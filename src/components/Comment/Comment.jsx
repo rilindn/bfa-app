@@ -17,10 +17,12 @@ const Comment = ({ containerStyle, item, setDeleteOptionData, editable }) => {
         style={[styles.container, containerStyle]}>
         <Avatar name={fullName} size={45} />
         <View style={styles.commentContainer}>
-          <Text style={[styles.commentName, { paddingLeft: 10 }]}>{fullName}</Text>
+          <View style={styles.dataContainer}>
+            <Text style={styles.commentName}>{fullName}</Text>
+            <Text style={styles.commentDate}>{formatDate(item?.createdAt)}</Text>
+          </View>
           <Text style={styles.commentText}>{item?.content}</Text>
         </View>
-        <Text style={styles.commentDate}>{formatDate(item?.createdAt)}</Text>
       </TouchableOpacity>
       <Divider />
     </View>

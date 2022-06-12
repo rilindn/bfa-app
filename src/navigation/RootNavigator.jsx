@@ -62,6 +62,18 @@ const RootNavigator = ({ initialScreen, authData }) => {
               headerTintColor: Colors.white,
             }}
           />
+          <Root.Screen
+            name="Applications"
+            getComponent={() => require('../screens/Vacancies/Applications/Applications').default}
+            options={{
+              title: 'Applications',
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: Colors.background,
+              },
+              headerTintColor: Colors.white,
+            }}
+          />
         </>
       ) : (
         <>

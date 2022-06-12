@@ -36,8 +36,9 @@ export default function Login({ navigation }) {
       setIsLoading(true);
       const result = await login(data);
       if (result?.status === 200) {
-        handleSignIn(result.data);
-        ToastAndroid.show('You have been logged in successfully!', ToastAndroid.LONG);
+        handleSignIn(result.data).then(() => {
+          navigation.navigate('Feed');
+        });
       } else {
         const errorMsg = result.response.data.errors?.[0]?.message || result.response.data;
         Alert.alert('Error occurred!', errorMsg);

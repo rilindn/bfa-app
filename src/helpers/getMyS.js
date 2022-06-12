@@ -1,6 +1,8 @@
-const getMyS = (value, string, onlyString, suffix = 's') => {
+const getMyS = ({ value, string, onlyString, withNo, suffix = 's' }) => {
   const textResult = !value
-    ? string
+    ? !withNo
+      ? string
+      : `No ${string}s`
     : value > 1
     ? onlyString
       ? string + suffix
