@@ -401,3 +401,85 @@ export async function deleteChatMessage(chatid, messageid) {
     return err;
   }
 }
+
+// vacancies
+
+export async function getMyVacancies(clubId) {
+  try {
+    const result = await Client.get(`vacancy/club/${clubId}`);
+    return result.data;
+  } catch (err) {
+    console.error('getMyVacancies', err);
+    return err;
+  }
+}
+
+export async function getMyFollowingsVacancies(clubId) {
+  try {
+    const result = await Client.get(`vacancy/followings/${clubId}`);
+    return result;
+  } catch (err) {
+    console.error('getMyVacancies', err);
+    return err;
+  }
+}
+
+export async function createVacancy(data) {
+  try {
+    const result = await Client.post(`vacancy`, { ...data });
+    return result;
+  } catch (err) {
+    console.error('createVacancy', err);
+    return err;
+  }
+}
+
+export async function updateVacancy(data, id) {
+  try {
+    const result = await Client.put(`vacancy/${id}`, { ...data });
+    return result;
+  } catch (err) {
+    console.error('updateVacancy', err);
+    return err;
+  }
+}
+
+export async function deleteVacancy(vacancyId) {
+  try {
+    const result = await Client.delete(`vacancy/${vacancyId}`);
+    return result;
+  } catch (err) {
+    console.error('deleteVacancy', err);
+    return err;
+  }
+}
+
+export async function applyToVacancy(data) {
+  try {
+    const result = await Client.post(`vacancy-application`, { ...data });
+    return result;
+  } catch (err) {
+    console.error('applyToVacancy', err);
+    return err;
+  }
+}
+
+export async function getVacancyApplications(vacancyId) {
+  try {
+    const result = await Client.get(`vacancy-application/${vacancyId}`);
+    return result.data;
+  } catch (err) {
+    console.error('getVacancyApplications', err);
+    return err;
+  }
+}
+
+export async function updateApplication(data, id) {
+  try {
+    const result = await Client.put(`vacancy-application/${id}`, { ...data });
+    return result;
+  } catch (err) {
+    console.error('updateApplication', err);
+    return err;
+  }
+}

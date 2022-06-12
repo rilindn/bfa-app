@@ -15,7 +15,8 @@ const AuthContextProvider = ({ children }) => {
       const token = await SecureStore.getItemAsync('AuthTok');
       if (token) {
         Client.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-        socket.io.opts.extraHeaders['Authorization'] = 'Bearer ' + token;
+        if (!socket.io.opts.extraHeaders['Authorization'])
+          socket.io.opts.extraHeaders['Authorization'] = 'Bearer ' + token;
         const authData = await loggedUser();
         setAuthData(authData.data.user);
       }
@@ -30,7 +31,8 @@ const AuthContextProvider = ({ children }) => {
     if (data?.token) {
       await SecureStore.setItemAsync('AuthTok', data?.token);
       Client.defaults.headers.common['Authorization'] = 'Bearer ' + data?.token;
-      socket.io.opts.extraHeaders['Authorization'] = 'Bearer ' + data?.token;
+      if (!socket.io.opts.extraHeaders['Authorization'])
+        socket.io.opts.extraHeaders['Authorization'] = 'Bearer ' + data?.token;
     }
     await loadAuthData();
   };

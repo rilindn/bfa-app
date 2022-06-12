@@ -6,11 +6,8 @@ import RootNavigator from './RootNavigator';
 
 const Navigation = () => {
   const { authData, loading } = useAuth();
-  const [delay, setDelay] = useState(true);
 
-  setTimeout(() => setDelay(false), 500); // delay a bit for better UX
-
-  if (loading || delay) {
+  if (loading) {
     return <LoadingScreen />;
   }
   return <RootNavigator authData={authData} />;

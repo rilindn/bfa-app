@@ -56,14 +56,21 @@ export default function ClubProfileCard({ navigation, followers, followings, pos
       <View style={styles.infoBoxWrapper}>
         <View style={styles.infoBox}>
           <Text style={styles.statisticsNumber}>{posts?.length}</Text>
-          <Text style={styles.statisticsText}>{getMyS(posts?.length, 'POST', true, 'S')}</Text>
+          <Text style={styles.statisticsText}>
+            {getMyS({ value: posts?.length, string: 'POST', onlyString: true, suffix: 'S' })}
+          </Text>
         </View>
         <View style={styles.infoBox}>
           <TouchableOpacity
             onPress={() => navigation.navigate('Follows', { selectedTab: 'followers' })}>
             <Text style={styles.statisticsNumber}>{followers?.length}</Text>
             <Text style={styles.statisticsText}>
-              {getMyS(followers?.length, 'FOLLOWERS', true, 'S')}
+              {getMyS({
+                value: followers?.length,
+                string: 'FOLLOWER',
+                onlyString: true,
+                suffix: 'S',
+              })}
             </Text>
           </TouchableOpacity>
         </View>
@@ -72,7 +79,12 @@ export default function ClubProfileCard({ navigation, followers, followings, pos
             onPress={() => navigation.navigate('Follows', { selectedTab: 'following' })}>
             <Text style={styles.statisticsNumber}>{followings?.length}</Text>
             <Text style={styles.statisticsText}>
-              {getMyS(followers?.length, 'FOLLOWING', true, 'S')}
+              {getMyS({
+                value: followers?.length,
+                string: 'FOLLOWING',
+                onlyString: true,
+                suffix: 'S',
+              })}
             </Text>
           </TouchableOpacity>
         </View>

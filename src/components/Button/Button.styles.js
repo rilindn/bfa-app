@@ -19,5 +19,15 @@ const styles = StyleSheet.create({
     height: 45,
     justifyContent: 'center',
   },
+  content: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  icon: {
+    marginRight: 5,
+    marginTop: 1,
+  },
 });
 export default styles;

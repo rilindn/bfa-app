@@ -10,10 +10,15 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   commentContainer: {
-    width: '55%',
+    width: '80%',
     borderRadius: 6,
     justifyContent: 'center',
     marginLeft: 10,
+  },
+  dataContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   commentText: {
     fontFamily: 'poppins-regular',
@@ -25,12 +30,12 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontFamily: 'poppins-semibold',
     fontSize: fontSizes.medium,
+    paddingLeft: 10,
   },
   commentDate: {
     color: Colors.light,
     fontSize: fontSizes.extraSmall,
     textAlign: 'right',
-    width: '25%',
   },
   deleteContainer: {
     position: 'absolute',
