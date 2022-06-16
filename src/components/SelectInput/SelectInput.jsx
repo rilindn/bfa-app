@@ -18,6 +18,7 @@ const SelectInput = ({
   darkMode,
   selectInputStyle,
   defaultValue,
+  disabled,
 }) => {
   const error = errors?.[name]?.message;
 
@@ -41,7 +42,7 @@ const SelectInput = ({
                 error && { borderColor: Colors.red },
                 darkMode && stylesDark.inputCtn,
               ]}>
-              <Picker selectedValue={value} onValueChange={onChange}>
+              <Picker enabled={!disabled} selectedValue={value} onValueChange={onChange}>
                 <Picker.Item
                   label={placeholder}
                   value=""

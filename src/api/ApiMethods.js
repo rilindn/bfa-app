@@ -483,3 +483,45 @@ export async function updateApplication(data, id) {
     return err;
   }
 }
+
+// TEAM
+
+export async function getNoTeamPlayers(query) {
+  try {
+    const result = await Client.get(`/team/no-team-players?q=${query || ''}`);
+    return result;
+  } catch (err) {
+    console.error('getNoTeamPlayers', err);
+    return err;
+  }
+}
+
+export async function getMyTeamPlayers(clubId) {
+  try {
+    const result = await Client.get(`/team/${clubId}`);
+    return result;
+  } catch (err) {
+    console.error('getMyTeamPlayers', err);
+    return err;
+  }
+}
+
+export async function addPlayerToTeam(data) {
+  try {
+    const result = await Client.post('/team', { ...data });
+    return result;
+  } catch (err) {
+    console.log('addPlayerToTeam', err);
+    return err;
+  }
+}
+
+export async function deleteTeamPlayer(teamPlayerId) {
+  try {
+    const result = await Client.delete(`team/${teamPlayerId}`);
+    return result;
+  } catch (err) {
+    console.error('deleteTeamPlayer', err);
+    return err;
+  }
+}

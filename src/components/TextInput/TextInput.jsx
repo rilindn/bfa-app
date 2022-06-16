@@ -23,6 +23,7 @@ const TextInput = ({
   keyboardType,
   noTitle,
   containerStyle,
+  disabled,
 }) => {
   const [focused, setFocused] = useState(false);
   const error = errors?.[name]?.message;
@@ -61,6 +62,7 @@ const TextInput = ({
               style={[styles.textInputStyle, textInputStyle, darkMode && stylesDark.textInputStyle]}
               defaultValue={defaultValue}
               keyboardType={keyboardType}
+              editable={!disabled}
             />
           )}
         />

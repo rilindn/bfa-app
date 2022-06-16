@@ -33,11 +33,13 @@ const DrawerNavigator = ({ initialScreen, navigation }) => {
         getComponent={() => require('../screens/Settings/Settings').default}
       />
       {authData.role === 'Club' && (
-        <Drawer.Screen
-          name="Vacancies"
-          getComponent={() => require('../screens/Vacancies/Vacancies').default}
-          options={{}}
-        />
+        <>
+          <Drawer.Screen
+            name="Vacancies"
+            getComponent={() => require('../screens/Vacancies/Vacancies').default}
+          />
+          <Drawer.Screen name="Team" getComponent={() => require('../screens/Team/Team').default} />
+        </>
       )}
     </Drawer.Navigator>
   );
