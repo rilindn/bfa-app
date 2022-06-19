@@ -41,7 +41,7 @@ export default function ViewProfile({ navigation, route }) {
   };
 
   const isFollowed = async (followers) => {
-    const checkIsFollow = followers.find((user) => user.id === followerId);
+    const checkIsFollow = followers?.find((user) => user.id === followerId);
     setIsFollow(!!checkIsFollow);
   };
 
@@ -79,7 +79,7 @@ export default function ViewProfile({ navigation, route }) {
   return (
     <View style={styles.container}>
       <Header />
-      {!userData && !posts.length && (
+      {!userData && (
         <ActivityIndicator
           size="large"
           color={Colors.green1}

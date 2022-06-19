@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { View, Text, ToastAndroid, Alert } from 'react-native';
 
 import { editPlayer } from '../../../api/ApiMethods';
+import { positions } from '../../../data/positions';
 import SelectInput from '../../SelectInput/SelectInput';
 import TextInput from '../../TextInput/TextInput';
 import useAuth from './../../../hooks/useAuth';
@@ -68,23 +69,25 @@ const EditPlayerCharacteristics = ({ navigation }) => {
           defaultValue={authData.Player.weight?.toString()}
           keyboardType="decimal-pad"
         />
-        <TextInput
+        <SelectInput
           style={styles.input}
           name="position"
-          placeholder="Position"
+          placeholder="Choose your position"
           control={control}
           rules={rules.position}
           errors={errors}
+          options={positions}
           darkMode
           defaultValue={authData.Player.position}
         />
-        <TextInput
-          style={styles.input}
+        <SelectInput
+          style={styles.secondPosition}
           name="secondPosition"
-          placeholder="Second position"
+          placeholder="Choose your second position"
           control={control}
           rules={rules.position}
           errors={errors}
+          options={positions}
           darkMode
           defaultValue={authData.Player.secondPosition}
         />
