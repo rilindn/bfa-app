@@ -34,6 +34,15 @@ export async function getAllPlayer() {
   }
 }
 
+export async function getFilteredPlayers(params) {
+  try {
+    const result = await Client.get('player/filter', { params });
+    return result;
+  } catch (err) {
+    console.error('getFilteredPlayers', err);
+  }
+}
+
 export async function registerPlayer(data) {
   try {
     const result = await Client.post(`player`, { ...data });

@@ -39,6 +39,13 @@ const DrawerNavigator = ({ initialScreen, navigation }) => {
             getComponent={() => require('../screens/Vacancies/Vacancies').default}
           />
           <Drawer.Screen name="Team" getComponent={() => require('../screens/Team/Team').default} />
+          <Drawer.Screen
+            name="DetailedSearch"
+            getComponent={() => require('../screens/DetailedSearch/DetailedSearch').default}
+            options={{
+              title: 'Detailed Search',
+            }}
+          />
         </>
       )}
     </Drawer.Navigator>
