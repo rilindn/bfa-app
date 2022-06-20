@@ -6,8 +6,6 @@ import { fontSizes } from '../../constants/Typography';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
     backgroundColor: Colors.background,
   },
   title: {
@@ -18,7 +16,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: Colors.gray3 + '50',
     width: '100%',
-    paddingBottom: 10,
+    paddingVertical: 10,
+  },
+  notificationsContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 export default styles;
