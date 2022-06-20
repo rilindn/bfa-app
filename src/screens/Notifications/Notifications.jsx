@@ -1,14 +1,19 @@
-import { Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text, View } from 'react-native';
 
 import Notification from '../../components/Notification/Notification';
 import styles from './Notifications.styles';
 
 export default function Notifications() {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.title}>Notifications</Text>
-      <Notification />
-    </SafeAreaView>
+      <View style={styles.notificationsContainer}>
+        <Notification />
+        <Notification />
+        <Notification />
+        <Notification />
+        <Notification />
+      </View>
+    </View>
   );
 }

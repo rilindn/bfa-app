@@ -5,10 +5,8 @@ import { fontSizes } from '../../constants/Typography';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     width: '95%',
-  },
-  content: {
+    height: 70,
     backgroundColor: Colors.gray6,
     flexDirection: 'row',
     borderWidth: 1,
@@ -19,14 +17,13 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
   },
-  dataContent: {
+  content: {
     marginLeft: 10,
-    flexDirection: 'column',
-    alignContent: 'center',
-    alignSelf: 'center',
+    justifyContent: 'space-around',
+    height: '100%',
   },
-  name: {
-    fontSize: fontSizes.default,
+  notificationText: {
+    fontSize: fontSizes.medium,
     color: Colors.white,
   },
   datetime: {
