@@ -116,7 +116,7 @@ const _renderitem = ({ item, index, navigation, suggestionUsers }) => {
   if (index % 10 === 0 && index > 0 && suggestionUsers?.length >= 2) {
     return <Suggestions users={item} navigation={navigation} />;
   }
-  return <Post post={item} navigation={navigation} />;
+  return <Post post={item} navigation={navigation} isOnFeed />;
 };
 
 const ListHeaderComponent = () => (

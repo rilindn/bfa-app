@@ -539,7 +539,6 @@ export async function deleteTeamPlayer(teamPlayerId) {
 
 export async function bookmark(data) {
   try {
-    console.log('response', data);
     const result = await Client.post('bookmark', { ...data });
 
     return result;
@@ -549,9 +548,9 @@ export async function bookmark(data) {
   }
 }
 
-export async function getMyBookmarks(id) {
+export async function getMyBookmarks(id, params) {
   try {
-    const result = await Client.get(`bookmark/${id}`);
+    const result = await Client.get(`bookmark/${id}`, { params });
     return result;
   } catch (err) {
     console.error('getMyBookmarks', err);
