@@ -12,7 +12,7 @@ const CustomDrawerContent = (props) => {
     <DrawerContentScrollView {...props} contentContainerStyle={styles.drawerStyle}>
       <View>
         <View style={styles.custom}>
-          <Text style={styles.logoutText}>Here some custom content</Text>
+          <Text style={styles.logoutText}>BALL FOR ALL</Text>
         </View>
         <DrawerItemList {...props} />
       </View>

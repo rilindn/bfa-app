@@ -91,12 +91,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   sendMessageBtn: {
-    width: '45%',
+    width: '30%',
     height: 40,
     backgroundColor: Colors.mainGreen,
   },
   followBtn: {
-    width: '45%',
+    width: '30%',
     height: 40,
     backgroundColor: Colors.orange,
   },
@@ -106,11 +106,10 @@ const styles = StyleSheet.create({
     color: Colors.white,
   },
   bookmarkBtn: {
-    width: 110,
+    width: '30%',
     height: 40,
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.gray3,
     borderWidth: 1,
-    borderColor: Colors.orange,
   },
 });
 
