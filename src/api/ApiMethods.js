@@ -534,3 +534,37 @@ export async function deleteTeamPlayer(teamPlayerId) {
     return err;
   }
 }
+
+//Bookmark
+
+export async function bookmark(data) {
+  try {
+    console.log('response', data);
+    const result = await Client.post('bookmark', { ...data });
+
+    return result;
+  } catch (err) {
+    console.error('bookmark', err);
+    return err;
+  }
+}
+
+export async function getMyBookmarks(id) {
+  try {
+    const result = await Client.get(`bookmark/${id}`);
+    return result;
+  } catch (err) {
+    console.error('getMyBookmarks', err);
+    return err;
+  }
+}
+
+export async function unBookmark(id) {
+  try {
+    const result = await Client.delete(`bookmark/${id}`);
+    return result;
+  } catch (err) {
+    console.error('unBookmark', err);
+    return err;
+  }
+}

@@ -1,9 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { View, Text } from 'react-native-ui-lib';
 
+import { bookmark } from '../../../api/ApiMethods';
 import Colors from '../../../constants/Colors';
+import useAuth from '../../../hooks/useAuth';
 import Avatar from '../../Avatar/Avatar';
 import CustomButton from '../../Button/Button';
 import styles from './PlayerCard.styles';
@@ -19,6 +21,17 @@ export default function PlayerCard({
   newChatMessage,
 }) {
   const navigation = useNavigation();
+  const { authData } = useAuth();
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  const handleBookmark = async () => {
+    const bookmarkerId = authData.id;
+    const referencedPlayer = user.Player.playerId;
+    const response = await bookmark({ bookmarkerId, referencedPlayer, referenceType: 'Player' });
+    if (response.status === 200) {
+      setIsBookmarked(true);
+    }
+  };
 
   return (
     <View style={styles.main}>
@@ -60,11 +73,21 @@ export default function PlayerCard({
           labelStyle={styles.sendMessageLabel}
           onPress={newChatMessage}
         />
-        {/* <CustomButton
-          label="Bookmark"
-          style={styles.bookmarkBtn}
-          labelStyle={styles.sendMessageLabel}
-        /> */}
+
+        {!isBookmarked ? (
+          <CustomButton
+            label="Bookmark"
+            style={styles.bookmarkBtn}
+            labelStyle={styles.sendMessageLabel}
+            onPress={handleBookmark}
+          />
+        ) : (
+          <CustomButton
+            label="Unbookmark"
+            style={styles.bookmarkBtn}
+            labelStyle={styles.sendMessageLabel}
+          />
+        )}
         {!isFollow ? (
           <CustomButton
             label="Follow"

@@ -46,6 +46,13 @@ const DrawerNavigator = ({ initialScreen, navigation }) => {
               title: 'Detailed Search',
             }}
           />
+          <Drawer.Screen
+            name="Bookmark"
+            getComponent={() => require('../screens/Bookmark/Bookmark').default}
+            options={{
+              title: 'Bookmarks',
+            }}
+          />
         </>
       )}
     </Drawer.Navigator>
