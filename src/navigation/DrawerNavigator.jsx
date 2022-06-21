@@ -32,6 +32,13 @@ const DrawerNavigator = ({ initialScreen, navigation }) => {
         name="Settings"
         getComponent={() => require('../screens/Settings/Settings').default}
       />
+      <Drawer.Screen
+        name="Bookmark"
+        getComponent={() => require('../screens/Bookmark/Bookmark').default}
+        options={{
+          title: 'Bookmarks',
+        }}
+      />
       {authData.role === 'Club' && (
         <>
           <Drawer.Screen
@@ -44,13 +51,6 @@ const DrawerNavigator = ({ initialScreen, navigation }) => {
             getComponent={() => require('../screens/DetailedSearch/DetailedSearch').default}
             options={{
               title: 'Detailed Search',
-            }}
-          />
-          <Drawer.Screen
-            name="Bookmark"
-            getComponent={() => require('../screens/Bookmark/Bookmark').default}
-            options={{
-              title: 'Bookmarks',
             }}
           />
         </>

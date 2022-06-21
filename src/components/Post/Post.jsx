@@ -1,26 +1,39 @@
 import { Entypo } from '@expo/vector-icons';
 import { Video } from 'expo-av';
-import moment from 'moment';
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Divider, Menu } from 'react-native-paper';
 
-import { deletePost, getUserById } from '../../api/ApiMethods';
+import { bookmark, deletePost, getUserById } from '../../api/ApiMethods';
+import SvgIcon from '../../components/SvgIcon/SvgIcon';
 import Colors from '../../constants/Colors';
 import { fontSizes } from '../../constants/Typography';
 import formatDate from '../../helpers/formatDate';
+import useAuth from '../../hooks/useAuth';
 import Avatar from '../Avatar/Avatar';
 import CreatePost from './CreatePost/CreatePost';
 import styles from './Post.styles';
 import PostReactions from './PostReactions/PostReactions';
 
-export default function Post({ post, navigation, refetchPosts, isOwnPost }) {
+export default function Post({
+  post,
+  navigation,
+  refetchPosts,
+  isOwnPost,
+  handleUnBookmark,
+  isOnFeed,
+  isBookmark,
+}) {
   const [user, setUser] = useState();
   const [userFullName, setUserFullName] = useState();
   const [showEditMenu, setShowEditMenu] = useState(false);
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  const { authData } = useAuth();
+
   const media = post?.media;
   const isVideo = post?.media?.endsWith('.mp4');
 
@@ -51,6 +64,15 @@ export default function Post({ post, navigation, refetchPosts, isOwnPost }) {
     setShowEditMenu(false);
   };
 
+  const handleBookmark = async () => {
+    const bookmarkerId = authData.id;
+    const referencedPost = post.id;
+    const response = await bookmark({ bookmarkerId, referencedPost, referenceType: 'Post' });
+    if (response.status === 200) {
+      setIsBookmarked(true);
+    }
+  };
+
   return (
     <View style={styles.container}>
       {user && (
@@ -71,6 +93,19 @@ export default function Post({ post, navigation, refetchPosts, isOwnPost }) {
                 <Text style={styles.date}>{formatDate(post?.updatedAt)}</Text>
               </View>
             </TouchableOpacity>
+            {isBookmark && (
+              <TouchableOpacity onPress={handleUnBookmark}>
+                <SvgIcon name="bookmarkfilled" width={40} height={30} color={Colors.gray3} />
+              </TouchableOpacity>
+            )}
+            {isOnFeed &&
+              (isBookmarked ? (
+                <SvgIcon name="bookmarkfilled" width={40} height={30} color={Colors.gray3} />
+              ) : (
+                <TouchableOpacity onPress={handleBookmark}>
+                  <SvgIcon name="bookmark" width={40} height={30} color={Colors.gray3} />
+                </TouchableOpacity>
+              ))}
             {isOwnPost && (
               <>
                 <Menu
