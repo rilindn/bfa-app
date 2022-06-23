@@ -5,6 +5,7 @@ import { View, Text } from 'react-native-ui-lib';
 
 import { bookmark } from '../../../api/ApiMethods';
 import Colors from '../../../constants/Colors';
+import getMyS from '../../../helpers/getMyS';
 import useAuth from '../../../hooks/useAuth';
 import Avatar from '../../Avatar/Avatar';
 import CustomButton from '../../Button/Button';
@@ -70,36 +71,37 @@ export default function PlayerCard({
         <CustomButton
           label="Message"
           style={styles.sendMessageBtn}
-          labelStyle={styles.sendMessageLabel}
+          labelStyle={styles.btnLabel}
           onPress={newChatMessage}
         />
 
-        {!isBookmarked ? (
-          <CustomButton
-            label="Bookmark"
-            style={styles.bookmarkBtn}
-            labelStyle={styles.sendMessageLabel}
-            onPress={handleBookmark}
-          />
-        ) : (
-          <CustomButton
-            label="Unbookmark"
-            style={styles.bookmarkBtn}
-            labelStyle={styles.sendMessageLabel}
-          />
-        )}
+        {authData.role === 'Club' &&
+          (!isBookmarked ? (
+            <CustomButton
+              label="Bookmark"
+              style={styles.bookmarkBtn}
+              labelStyle={styles.btnLabel}
+              onPress={handleBookmark}
+            />
+          ) : (
+            <CustomButton
+              label="Unbookmark"
+              style={styles.bookmarkBtn}
+              labelStyle={styles.btnLabel}
+            />
+          ))}
         {!isFollow ? (
           <CustomButton
             label="Follow"
             style={[styles.followBtn]}
-            labelStyle={styles.sendMessageLabel}
+            labelStyle={styles.btnLabel}
             onPress={handleFollow}
           />
         ) : (
           <CustomButton
             label="Unfollow"
             style={[styles.followBtn]}
-            labelStyle={styles.sendMessageLabel}
+            labelStyle={styles.btnLabel}
             onPress={handleUnfollow}
           />
         )}
@@ -107,15 +109,31 @@ export default function PlayerCard({
       <View style={styles.infoBoxWrapper}>
         <View style={styles.infoBox}>
           <Text style={styles.statisticsNumber}>{posts?.length}</Text>
-          <Text style={styles.statisticsText}>POST</Text>
+          <Text style={styles.statisticsText}>
+            {getMyS({ value: posts?.length, string: 'POST', onlyString: true, suffix: 'S' })}
+          </Text>
         </View>
         <View style={styles.infoBox}>
           <Text style={styles.statisticsNumber}>{followers?.length}</Text>
-          <Text style={styles.statisticsText}>FOLLOWERS</Text>
+          <Text style={styles.statisticsText}>
+            {getMyS({
+              value: followers?.length,
+              string: 'FOLLOWER',
+              onlyString: true,
+              suffix: 'S',
+            })}
+          </Text>
         </View>
         <View style={[styles.infoBox, { borderRightWidth: 0 }]}>
           <Text style={styles.statisticsNumber}>{followings?.length}</Text>
-          <Text style={styles.statisticsText}>FOLLOWING</Text>
+          <Text style={styles.statisticsText}>
+            {getMyS({
+              value: followings?.length,
+              string: 'FOLLOWER',
+              onlyString: true,
+              suffix: 'S',
+            })}
+          </Text>
         </View>
       </View>
     </View>
