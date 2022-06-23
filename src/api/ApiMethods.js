@@ -540,7 +540,6 @@ export async function deleteTeamPlayer(teamPlayerId) {
 export async function bookmark(data) {
   try {
     const result = await Client.post('bookmark', { ...data });
-
     return result;
   } catch (err) {
     console.error('bookmark', err);

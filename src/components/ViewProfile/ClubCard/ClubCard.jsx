@@ -4,6 +4,7 @@ import { TouchableOpacity } from 'react-native';
 import { View, Text } from 'react-native-ui-lib';
 
 import Colors from '../../../constants/Colors';
+import getMyS from '../../../helpers/getMyS';
 import Avatar from '../../Avatar/Avatar';
 import CustomButton from '../../Button/Button';
 import styles from './ClubCard.styles';
@@ -79,15 +80,31 @@ export default function ClubCard({
       <View style={styles.infoBoxWrapper}>
         <View style={styles.infoBox}>
           <Text style={styles.statisticsNumber}>{posts?.length}</Text>
-          <Text style={styles.statisticsText}>POST</Text>
+          <Text style={styles.statisticsText}>
+            {getMyS({ value: posts?.length, string: 'POST', onlyString: true, suffix: 'S' })}
+          </Text>
         </View>
         <View style={styles.infoBox}>
           <Text style={styles.statisticsNumber}>{followers?.length}</Text>
-          <Text style={styles.statisticsText}>FOLLOWERS</Text>
+          <Text style={styles.statisticsText}>
+            {getMyS({
+              value: followers?.length,
+              string: 'FOLLOWER',
+              onlyString: true,
+              suffix: 'S',
+            })}
+          </Text>
         </View>
         <View style={[styles.infoBox, { borderRightWidth: 0 }]}>
           <Text style={styles.statisticsNumber}>{followings?.length}</Text>
-          <Text style={styles.statisticsText}>FOLLOWING</Text>
+          <Text style={styles.statisticsText}>
+            {getMyS({
+              value: followings?.length,
+              string: 'FOLLOWER',
+              onlyString: true,
+              suffix: 'S',
+            })}
+          </Text>
         </View>
       </View>
     </View>

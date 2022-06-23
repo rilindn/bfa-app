@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import { useEffect, useState, useRef } from 'react';
 import { RefreshControl, FlatList, Text, View } from 'react-native';
 import { Divider } from 'react-native-paper';
@@ -21,6 +22,7 @@ export default function Feed({ navigation }) {
   const [suggestionUsers, setSuggestions] = useState([]);
   const flatListRef = useRef();
   const { authData } = useAuth();
+  const isFocused = useIsFocused();
 
   const userId = authData.id;
 
@@ -32,8 +34,11 @@ export default function Feed({ navigation }) {
 
   useEffect(() => {
     scrollToTop();
-    composeFeedContent();
   }, []);
+
+  useEffect(() => {
+    composeFeedContent();
+  }, [isFocused]);
 
   const composeFeedContent = async () => {
     let [suggestions, posts, clubVacancies] = await Promise.all([

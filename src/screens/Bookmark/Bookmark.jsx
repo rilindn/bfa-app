@@ -11,35 +11,34 @@ import useAuth from '../../hooks/useAuth';
 import styles from './Bookmark.styles';
 
 export default function Bookmark({ navigation }) {
-  const [bookmarks, setBookmarks] = useState([]);
+  const [playerBookmarks, setPlayerBookmarks] = useState([]);
   const [bookmarkedPost, setBookmarkedPost] = useState([]);
   const { authData } = useAuth();
   const isFocused = useIsFocused();
   const [selectedTab, setSelectedTab] = useState('players');
 
-  const getBookmarks = async () => {
-    const bookmarks = await getMyBookmarks(authData.id, { referenceType: 'Player' });
-    setBookmarks(bookmarks.data);
-    console.log('bookmarkedPost', bookmarks.data);
-    console.log('authData', authData);
+  const getPlayerBookmarks = async () => {
+    const playerBookmarks = await getMyBookmarks(authData.id, { referenceType: 'Player' });
+    setPlayerBookmarks(playerBookmarks.data);
   };
 
   const getPostBookmarks = async () => {
     const bookmarkedPost = await getMyBookmarks(authData.id, { referenceType: 'Post' });
     setBookmarkedPost(bookmarkedPost.data);
-    console.log('bookmarkedPost', bookmarkedPost.data);
   };
 
   const handleUnBookmark = async (bookmarkId, type) => {
     const result = await unBookmark(bookmarkId);
     if (result.status === 200) {
       if (type === 'Post') setBookmarkedPost(bookmarkedPost.filter(({ id }) => id !== bookmarkId));
-      else setBookmarks(bookmarks.filter(({ id }) => id !== bookmarkId));
+      else setPlayerBookmarks(playerBookmarks.filter(({ id }) => id !== bookmarkId));
     }
   };
 
   useEffect(() => {
-    getBookmarks();
+    if (authData.role === 'Club') {
+      getPlayerBookmarks();
+    }
     getPostBookmarks();
   }, [isFocused]);
 
@@ -84,7 +83,7 @@ export default function Bookmark({ navigation }) {
         ))
       )}
       {selectedTab === 'players' &&
-        bookmarks?.map((bookmark) => (
+        playerBookmarks?.map((bookmark) => (
           <SingleBookmark
             key={bookmark.id}
             data={bookmark}
