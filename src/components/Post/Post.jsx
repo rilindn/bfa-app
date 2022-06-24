@@ -5,7 +5,7 @@ import { View, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Divider, Menu } from 'react-native-paper';
 
-import { bookmark, deletePost, getUserById } from '../../api/ApiMethods';
+import { bookmark, deletePost, getUserById, isBookmarked, unBookmark } from '../../api/ApiMethods';
 import SvgIcon from '../../components/SvgIcon/SvgIcon';
 import Colors from '../../constants/Colors';
 import { fontSizes } from '../../constants/Typography';
@@ -30,7 +30,7 @@ export default function Post({
   const [showEditMenu, setShowEditMenu] = useState(false);
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
 
   const { authData } = useAuth();
 
@@ -51,6 +51,7 @@ export default function Post({
 
   useEffect(() => {
     fetchUser();
+    checkBookmark();
   }, [post]);
 
   const getUserFullName = (user) => {
@@ -64,12 +65,28 @@ export default function Post({
     setShowEditMenu(false);
   };
 
+  const handleFeedUnBookmark = async () => {
+    const result = await unBookmark(bookmarked.id);
+    if (result.status === 200) {
+      setBookmarked(false);
+    }
+  };
+
+  const checkBookmark = async () => {
+    const params = {
+      userId: authData.id,
+      refId: post.id,
+    };
+    const bookmarkRes = await isBookmarked(params);
+    setBookmarked(bookmarkRes);
+  };
+
   const handleBookmark = async () => {
     const bookmarkerId = authData.id;
     const referencedPost = post.id;
     const response = await bookmark({ bookmarkerId, referencedPost, referenceType: 'Post' });
     if (response.status === 200) {
-      setIsBookmarked(true);
+      setBookmarked(response.data);
     }
   };
 
@@ -99,8 +116,10 @@ export default function Post({
               </TouchableOpacity>
             )}
             {isOnFeed &&
-              (isBookmarked ? (
-                <SvgIcon name="bookmarkfilled" width={40} height={30} color={Colors.gray3} />
+              (bookmarked ? (
+                <TouchableOpacity onPress={handleFeedUnBookmark}>
+                  <SvgIcon name="bookmarkfilled" width={40} height={30} color={Colors.gray3} />
+                </TouchableOpacity>
               ) : (
                 <TouchableOpacity onPress={handleBookmark}>
                   <SvgIcon name="bookmark" width={40} height={30} color={Colors.gray3} />

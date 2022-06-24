@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { View, Text } from 'react-native-ui-lib';
 
-import { bookmark } from '../../../api/ApiMethods';
+import { bookmark, isBookmarked, unBookmark } from '../../../api/ApiMethods';
 import Colors from '../../../constants/Colors';
 import getMyS from '../../../helpers/getMyS';
 import useAuth from '../../../hooks/useAuth';
@@ -23,16 +23,38 @@ export default function PlayerCard({
 }) {
   const navigation = useNavigation();
   const { authData } = useAuth();
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
 
   const handleBookmark = async () => {
     const bookmarkerId = authData.id;
     const referencedPlayer = user.Player.playerId;
     const response = await bookmark({ bookmarkerId, referencedPlayer, referenceType: 'Player' });
     if (response.status === 200) {
-      setIsBookmarked(true);
+      setBookmarked(response.data);
     }
   };
+
+  const handleUnBookmark = async () => {
+    const result = await unBookmark(bookmarked.id);
+    if (result.status === 200) {
+      setBookmarked(false);
+    }
+  };
+
+  const checkBookmark = async () => {
+    const params = {
+      userId: authData.id,
+      refId: user.Player.playerId,
+      refType: 'Player',
+    };
+    const bookmarkRes = await isBookmarked(params);
+    console.log('first', bookmarkRes);
+    setBookmarked(bookmarkRes);
+  };
+
+  useEffect(() => {
+    checkBookmark();
+  }, []);
 
   return (
     <View style={styles.main}>
@@ -76,7 +98,7 @@ export default function PlayerCard({
         />
 
         {authData.role === 'Club' &&
-          (!isBookmarked ? (
+          (!bookmarked ? (
             <CustomButton
               label="Bookmark"
               style={styles.bookmarkBtn}
@@ -88,6 +110,7 @@ export default function PlayerCard({
               label="Unbookmark"
               style={styles.bookmarkBtn}
               labelStyle={styles.btnLabel}
+              onPress={handleUnBookmark}
             />
           ))}
         {!isFollow ? (
