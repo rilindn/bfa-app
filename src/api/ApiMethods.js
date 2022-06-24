@@ -566,3 +566,13 @@ export async function unBookmark(id) {
     return err;
   }
 }
+
+export async function isBookmarked(params) {
+  try {
+    const result = await Client.get(`bookmark/isBookmarked`, { params });
+    return result.data;
+  } catch (err) {
+    console.error('isBookmarked', err);
+    return err;
+  }
+}
