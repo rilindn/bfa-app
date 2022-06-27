@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   menuItems: {
-    width: 100,
+    width: 150,
   },
   menuItemsTitle: {
     marginLeft: -25,

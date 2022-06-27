@@ -576,3 +576,15 @@ export async function isBookmarked(params) {
     return err;
   }
 }
+
+// Reports
+
+export async function report(data) {
+  try {
+    const result = await Client.post('post-report', { ...data });
+    return result;
+  } catch (err) {
+    console.error('report', err);
+    return err;
+  }
+}

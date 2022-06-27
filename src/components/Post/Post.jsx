@@ -15,6 +15,7 @@ import Avatar from '../Avatar/Avatar';
 import CreatePost from './CreatePost/CreatePost';
 import styles from './Post.styles';
 import PostReactions from './PostReactions/PostReactions';
+import ReportForm from './ReportForm/ReportForm';
 
 export default function Post({
   post,
@@ -29,8 +30,9 @@ export default function Post({
   const [userFullName, setUserFullName] = useState();
   const [showEditMenu, setShowEditMenu] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [editModalVisible, setEditModalVisible] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
+  const [reportModalVisible, setReportModalVisible] = useState(false);
 
   const { authData } = useAuth();
 
@@ -90,6 +92,11 @@ export default function Post({
     }
   };
 
+  // const handleReport = async () => {
+  //   co
+  //   await report()
+  // };
+
   return (
     <View style={styles.container}>
       {user && (
@@ -110,64 +117,101 @@ export default function Post({
                 <Text style={styles.date}>{formatDate(post?.updatedAt)}</Text>
               </View>
             </TouchableOpacity>
-            {isBookmark && (
+            {isBookmark ? (
               <TouchableOpacity onPress={handleUnBookmark}>
                 <SvgIcon name="bookmarkfilled" width={40} height={30} color={Colors.gray3} />
               </TouchableOpacity>
+            ) : (
+              <Menu
+                visible={showEditMenu}
+                onDismiss={() => setShowEditMenu(false)}
+                contentStyle={styles.menuContent}
+                anchor={
+                  <TouchableOpacity onPress={() => setShowEditMenu(true)}>
+                    <Entypo
+                      style={styles.dotsIcon}
+                      name="dots-three-horizontal"
+                      size={20}
+                      color={Colors.gray3}
+                    />
+                  </TouchableOpacity>
+                }>
+                {isOwnPost && (
+                  <>
+                    <Menu.Item
+                      icon="pencil"
+                      title="Edit"
+                      style={styles.menuItems}
+                      titleStyle={styles.menuItemsTitle}
+                      onPress={() => {
+                        setEditModalVisible(true);
+                        setShowEditMenu(false);
+                      }}
+                    />
+                    <Divider />
+                    <Menu.Item
+                      icon="delete"
+                      title="Delete"
+                      style={styles.menuItems}
+                      titleStyle={styles.menuItemsTitle}
+                      onPress={() => handleDeletePost()}
+                    />
+                  </>
+                )}
+                {isOnFeed &&
+                  (bookmarked ? (
+                    <Menu.Item
+                      icon={() => (
+                        <SvgIcon
+                          name="bookmarkfilled"
+                          width={22}
+                          height={20}
+                          color={Colors.gray3}
+                        />
+                      )}
+                      title="Unbookmark"
+                      style={styles.menuItems}
+                      titleStyle={styles.menuItemsTitle}
+                      onPress={() => handleFeedUnBookmark()}
+                    />
+                  ) : (
+                    <Menu.Item
+                      icon={() => (
+                        <SvgIcon name="bookmark" width={20} height={20} color={Colors.gray3} />
+                      )}
+                      title="Bookmark"
+                      style={styles.menuItems}
+                      titleStyle={styles.menuItemsTitle}
+                      onPress={() => handleBookmark()}
+                    />
+                  ))}
+                {!isOwnPost && (
+                  <>
+                    <Divider />
+                    <Menu.Item
+                      icon={() => (
+                        <SvgIcon name="reports" width={20} height={20} color={Colors.gray3} />
+                      )}
+                      title="Report"
+                      style={styles.menuItems}
+                      titleStyle={styles.menuItemsTitle}
+                      onPress={() => setReportModalVisible(true)}
+                    />
+                  </>
+                )}
+              </Menu>
             )}
-            {isOnFeed &&
-              (bookmarked ? (
-                <TouchableOpacity onPress={handleFeedUnBookmark}>
-                  <SvgIcon name="bookmarkfilled" width={40} height={30} color={Colors.gray3} />
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity onPress={handleBookmark}>
-                  <SvgIcon name="bookmark" width={40} height={30} color={Colors.gray3} />
-                </TouchableOpacity>
-              ))}
-            {isOwnPost && (
-              <>
-                <Menu
-                  visible={showEditMenu}
-                  onDismiss={() => setShowEditMenu(false)}
-                  contentStyle={styles.menuContent}
-                  anchor={
-                    <TouchableOpacity onPress={() => setShowEditMenu(true)}>
-                      <Entypo
-                        style={styles.dotsIcon}
-                        name="dots-three-horizontal"
-                        size={20}
-                        color={Colors.gray3}
-                      />
-                    </TouchableOpacity>
-                  }>
-                  <Menu.Item
-                    icon="pencil"
-                    title="Edit"
-                    style={styles.menuItems}
-                    titleStyle={styles.menuItemsTitle}
-                    onPress={() => {
-                      setModalVisible(true);
-                      setShowEditMenu(false);
-                    }}
-                  />
-                  <Divider />
-                  <Menu.Item
-                    icon="delete"
-                    title="Delete"
-                    style={styles.menuItems}
-                    titleStyle={styles.menuItemsTitle}
-                    onPress={() => handleDeletePost()}
-                  />
-                </Menu>
-                <CreatePost
-                  refetchPosts={refetchPosts}
-                  editPost={post}
-                  visible={modalVisible}
-                  closeModal={() => setModalVisible(false)}
-                />
-              </>
-            )}
+            <CreatePost
+              refetchPosts={refetchPosts}
+              editPost={post}
+              visible={editModalVisible}
+              closeModal={() => setEditModalVisible(false)}
+            />
+            <ReportForm
+              post={post}
+              visible={reportModalVisible}
+              closeModal={() => setReportModalVisible(false)}
+            />
           </View>
           <View style={styles.middleContainer}>
             <Text style={styles.description}>{post?.content}</Text>
@@ -201,6 +245,7 @@ export default function Post({
                 />
               ))}
           </View>
+
           <PostReactions post={post} />
         </>
       )}
