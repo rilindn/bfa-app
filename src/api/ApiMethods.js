@@ -23,6 +23,27 @@ export async function searchUsers({ ids, limit, searchQuery }) {
   }
 }
 
+export async function editUser(userId, data) {
+  try {
+    const result = await Client.put(`user/${userId}`, { ...data });
+    return result;
+  } catch (err) {
+    console.error('editUser', err);
+    return err;
+  }
+}
+
+export async function changePassword(userId, data) {
+  try {
+    const result = await Client.put(`user/changePassword/${userId}`, { ...data });
+    console.log('TESTTESTETSTESTESTETS');
+    return result;
+  } catch (err) {
+    console.error('changePassword', err);
+    return err;
+  }
+}
+
 // Players
 
 export async function getAllPlayer() {
