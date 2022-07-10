@@ -609,3 +609,35 @@ export async function report(data) {
     return err;
   }
 }
+
+// Ads
+
+export async function getActiveAds() {
+  try {
+    const result = await Client.get(`ad/active`);
+    return result;
+  } catch (err) {
+    console.error('getActiveAds', err);
+    return err;
+  }
+}
+
+export async function incrementClicks(id) {
+  try {
+    const result = await Client.put(`ad/inc-clicks/${id}`);
+    return result;
+  } catch (err) {
+    console.error('incrementClicks', err);
+    return err;
+  }
+}
+
+export async function incrementViews(id) {
+  try {
+    const result = await Client.put(`ad/inc-views/${id}`);
+    return result;
+  } catch (err) {
+    console.error('incrementViews', err);
+    return err;
+  }
+}
