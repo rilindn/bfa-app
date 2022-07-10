@@ -4,6 +4,7 @@ import { RefreshControl, FlatList, Text, View } from 'react-native';
 import { Divider } from 'react-native-paper';
 
 import {
+  getActiveAds,
   getMyFollowingsPosts,
   getMyFollowingsVacancies,
   getSuggestions,
@@ -13,6 +14,7 @@ import PostSomething from '../../components/Post/PostSomething/PostSomething';
 import Suggestions from '../../components/Suggestions/Suggestions';
 import Vacancy from '../../components/Vacancy/Vacancy';
 import Colors from '../../constants/Colors';
+import Ad from './../../components/Ad/Ad';
 import useAuth from './../../hooks/useAuth';
 import styles from './Feed.styles';
 
@@ -41,17 +43,24 @@ export default function Feed({ navigation }) {
   }, [isFocused]);
 
   const composeFeedContent = async () => {
-    let [suggestions, posts, clubVacancies] = await Promise.all([
+    let [suggestions, posts, clubVacancies, ads] = await Promise.all([
       fetchSuggestions(),
       fetchPosts(),
       fetchVacancies(),
+      fetchAds(),
     ]);
     setSuggestions(suggestions);
 
     if (authData.role === 'Player' && clubVacancies?.length) {
       if (!posts?.length) return (posts = clubVacancies);
       for (let i = 4, k = 0; i < posts.length && k < clubVacancies?.length; i += 4, k++) {
-        posts?.splice(i, 0, clubVacancies[k]);
+        posts?.splice(i, 0, { type: 'vacancy', data: clubVacancies[k] });
+      }
+    }
+
+    if (ads?.length) {
+      for (let i = 15, k = 0; i < posts.length && k < ads?.length; i += 15, k++) {
+        posts?.splice(i, 0, { type: 'ad', data: ads[k] });
       }
     }
 
@@ -61,20 +70,25 @@ export default function Feed({ navigation }) {
         const firstSugg = suggestions[i];
         const secondSugg = suggestions[i + 1];
         const insertIndex = 10 * k;
-        posts?.splice(insertIndex, 0, [firstSugg, secondSugg]);
+        posts?.splice(insertIndex, 0, { type: 'suggestions', data: [firstSugg, secondSugg] });
       }
     }
     setContent(posts);
   };
 
   const fetchSuggestions = async () => {
-    const suggestionss = await getSuggestions({ userId });
-    return suggestionss;
+    const suggestions = await getSuggestions({ userId });
+    return suggestions;
   };
 
   const fetchVacancies = async () => {
     const vacanciesRes = await getMyFollowingsVacancies(authData.id);
     return vacanciesRes?.data;
+  };
+
+  const fetchAds = async () => {
+    const adsRes = await getActiveAds();
+    return adsRes?.data;
   };
 
   const fetchPosts = async () => {
@@ -115,11 +129,14 @@ export default function Feed({ navigation }) {
   );
 }
 const _renderitem = ({ item, index, navigation, suggestionUsers }) => {
-  if (item?.position) {
-    return <Vacancy vacancy={item} showUser applicable />;
+  if (item?.type === 'vacancy') {
+    return <Vacancy vacancy={item.data} showUser applicable />;
   }
-  if (index % 10 === 0 && index > 0 && suggestionUsers?.length >= 2) {
-    return <Suggestions users={item} navigation={navigation} />;
+  if (item?.type === 'ad') {
+    return <Ad ad={item.data} />;
+  }
+  if (item?.type === 'suggestions') {
+    return <Suggestions users={item.data} navigation={navigation} />;
   }
   return <Post post={item} navigation={navigation} isOnFeed />;
 };

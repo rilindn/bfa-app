@@ -92,11 +92,6 @@ export default function Post({
     }
   };
 
-  // const handleReport = async () => {
-  //   co
-  //   await report()
-  // };
-
   return (
     <View style={styles.container}>
       {user && (
