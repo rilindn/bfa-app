@@ -127,7 +127,11 @@ const Message = ({ isOwn, item, chatId, setDeleteOptionData }) => {
       ) : (
         <TouchableOpacity
           onLongPress={() => isOwn && setDeleteOptionData({ state: true, id: item._id })}>
-          <Text style={[styles.message, isOwn && { backgroundColor: Colors.orange }]}>
+          <Text
+            style={[
+              styles.message,
+              isOwn && { backgroundColor: Colors.orange, textAlign: 'right' },
+            ]}>
             {content}
           </Text>
         </TouchableOpacity>

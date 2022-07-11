@@ -48,7 +48,6 @@ export default function PlayerCard({
       refType: 'Player',
     };
     const bookmarkRes = await isBookmarked(params);
-    console.log('first', bookmarkRes);
     setBookmarked(bookmarkRes);
   };
 

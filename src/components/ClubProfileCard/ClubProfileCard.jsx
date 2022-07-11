@@ -48,8 +48,8 @@ export default function ClubProfileCard({ navigation, followers, followings, pos
           </View>
           <View paddingL-20 center style={{ alignItems: 'flex-start' }}>
             <Text style={styles.rightListItem}>{authData.Club.clubName}</Text>
-            <Text style={styles.rightListItem}>{authData.Club.league}</Text>
-            <Text style={styles.rightListItem}>{authData.Club.leagueLevel}</Text>
+            <Text style={styles.rightListItem}>{authData.Club.league || '-'}</Text>
+            <Text style={styles.rightListItem}>{authData.Club.leagueLevel || '-'}</Text>
           </View>
         </View>
       </View>

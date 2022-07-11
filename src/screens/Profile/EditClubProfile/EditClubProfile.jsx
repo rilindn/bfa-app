@@ -45,7 +45,7 @@ const EditClubProfile = ({ navigation }) => {
         ToastAndroid.show('Your data have been changed successfully!', ToastAndroid.LONG);
       } else {
         const errorMsg = result.response.data.errors?.[0]?.message || result.response.data;
-        Alert.alert('Error occurred!', errorMsg);
+        Alert.alert('Error occurred!', JSON.stringify(errorMsg));
       }
     } catch (error) {
       console.log(error);

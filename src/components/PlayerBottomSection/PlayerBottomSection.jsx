@@ -6,7 +6,6 @@ import styles from './PlayerBottomSection.styles';
 
 export default function PlayerBottomSection({ user }) {
   const [selectedTab, setSelectedTab] = useState('about');
-
   return (
     <>
       <View style={styles.topTabContainer}>
@@ -56,13 +55,13 @@ export default function PlayerBottomSection({ user }) {
                 <Text style={styles.leftListItem}>Back number</Text>
               </View>
               <View>
-                <Text style={styles.rightListItem}>{user.Player?.nationality}</Text>
-                <Text style={styles.rightListItem}>{user.Player?.city}</Text>
-                <Text style={styles.rightListItem}>{user.Player?.birthDate}</Text>
-                <Text style={styles.rightListItem}>{user.Player?.height}</Text>
-                <Text style={styles.rightListItem}>{user.Player?.weight} kg</Text>
-                <Text style={styles.rightListItem}>{user.Player?.foot}</Text>
-                <Text style={styles.rightListItem}>{user.Player?.backNumber}</Text>
+                <Text style={styles.rightListItem}>{user.Player?.nationality || '-'}</Text>
+                <Text style={styles.rightListItem}>{user.Player?.placeOfBirth || '-'}</Text>
+                <Text style={styles.rightListItem}>{user?.birthDate || '-'}</Text>
+                <Text style={styles.rightListItem}>{user.Player?.height + ' cm' || '-'}</Text>
+                <Text style={styles.rightListItem}>{user.Player?.weight + ' kg' || '-'}</Text>
+                <Text style={styles.rightListItem}>{user.Player?.foot || '-'}</Text>
+                <Text style={styles.rightListItem}>{user.Player?.backNumber || '-'}</Text>
               </View>
             </View>
           </>

@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     borderRadius: 17,
     overflow: 'hidden',
     includeFontPadding: false,
-    textAlign: 'center',
     marginHorizontal: 10,
     maxWidth: Dimensions.get('window').width - 100,
   },

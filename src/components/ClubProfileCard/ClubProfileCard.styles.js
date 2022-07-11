@@ -79,12 +79,12 @@ const styles = StyleSheet.create({
   leftListItem: {
     color: Colors.gray3 + '50',
     fontFamily: 'poppins-regular',
-    fontSize: fontSizes.extraSmall,
+    fontSize: fontSizes.small,
   },
   rightListItem: {
     color: Colors.white,
     fontFamily: 'poppins-semibold',
-    fontSize: fontSizes.extraSmall,
+    fontSize: fontSizes.small,
   },
   editProfileBtn: {
     width: 120,
